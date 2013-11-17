@@ -3,7 +3,7 @@
 Plugin Name: PMPro Variable Prices
 Plugin URI: http://www.paidmembershipspro.com/add-ons/pmpro-variable-prices/
 Description: Allow customers to set their own price when checking out for your membership levels.
-Version: .1
+Version: .2
 Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
 */
@@ -106,7 +106,7 @@ add_filter("pmpro_level_cost_text", "pmprovp_pmpro_level_cost_text", 10, 2);
 //show form
 function pmprovp_pmpro_checkout_after_level_cost()
 {
-	global $pmpro_currency_symbol, $pmpro_level;
+	global $pmpro_currency_symbol, $pmpro_level, $gateway;
 	
 	//get variable pricing info
 	$vpfields = get_option("pmprovp_" . $pmpro_level->id);
@@ -122,11 +122,15 @@ function pmprovp_pmpro_checkout_after_level_cost()
 	if(isset($_REQUEST['price']))
 		$price = preg_replace("[^0-9\.]", "", $_REQUEST['price']);
 	else
-		$price = $pmpro_level->initial_payment;
+		$price = $pmpro_level->initial_payment;		
 ?>
 <p>Enter a price between <?php echo $pmpro_currency_symbol . $vpfields['min_price'];?> and <?php echo $pmpro_currency_symbol . $vpfields['max_price'];?></p>
 <p>Your Price: <?php echo $pmpro_currency_symbol;?> <input type="text" id="price" name="price" size="10" value="<?php echo $price;?>" /></p>
 <script>
+	//some vars for keeping track of whether or not we show billing
+	var pmpro_gateway_billing = <?php if(in_array($gateway, array("paypalexpress", "twocheckout")) !== false) echo "false"; else echo "true";?>;
+	var pmpro_pricing_billing = <?php if(!pmpro_isLevelFree($pmpro_level)) echo "true"; else echo "false";?>;
+	
 	//this script will hide show billing fields based on the price set
 	jQuery(document).ready(function() {
 		//bind check to price field
@@ -134,6 +138,13 @@ function pmprovp_pmpro_checkout_after_level_cost()
 		jQuery('#price').bind('keyup change', function() {
 			pmprovp_price_timer = setTimeout(pmprovp_checkForFree, 500);
 		});
+		
+		if(jQuery('input[name=gateway]'))
+		{
+			jQuery('input[name=gateway]').bind('click', function() {
+				pmprovp_price_timer = setTimeout(pmprovp_checkForFree, 500);
+			});
+		}	
 		
 		//check when page loads too
 		pmprovp_checkForFree();
@@ -143,16 +154,36 @@ function pmprovp_pmpro_checkout_after_level_cost()
 	{
 		var price = parseFloat(jQuery('#price').val());
 		
+		//does the gateway require billing?
+		if(jQuery('input[name=gateway]').length)
+		{			
+			var no_billing_gateways = ['paypalexpress', 'twocheckout'];
+			var gateway = jQuery('input[name=gateway]:checked').val();
+			if(no_billing_gateways.indexOf(gateway) > -1)
+				pmpro_gateway_billing = false;
+			else
+				pmpro_gateway_billing = true;
+		}
+				
+		//is there a price?
 		if(price)
+			pmpro_pricing_billing = true;
+		else
+			pmpro_pricing_billing = false;
+				
+		//figure out if we should show the billing fields
+		if(pmpro_gateway_billing && pmpro_pricing_billing)
 		{
 			jQuery('#pmpro_billing_address_fields').show();
 			jQuery('#pmpro_payment_information_fields').show();
+			pmpro_require_billing = true;
 		}
 		else
 		{
 			jQuery('#pmpro_billing_address_fields').hide();
 			jQuery('#pmpro_payment_information_fields').hide();
-		}		
+			pmpro_require_billing = false;
+		}
 	}
 </script>
 <?php
