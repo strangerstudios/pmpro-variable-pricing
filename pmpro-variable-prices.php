@@ -227,7 +227,7 @@ function pmprovp_pmpro_registration_checks($continue)
 			if(empty($vpfields) || empty($vpfields['variable_pricing']))
 			{
 				$pmpro_msg = "Error: You tried to set the price on a level that doesn't have variable pricing. Please try again.";
-				$pmpro_msgt = "pmmpro_error";
+				$pmpro_msgt = "pmpro_error";
 			}
 			
 			//get price
@@ -237,13 +237,13 @@ function pmprovp_pmpro_registration_checks($continue)
 			if((double)$price < (double)$vpfields['min_price'])
 			{
 				$pmpro_msg = "The lowest accepted price is " . $pmpro_currency_symbol . $vpfields['min_price'] . ". Please enter a new amount.";
-				$pmpro_msgt = "pmmpro_error";
+				$pmpro_msgt = "pmpro_error";
 				$continue = false;
 			}
 			elseif((double)$price > (double)$vpfields['max_price'])
 			{
 				$pmpro_msg = "The highest accepted price is " . $pmpro_currency_symbol . $vpfields['max_price'] . ". Please enter a new amount.";
-				$pmpro_msgt = "pmmpro_error";
+				$pmpro_msgt = "pmpro_error";
 				$continue = false;
 			}
 			
