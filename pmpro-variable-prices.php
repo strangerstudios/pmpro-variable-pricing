@@ -123,8 +123,16 @@ function pmprovp_pmpro_checkout_after_level_cost()
 		$price = preg_replace("[^0-9\.]", "", $_REQUEST['price']);
 	else
 		$price = $pmpro_level->initial_payment;		
-?>
-<p>Enter a price between <?php echo $pmpro_currency_symbol . $vpfields['min_price'];?> and <?php echo $pmpro_currency_symbol . $vpfields['max_price'];?></p>
+
+	if(!empty($max_price))
+	{?>
+		<p>Enter a price between <?php echo $pmpro_currency_symbol . $vpfields['min_price'];?> and <?php echo $pmpro_currency_symbol . $vpfields['max_price'];?></p><?php
+	}
+	else
+	{?>
+		<p>Enter a price greater than <?php echo $pmpro_currency_symbol . $vpfields['min_price'];?></p><?php	
+	}?>
+
 <p>Your Price: <?php echo $pmpro_currency_symbol;?> <input type="text" id="price" name="price" size="10" value="<?php echo $price;?>" /></p>
 <script>
 	//some vars for keeping track of whether or not we show billing
@@ -240,7 +248,7 @@ function pmprovp_pmpro_registration_checks($continue)
 				$pmpro_msgt = "pmpro_error";
 				$continue = false;
 			}
-			elseif((double)$price > (double)$vpfields['max_price'])
+			elseif(!empty($vpfields['max_price']) && (double)$price > (double)$vpfields['max_price'])
 			{
 				$pmpro_msg = "The highest accepted price is " . $pmpro_currency_symbol . $vpfields['max_price'] . ". Please enter a new amount.";
 				$pmpro_msgt = "pmpro_error";
