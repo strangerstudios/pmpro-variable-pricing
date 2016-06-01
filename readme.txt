@@ -2,8 +2,8 @@
 Contributors: strangerstudios
 Tags: pmpro, membership, donate, donations, charity, charities
 Requires at least: 3.0
-Tested up to: 3.7.1
-Stable tag: .2
+Tested up to: 4.5.2
+Stable tag: .3
 
 Allow customers to set their own price when checking out for your membership levels.
 
@@ -23,6 +23,9 @@ This plugin requires Paid Memberships Pro.
 Please post it in the issues section of GitHub and we'll fix it as soon as we can. Thanks for helping. https://github.com/strangerstudios/pmpro-variable-pricing/issues
 
 == Changelog ==
+
+= .3 =
+* Now storing price in session for offsite gateways like PayPal and 2Checkout.
 
 = .2 =
 * Updated JS logic to hide/show billing to work for PayPal, PayPal Express, and Stripe (with no billing fields) gateway options.
