@@ -106,13 +106,13 @@ add_filter("pmpro_level_cost_text", "pmprovp_pmpro_level_cost_text", 10, 2);
 //show form
 function pmprovp_pmpro_checkout_after_level_cost()
 {
-	global $pmpro_currency_symbol, $pmpro_level, $gateway;
+	global $pmpro_currency_symbol, $pmpro_level, $gateway, $pmpro_review;
 	
 	//get variable pricing info
 	$vpfields = get_option("pmprovp_" . $pmpro_level->id);
 	
 	//no variable pricing? just return
-	if(empty($vpfields) || empty($vpfields['variable_pricing']))
+	if(empty($vpfields) || empty($vpfields['variable_pricing']) || $pmpro_review)
 		return;
 	
 	//okay, now we're showing the form	
