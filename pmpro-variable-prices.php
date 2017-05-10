@@ -3,7 +3,7 @@
 Plugin Name: PMPro Variable Prices
 Plugin URI: http://www.paidmembershipspro.com/add-ons/pmpro-variable-prices/
 Description: Allow customers to set their own price when checking out for your membership levels.
-Version: .3
+Version: .3.1
 Author: Stranger Studios
 Author URI: http://www.strangerstudios.com
 */
