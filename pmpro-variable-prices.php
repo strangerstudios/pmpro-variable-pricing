@@ -41,27 +41,28 @@ function pmprovp_pmpro_membership_level_after_other_settings()
 	}
 ?>
 <h3 class="topborder">Variable Pricing</h3>
-<p>If variable pricing is enabled, users will be able to set their own price. That price will override any initial payment and billing amount values you set on this level. You can set the minimum and maxium price allowed for this level. The set initial payment will be used as the recommended price at chcekout.</p>
+<p><?php _e( 'If variable pricing is enabled, users will be able to set their own price. That price will override any initial payment and billing amount values you set on this level. You can set the minimum and maxium price allowed for this level. The set initial payment will be used as the recommended price at chcekout.', 'pmpro-variable-prices' ); ?></p>
 <table>
 <tbody class="form-table">
 	<tr>
 		<td>
 			<tr>
-				<th scope="row" valign="top"><label for="level_cost_text">Enable:</label></th>
+				<th scope="row" valign="top"><label for="level_cost_text"><?php _e( 'Enable:', 'pmpro-variable-prices' ); ?></label></th>
 				<td>
-					<input type="checkbox" name="variable_pricing" value="1" <?php checked($variable_pricing, "1");?> /> Enable Variable Pricing
+					<input type="checkbox" name="variable_pricing" value="1" <?php checked($variable_pricing, "1");?> /> <?php _e( 'Enable Variable Pricing', 'pmpro-variable-prices' ); ?>
 				</td>
 			</tr>
 			<tr>
-				<th scope="row" valign="top"><label for="level_cost_text">Min Price:</label></th>
+				<th scope="row" valign="top"><label for="level_cost_text"><?php _e( 'Min Price:', 'pmpro-variable-prices' ); ?></label></th>
 				<td>
 					<?php echo $pmpro_currency_symbol?><input type="text" name="min_price" value="<?php echo esc_attr($min_price); ?>" />
 				</td>
 			</tr>
 			<tr>
-				<th scope="row" valign="top"><label for="level_cost_text">Max Price:</label></th>
+				<th scope="row" valign="top"><label for="level_cost_text"><?php _e( 'Max Price:', 'pmpro-variable-prices' ); ?></label></th>
 				<td>
 					<?php echo $pmpro_currency_symbol?><input type="text" name="max_price" value="<?php echo esc_attr($max_price); ?>" />
+					<?php _e( 'Leave this blank to allow any maximum amount.', 'pmpro-variable-prices' ) ?>
 				</td>
 			</tr>
 		</td>
@@ -124,8 +125,20 @@ function pmprovp_pmpro_checkout_after_level_cost()
 	else
 		$price = $pmpro_level->initial_payment;		
 ?>
-<p>Enter a price between <?php echo $pmpro_currency_symbol . $vpfields['min_price'];?> and <?php echo $pmpro_currency_symbol . $vpfields['max_price'];?></p>
-<p>Your Price: <?php echo $pmpro_currency_symbol;?> <input type="text" id="price" name="price" size="10" value="<?php echo $price;?>" /></p>
+
+<?php
+	if( !empty( $max_price ) ){
+
+		echo '<p>' . sprintf( __( 'Enter a price between %s and %s.', 'pmpro-variable-prices' ),  $pmpro_currency_symbol . $vpfields['min_price'], $pmpro_currency_symbol . $vpfields['max_price'] ) . '</p>';
+
+	}else{
+
+		echo '<p>' . sprintf( __( 'Enter a minimum price of %s or higher.', 'pmpro-variable-prices' ),  $pmpro_currency_symbol . $vpfields['min_price'] ) . '</p>';
+	}
+
+	echo sprintf( __( 'Your Price: %s', 'pmpro-variable-prices' ), $pmpro_currency_symbol );
+?>
+<input type="text" id="price" name="price" size="10" value="<?php echo $price;?>" />
 <script>
 	//some vars for keeping track of whether or not we show billing
 	var pmpro_gateway_billing = <?php if(in_array($gateway, array("paypalexpress", "twocheckout")) !== false) echo "false"; else echo "true";?>;
@@ -208,7 +221,10 @@ function pmprovp_pmpro_checkout_level($level)
 }
 add_filter("pmpro_checkout_level", "pmprovp_pmpro_checkout_level");
 
-//check price is between min and max
+/**
+ * Check if price is between min and max value.
+ * If no max value is set, set it to unlimited.
+ */
 function pmprovp_pmpro_registration_checks($continue)
 {
 	//only bother if we are continuing already
@@ -240,7 +256,7 @@ function pmprovp_pmpro_registration_checks($continue)
 				$pmpro_msgt = "pmmpro_error";
 				$continue = false;
 			}
-			elseif((double)$price > (double)$vpfields['max_price'])
+			elseif( !empty($vpfields['max_price']) && ( (double)$price > (double)$vpfields['max_price'] ) )
 			{
 				$pmpro_msg = "The highest accepted price is " . $pmpro_currency_symbol . $vpfields['max_price'] . ". Please enter a new amount.";
 				$pmpro_msgt = "pmmpro_error";
@@ -254,26 +270,3 @@ function pmprovp_pmpro_registration_checks($continue)
 	return $continue;
 }
 add_filter("pmpro_registration_checks", "pmprovp_pmpro_registration_checks");
-
-//save fields in session for PayPal Express/etc
-function pmprovp_pmpro_paypalexpress_session_vars()
-{
-	if(!empty($_REQUEST['price']))
-		$_SESSION['price'] = $_REQUEST['price'];
-	else
-		$_SESSION['price'] = "";
-}
-add_action("pmpro_paypalexpress_session_vars", "pmprovp_pmpro_paypalexpress_session_vars");
-add_action("pmpro_before_send_to_twocheckout", "pmprovp_pmpro_paypalexpress_session_vars", 10, 2);
-
-//Load fields from session if available.
-function pmprovp_init_load_session_vars($param)
-{
-	if(empty($_REQUEST['price']) && !empty($_SESSION['price']))
-	{
-		$_REQUEST['price'] = $_SESSION['price'];
-	}
-	return $param;
-}
-add_action('init', 'pmprovp_init_load_session_vars', 5);
-
