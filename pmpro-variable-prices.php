@@ -267,13 +267,12 @@ add_action("pmpro_paypalexpress_session_vars", "pmprovp_pmpro_paypalexpress_sess
 add_action("pmpro_before_send_to_twocheckout", "pmprovp_pmpro_paypalexpress_session_vars", 10, 2);
 
 //Load fields from session if available.
-function pmprovp_init_load_session_vars($param)
+function pmprovp_init_load_session_vars()
 {
 	if(empty($_REQUEST['price']) && !empty($_SESSION['price']))
 	{
 		$_REQUEST['price'] = $_SESSION['price'];
 	}
-	return $param;
 }
 add_action('init', 'pmprovp_init_load_session_vars', 5);
 
