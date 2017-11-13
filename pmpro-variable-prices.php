@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: PMPro Variable Prices
+Plugin Name: Paid Memberships Pro - Variable Prices Add On
 Plugin URI: http://www.paidmembershipspro.com/add-ons/pmpro-variable-prices/
 Description: Allow customers to set their own price when checking out for your membership levels.
 Version: .2
@@ -254,3 +254,18 @@ function pmprovp_pmpro_registration_checks($continue)
 	return $continue;
 }
 add_filter("pmpro_registration_checks", "pmprovp_pmpro_registration_checks");
+
+/*
+Function to add links to the plugin row meta
+*/
+function pmprovp_plugin_row_meta($links, $file) {
+	if(strpos($file, 'pmpro-variable-prices.php') !== false)
+	{
+		$new_links = array(
+			'<a href="' . esc_url('http://paidmembershipspro.com/support/') . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro' ) ) . '">' . __( 'Support', 'pmpro' ) . '</a>',
+		);
+		$links = array_merge($links, $new_links);
+	}
+	return $links;
+}
+add_filter('plugin_row_meta', 'pmprovp_plugin_row_meta', 10, 2);
