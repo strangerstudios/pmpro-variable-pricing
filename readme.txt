@@ -31,6 +31,7 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 * Feature: No longer embedding JS in sources/page.
 * Feature: Priority of JS register/enqueue operation means you can unhook the Variable Prices JavaScript if needed
 * Feature: Add translation domain labels
+* Feature: Added language file load (when applicable)
 
 = .3 =
 * Now storing price in session for offsite gateways like PayPal and 2Checkout.
