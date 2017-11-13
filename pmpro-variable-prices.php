@@ -122,9 +122,17 @@ function pmprovp_pmpro_checkout_after_level_cost()
 	if(isset($_REQUEST['price']))
 		$price = preg_replace("[^0-9\.]", "", $_REQUEST['price']);
 	else
-		$price = $pmpro_level->initial_payment;		
+		$price = $pmpro_level->initial_payment;
+	
+	if(!empty($max_price))
+	{?>
+		<p>Enter a price between <?php echo $pmpro_currency_symbol . $vpfields['min_price'];?> and <?php echo $pmpro_currency_symbol . $vpfields['max_price'];?></p><?php
+	}
+	else
+	{?>
+		<p>Enter a price greater than <?php echo $pmpro_currency_symbol . $vpfields['min_price'];?></p><?php	
+	}?
 ?>
-<p>Enter a price between <?php echo $pmpro_currency_symbol . $vpfields['min_price'];?> and <?php echo $pmpro_currency_symbol . $vpfields['max_price'];?></p>
 <p>Your Price: <?php echo $pmpro_currency_symbol;?> <input type="text" id="price" name="price" size="10" value="<?php echo $price;?>" /></p>
 <script>
 	//some vars for keeping track of whether or not we show billing
@@ -227,7 +235,7 @@ function pmprovp_pmpro_registration_checks($continue)
 			if(empty($vpfields) || empty($vpfields['variable_pricing']))
 			{
 				$pmpro_msg = "Error: You tried to set the price on a level that doesn't have variable pricing. Please try again.";
-				$pmpro_msgt = "pmmpro_error";
+				$pmpro_msgt = "pmpro_error";
 			}
 			
 			//get price
@@ -237,13 +245,13 @@ function pmprovp_pmpro_registration_checks($continue)
 			if((double)$price < (double)$vpfields['min_price'])
 			{
 				$pmpro_msg = "The lowest accepted price is " . $pmpro_currency_symbol . $vpfields['min_price'] . ". Please enter a new amount.";
-				$pmpro_msgt = "pmmpro_error";
+				$pmpro_msgt = "pmpro_error";
 				$continue = false;
 			}
 			elseif((double)$price > (double)$vpfields['max_price'])
 			{
 				$pmpro_msg = "The highest accepted price is " . $pmpro_currency_symbol . $vpfields['max_price'] . ". Please enter a new amount.";
-				$pmpro_msgt = "pmmpro_error";
+				$pmpro_msgt = "pmpro_error";
 				$continue = false;
 			}
 			
