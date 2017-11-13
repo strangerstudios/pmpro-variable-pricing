@@ -20,6 +20,13 @@ Text Domain: pmpro-variable-pricing
 */
 
 /*
+	Load plugin textdomain.
+*/
+function pmprovp_load_textdomain() {
+	load_plugin_textdomain( 'pmpro-variable-prices', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
+}
+add_action( 'plugins_loaded', 'pmprovp_load_textdomain' );
+/*
 	Min Price and Max Price Fields on the edit levels page
 */
 //fields on edit page
