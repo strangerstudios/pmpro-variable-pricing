@@ -24,6 +24,9 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 
 == Changelog ==
 
+= .3.1 =
+* BUG: Now hiding Variable Pricing options on checkout review page.
+
 = .3 =
 * Now storing price in session for offsite gateways like PayPal and 2Checkout.
 
