@@ -2,8 +2,8 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, pmpro, membership, donate, donations, charity, charities
 Requires at least: 4.0
-Tested up to: 4.8.2
-Stable tag: .3
+Tested up to: 4.9.1
+Stable tag: .4
 
 Allow customers to set their own price when checking out for your membership levels.
 
@@ -24,6 +24,15 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 
 == Changelog ==
 
+= .4 =
+* Bug Fix: Allow blank variable price input (i.e. use the minimum price)
+* Feature: Properly formatted tranlatable text
+* Feature: Membership level setting to skip printing an amount in the Variable Price input box on the Checkout page when loading
+* Feature: No longer embedding JS in sources/page.
+* Feature: Priority of JS register/enqueue operation means you can unhook the Variable Prices JavaScript if needed
+* Feature: Add translation domain labels
+* Feature: Added language file load (when applicable)
+
 = .3.1 =
 * BUG: Now hiding Variable Pricing options on checkout review page.
 
@@ -34,4 +43,3 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 * Updated JS logic to hide/show billing to work for PayPal, PayPal Express, and Stripe (with no billing fields) gateway options.
 
 = .1 =
-* This is the initial version of the plugin.
