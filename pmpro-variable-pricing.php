@@ -296,8 +296,9 @@ function pmprovp_load_scripts() {
     
     wp_localize_script( 'pmprovp', 'pmprovp', array(
         'settings' => array(
+			'gateway' => pmpro_getGateway(),
             'gateway_billing' => ( in_array($gateway, array("paypalexpress", "twocheckout")) !== false ) ?  "false" : "true" ),
-            'pricing_billing' => !pmpro_isLevelFree($pmpro_level ) ? "true" : "false"
+            'pricing_billing' => !pmpro_isLevelFree($pmpro_level ) ? "true" : "false"			
         )
     );
 }

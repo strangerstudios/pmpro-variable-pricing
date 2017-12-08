@@ -31,12 +31,9 @@ jQuery(document).ready(function() {
     "use strict";
     var variablePricing = {
         init: function() {
-
-            pmpro_gateway_billing = pmprovp.settings.gateway_billing;
-            pmpro_pricing_billing = pmprovp.settings.pricing_billing;
-
-            this.price_timer = null;
-            this.gateway = jQuery('input[name=gateway]');
+           
+			pmpro_gateway_billing = pmprovp.settings.gateway_billing;
+            pmpro_pricing_billing = pmprovp.settings.pricing_billing;            
 
             var self = this;
 
@@ -44,19 +41,23 @@ jQuery(document).ready(function() {
             if ( jQuery('#pmpro_payment_method').length > 0 ) {
                 return;
             }
-
+			
             //bind check to price field
-            jQuery('#price').bind('keyup change', function() {
-                self.price_timer = setTimeout(self.checkForFree, 500);
-            });
+			this.price_timer = null;
+            jQuery('#price').bind('keyup change', function() {                
+				self.price_timer = setTimeout(self.checkForFree, 500);
+            });            
 
-            if( self.gateway.val() !== '' )
-            {
-                self.gateway.bind('click', function() {
+			//get gateway value and bind check to gateway field
+            if(jQuery('input[name=gateway]').length) {
+				self.gateway = jQuery('input[name=gateway]').is(':checked').val();
+				jQuery('input[name=gateway]').bind('click', function() {
                     self.price_timer = setTimeout(self.checkForFree, 500);
                 });
-            }
-
+			} else {
+				self.gateway = pmprovp.settings.gateway;	
+			}
+			
             //check when page loads too
             self.checkForFree();
         },
@@ -69,41 +70,37 @@ jQuery(document).ready(function() {
 
             var price = parseFloat(priceElem.val());
 
-            //does the gateway require billing?
-            if(self.gateway.length > 0 )
-            {
+            //does the gateway require billing?            
+			if(jQuery('input[name=gateway]').length) {            
                 var no_billing_gateways = ['paypalexpress', 'twocheckout'];
-                var gateway = self.gateway.is(':checked').val();
+                self.gateway = jQuery('input[name=gateway]').is(':checked').val();
 
-                if(no_billing_gateways.indexOf(gateway) > -1) {
+                if(no_billing_gateways.indexOf(self.gateway) > -1) {
                     pmpro_gateway_billing = false;
                 } else {
                     pmpro_gateway_billing = true;
                 }
             }
-
+						
             //is there a price?
-            if(true === isNaN(price) && false === priceElem.is(':empty') ) {
-                pmpro_pricing_billing = false;
-            } else {
+            if(price > 0) {
                 pmpro_pricing_billing = true;
+            } else {
+                pmpro_pricing_billing = false;
             }
-
+						
             //figure out if we should show the billing fields
-            if(true === pmpro_gateway_billing && true === pmpro_pricing_billing)
-            {
-                addressFields.show();
+            if(pmpro_gateway_billing && pmpro_pricing_billing) {                
+				addressFields.show();
                 paymentInfo.show();
                 pmpro_require_billing = true;
-            }
-            else
-            {
+            } else {
                 addressFields.hide();
                 paymentInfo.hide();
                 pmpro_require_billing = false;
             }
         }
     }
-
+	
     variablePricing.init();
 });
