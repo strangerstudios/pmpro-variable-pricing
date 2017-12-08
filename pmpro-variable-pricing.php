@@ -292,7 +292,7 @@ function pmprovp_load_scripts() {
         $gateway = pmpro_getOption('gateway' );
     }
     
-    wp_register_script( 'pmprovp',plugins_url( 'javascript/pmpro-variable-prices.js', __FILE__ ), array( 'jquery' ), '0.4', true );
+    wp_register_script( 'pmprovp',plugins_url( 'javascript/pmpro-variable-pricing.js', __FILE__ ), array( 'jquery' ), '0.4', true );
     
     wp_localize_script( 'pmprovp', 'pmprovp', array(
         'settings' => array(
