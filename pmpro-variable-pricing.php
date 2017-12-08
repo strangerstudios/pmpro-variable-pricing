@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: Paid Memberships Pro - Variable Prices Add On
-Plugin URI: http://www.paidmembershipspro.com/add-ons/pmpro-variable-prices/
+Plugin Name: Paid Memberships Pro - Variable Pricing Add On
+Plugin URI: http://www.paidmembershipspro.com/add-ons/pmpro-variable-pricing/
 Description: Allow customers to set their own price when checking out for your membership levels.
 Version: .4
 Author: Stranger Studios
@@ -23,7 +23,7 @@ Text Domain: pmpro-variable-pricing
 	Load plugin textdomain.
 */
 function pmprovp_load_textdomain() {
-	load_plugin_textdomain( 'pmpro-variable-prices', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
+	load_plugin_textdomain( 'pmpro-variable-pricing', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 }
 add_action( 'plugins_loaded', 'pmprovp_load_textdomain' );
 
@@ -52,14 +52,14 @@ function pmprovp_pmpro_membership_level_after_other_settings()
 	}
 ?>
 <h3 class="topborder"><?php _e('Variable Pricing', 'pmpro-variable-pricing' ); ?></h3>
-<p><?php _e( 'If variable pricing is enabled, users will be able to set their own price. That price will override any initial payment and billing amount values you set on this level. You can set the minimum and maxium price allowed for this level. The set initial payment will be used as the recommended price at chcekout.', 'pmpro-variable-prices' ); ?></p>
+<p><?php _e( 'If variable pricing is enabled, users will be able to set their own price. That price will override any initial payment and billing amount values you set on this level. You can set the minimum and maxium price allowed for this level. The set initial payment will be used as the recommended price at chcekout.', 'pmpro-variable-pricing' ); ?></p>
 
 <table>
 <tbody class="form-table">
 	<tr>		
 		<th scope="row" valign="top"><label for="pmprovp_variable_pricing"><?php _e('Enable:', 'pmpro-variable-pricing' ); ?></label></th>
 		<td>					
-			<input type="checkbox" name="variable_pricing" id="pmprovp_variable_pricing" value="1" <?php checked($variable_pricing, "1");?> /> <?php _e( 'Enable Variable Pricing', 'pmpro-variable-prices' ); ?>
+			<input type="checkbox" name="variable_pricing" id="pmprovp_variable_pricing" value="1" <?php checked($variable_pricing, "1");?> /> <?php _e( 'Enable Variable Pricing', 'pmpro-variable-pricing' ); ?>
 		</td>
 	</tr>
 	<tr>
@@ -69,16 +69,16 @@ function pmprovp_pmpro_membership_level_after_other_settings()
         </td>
     </tr>
 	<tr>				
-		<th scope="row" valign="top"><label for="pmprovp_min_price"><?php _e( 'Min Price:', 'pmpro-variable-prices' ); ?></label></th>
+		<th scope="row" valign="top"><label for="pmprovp_min_price"><?php _e( 'Min Price:', 'pmpro-variable-pricing' ); ?></label></th>
 		<td>
 			<?php echo $pmpro_currency_symbol?><input type="text" name="min_price" id="pmprovp_min_price" value="<?php echo esc_attr($min_price); ?>" />
 		</td>
 	</tr>
 	<tr>				
-		<th scope="row" valign="top"><label for="pmprovp_max_price"><?php _e( 'Max Price:', 'pmpro-variable-prices' ); ?></label></th>
+		<th scope="row" valign="top"><label for="pmprovp_max_price"><?php _e( 'Max Price:', 'pmpro-variable-pricing' ); ?></label></th>
 		<td>
 			<?php echo $pmpro_currency_symbol?><input type="text" name="max_price" id="pmprovp_max_price" value="<?php echo esc_attr($max_price); ?>" />
-			<?php _e( 'Leave this blank to allow any maximum amount.', 'pmpro-variable-prices' ) ?>
+			<?php _e( 'Leave this blank to allow any maximum amount.', 'pmpro-variable-pricing' ) ?>
 		</td>
 	</tr>
 </tbody>
@@ -316,7 +316,7 @@ add_action( 'wp_enqueue_scripts', 'pmprovp_enqueue_scripts', 15 );
 Function to add links to the plugin row meta
 */
 function pmprovp_plugin_row_meta($links, $file) {
-	if(strpos($file, 'pmpro-variable-prices.php') !== false)
+	if(strpos($file, 'pmpro-variable-pricing.php') !== false)
 	{
 		$new_links = array(
 			'<a href="' . esc_url('http://paidmembershipspro.com/support/') . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro' ) ) . '">' . __( 'Support', 'pmpro' ) . '</a>',
