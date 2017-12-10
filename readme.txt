@@ -25,13 +25,14 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 == Changelog ==
 
 = .4 =
-* Bug Fix: Allow blank variable price input (i.e. use the minimum price)
-* Feature: Properly formatted tranlatable text
-* Feature: Membership level setting to skip printing an amount in the Variable Price input box on the Checkout page when loading
-* Feature: No longer embedding JS in sources/page.
-* Feature: Priority of JS register/enqueue operation means you can unhook the Variable Prices JavaScript if needed
-* Feature: Add translation domain labels
-* Feature: Added language file load (when applicable)
+* BUG FIX: Allow blank variable price input (i.e. use the minimum price)
+* BUG FIX/FEATURE: Fixed logic for hiding/showing billing fields if the price is free or not.
+* FEATURE: Properly formatted translatable text
+* FEATURE: Added translation domain labels
+* FEATURE: Added language file load (when applicable)
+* FEATURE: Added suggested price setting.
+* FEATURE: No longer embedding JS in frontend sources/page.
+* FEATURE: Priority of JS register/enqueue operation means you can unhook the Variable Prices JavaScript if needed
 
 = .3.1 =
 * BUG: Now hiding Variable Pricing options on checkout review page.
