@@ -27,6 +27,17 @@ function pmprovp_load_textdomain() {
 }
 add_action( 'plugins_loaded', 'pmprovp_load_textdomain' );
 
+/** 
+ * Get settings for a specified level.
+ */
+function pmprovp_get_settings($level_id) {
+	$defaults = array('variable_pricing' => 0, 'min_price' => '', 'max_price' => '', 'suggested_price'=> '' );
+	$settings = get_option( "pmprovp_{$level_id}", $defaults );
+	$settings = array_merge($defaults, $settings);	//make sure newly added settings have defaults appended
+
+	return $settings;
+}
+
 /*
 	Min Price and Max Price Fields on the edit levels page
 */
@@ -37,52 +48,72 @@ function pmprovp_pmpro_membership_level_after_other_settings()
 	$level_id = intval($_REQUEST['edit']);
 	if($level_id > 0)
 	{
-		$vpfields = get_option( "pmprovp_{$level_id}", array('variable_pricing' => 0, 'min_price' => '', 'max_price' => '', 'no_price'=> false ) );
+		$vpfields = pmprovp_get_settings($level_id);
 		$variable_pricing = $vpfields['variable_pricing'];
 		$min_price = $vpfields['min_price'];
 		$max_price = $vpfields['max_price'];
-		$no_price = (bool) $vpfields['no_price'];
+		$suggested_price = $vpfields['suggested_price'];
 	}
 	else
 	{
 		$variable_pricing = 0;
 		$min_price = '';
 		$max_price = '';
-		$no_price = false;
+		$suggested_price = '';
 	}
 ?>
 <h3 class="topborder"><?php _e('Variable Pricing', 'pmpro-variable-pricing' ); ?></h3>
-<p><?php _e( 'If variable pricing is enabled, users will be able to set their own price. That price will override any initial payment and billing amount values you set on this level. You can set the minimum and maxium price allowed for this level. The set initial payment will be used as the recommended price at chcekout.', 'pmpro-variable-pricing' ); ?></p>
+<p><?php _e( 'If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maxium, and suggested price for this level.', 'pmpro-variable-pricing' ); ?></p>
 
 <table>
 <tbody class="form-table">
 	<tr>		
 		<th scope="row" valign="top"><label for="pmprovp_variable_pricing"><?php _e('Enable:', 'pmpro-variable-pricing' ); ?></label></th>
 		<td>					
-			<input type="checkbox" name="variable_pricing" id="pmprovp_variable_pricing" value="1" <?php checked($variable_pricing, "1");?> /> <?php _e( 'Enable Variable Pricing', 'pmpro-variable-pricing' ); ?>
+			<input type="checkbox" name="variable_pricing" id="pmprovp_variable_pricing" value="1" <?php checked($variable_pricing, "1");?> /> <label for="pmprovp_variable_pricing"><?php _e( 'Enable Variable Pricing', 'pmpro-variable-pricing' ); ?></label>
 		</td>
 	</tr>
-	<tr>
-        <th scope="row" valign="top"><label for="pmprovp_no_price"><?php _e('Blank on checkout page:','pmpro-variable-pricing' ); ?></label></th>
-        <td>
-            <input type="checkbox" name="no_price" value="1" id="pmprovp_no_price"<?php checked( true,$no_price ); ?>  />
-        </td>
-    </tr>
-	<tr>				
+	<tr class="pmprovp_setting">				
 		<th scope="row" valign="top"><label for="pmprovp_min_price"><?php _e( 'Min Price:', 'pmpro-variable-pricing' ); ?></label></th>
 		<td>
 			<?php echo $pmpro_currency_symbol?><input type="text" name="min_price" id="pmprovp_min_price" value="<?php echo esc_attr($min_price); ?>" />
 		</td>
 	</tr>
-	<tr>				
+	<tr class="pmprovp_setting">				
 		<th scope="row" valign="top"><label for="pmprovp_max_price"><?php _e( 'Max Price:', 'pmpro-variable-pricing' ); ?></label></th>
 		<td>
 			<?php echo $pmpro_currency_symbol?><input type="text" name="max_price" id="pmprovp_max_price" value="<?php echo esc_attr($max_price); ?>" />
 			<?php _e( 'Leave this blank to allow any maximum amount.', 'pmpro-variable-pricing' ) ?>
 		</td>
 	</tr>
+	<tr class="pmprovp_setting">				
+		<th scope="row" valign="top"><label for="pmprovp_suggested_price"><?php _e( 'Suggested Price:', 'pmpro-variable-pricing' ); ?></label></th>
+		<td>
+			<?php echo $pmpro_currency_symbol?><input type="text" name="suggested_price" id="pmprovp_suggested_price" value="<?php echo esc_attr($suggested_price); ?>" />
+			<?php _e( 'You may leave this blank.', 'pmpro-variable-pricing' ) ?>
+		</td>
+	</tr>
 </tbody>
 </table>
+<script>
+	jQuery(document).ready(function(){
+		function pmprovp_toggleSettings() {
+			var pmprovp_enabled = jQuery('#pmprovp_variable_pricing:checked').val();
+			
+			if(typeof pmprovp_enabled == 'undefined') {
+				//disabled
+				jQuery('tr.pmprovp_setting').hide();
+			} else {
+				//enabled
+				jQuery('tr.pmprovp_setting').show();
+			}
+		}
+
+		jQuery('#pmprovp_variable_pricing').change(function(){pmprovp_toggleSettings()});
+
+		pmprovp_toggleSettings();
+	});
+</script>
 <?php
 }
 add_action("pmpro_membership_level_after_other_settings", "pmprovp_pmpro_membership_level_after_other_settings");
@@ -93,9 +124,9 @@ function pmprovp_pmpro_save_membership_level($level_id)
 	$variable_pricing = intval($_REQUEST['variable_pricing']);
 	$min_price = preg_replace("[^0-9\.]", "", $_REQUEST['min_price']);
 	$max_price = preg_replace("[^0-9\.]", "", $_REQUEST['max_price']);
-	$no_price = isset( $_REQUEST['no_price'] ) ? (bool) $_REQUEST['no_price'] : false;
+	$suggested_price = preg_replace("[^0-9\.]", "", $_REQUEST['suggested_price']);
 
-	update_option("pmprovp_" . $level_id, array('variable_pricing' => $variable_pricing, 'min_price' => $min_price, 'max_price' => $max_price, 'no_price' => $no_price ));
+	update_option("pmprovp_" . $level_id, array('variable_pricing' => $variable_pricing, 'min_price' => $min_price, 'max_price' => $max_price, 'suggested_price' => $suggested_price ));
 }
 add_action("pmpro_save_membership_level", "pmprovp_pmpro_save_membership_level");
 
@@ -108,7 +139,7 @@ function pmprovp_pmpro_level_cost_text($text, $level)
 	global $pmpro_pages;
 	if(is_page($pmpro_pages['checkout']))
 	{
-		$vpfields = get_option("pmprovp_" . $level->id);
+		$vpfields = pmprovp_get_settings($level->id);
 		if(!empty($vpfields) && !empty($vpfields['variable_pricing']))
 		{
 			$text = "";
@@ -125,7 +156,7 @@ function pmprovp_pmpro_checkout_after_level_cost()
 	global $pmpro_currency_symbol, $pmpro_level, $gateway, $pmpro_review;
 	
 	//get variable pricing info
-	$vpfields = get_option("pmprovp_" . $pmpro_level->id);
+	$vpfields = pmprovp_get_settings($pmpro_level->id);
 	
 	//no variable pricing? just return
 	if(empty($vpfields) || empty($vpfields['variable_pricing']) || $pmpro_review)
@@ -134,14 +165,12 @@ function pmprovp_pmpro_checkout_after_level_cost()
 	//okay, now we're showing the form	
 	$min_price = $vpfields['min_price'];
 	$max_price = $vpfields['max_price'];
-	$no_price = (bool) $vpfields['no_price'];
+	$suggested_price = $vpfields['suggested_price'];
 
 	if(isset($_REQUEST['price'])) {
 		$price = preg_replace( "[^0-9\.]", "", $_REQUEST['price'] );
-	} else if ( true === $no_price ) {
-	    $price = null;
     } else {
-		$price = $pmpro_level->initial_payment;
+		$price = $suggested_price;
 	}
 
 	//setup price text description based on price ranges
@@ -218,7 +247,7 @@ function pmprovp_pmpro_registration_checks($continue)
 		{
 			//get values
 			$level_id = intval($_REQUEST['level']);
-			$vpfields = get_option("pmprovp_" . $level_id);						
+			$vpfields = pmprovp_get_settings($level_id);				
 			
 			//make sure this level has variable pricing
 			if(empty($vpfields) || empty($vpfields['variable_pricing']))
