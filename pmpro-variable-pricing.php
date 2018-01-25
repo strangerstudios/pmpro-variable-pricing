@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Paid Memberships Pro - Variable Pricing Add On
-Plugin URI: http://www.paidmembershipspro.com/add-ons/pmpro-variable-pricing/
+Plugin URI: https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/
 Description: Allow customers to set their own price when checking out for your membership levels.
 Version: .4
-Author: Stranger Studios
-Author URI: http://www.strangerstudios.com
+Author: Paid Memberships Pro
+Author URI: https://www.paidmembershipspro.com
 Text Domain: pmpro-variable-pricing
 */
 
@@ -349,7 +349,8 @@ function pmprovp_plugin_row_meta($links, $file) {
 	if(strpos($file, 'pmpro-variable-pricing.php') !== false)
 	{
 		$new_links = array(
-			'<a href="' . esc_url('http://paidmembershipspro.com/support/') . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro' ) ) . '">' . __( 'Support', 'pmpro' ) . '</a>',
+			'<a href="' . esc_url('https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/')  . '" title="' . esc_attr( __( 'View Documentation', 'pmpro' ) ) . '">' . __( 'Docs', 'pmpro' ) . '</a>',
+			'<a href="' . esc_url('https://paidmembershipspro.com/support/') . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro' ) ) . '">' . __( 'Support', 'pmpro' ) . '</a>',
 		);
 		$links = array_merge($links, $new_links);
 	}
