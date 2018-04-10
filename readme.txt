@@ -25,6 +25,7 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 == Changelog ==
 
 = .4.1 =
+* ENHANCEMENT: French translation files. (Thanks, Alfonso Sánchez Uzábal)
 * ENHANCEMENT: Consistent plugin titles and URLs
 * ENHANCEMENT: WordPress Coding Standards
 
