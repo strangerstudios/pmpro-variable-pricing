@@ -311,6 +311,11 @@ function pmprovp_load_scripts() {
 
 	global $gateway;
 
+	// Bail if PMPro is not loaded.
+	if ( ! function_exists( 'pmpro_getOption' ) ) {
+		return;
+	}
+
 	if ( empty( $gateway ) ) {
 		$gateway = pmpro_getOption( 'gateway' );
 	}
