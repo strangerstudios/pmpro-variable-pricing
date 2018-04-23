@@ -309,15 +309,21 @@ add_action( 'init', 'pmprovp_init_load_session_vars', 5 );
  */
 function pmprovp_load_scripts() {
 
-	global $gateway;
+	global $gateway, $pmpro_level, $pmpro_pages;
 
-	// Bail if PMPro is not loaded.
-	if ( ! function_exists( 'pmpro_getOption' ) ) {
+	if ( ! is_page( $pmpro_pages['checkout'] ) ) {
 		return;
 	}
 
 	if ( empty( $gateway ) ) {
 		$gateway = pmpro_getOption( 'gateway' );
+	}
+	
+	$var_pricing = pmprovp_get_settings( $pmpro_level->id );
+	
+	// Bail if no variable pricing is not enabled.
+	if( 0 === $var_pricing['variable_pricing'] ) {
+		return;
 	}
 
 	wp_register_script( 'pmprovp', plugins_url( 'javascript/pmpro-variable-pricing.js', __FILE__ ), array( 'jquery' ), '0.4', true );
@@ -338,6 +344,18 @@ add_action( 'wp_enqueue_scripts', 'pmprovp_load_scripts', 5 );
  * Split register/localize and enqueue operation to simplify unhooking JS from plugin if needed
  */
 function pmprovp_enqueue_scripts() {
+	global $pmpro_level, $pmpro_pages;
+
+	if ( ! is_page( $pmpro_pages['checkout'] ) ) {
+		return;
+	}
+
+	$var_pricing = pmprovp_get_settings( $pmpro_level->id );
+	
+	// Bail if no variable pricing is not enabled.
+	if( 0 === $var_pricing['variable_pricing'] ) {
+		return;
+	}
 
 	wp_enqueue_script( 'pmprovp' );
 }
