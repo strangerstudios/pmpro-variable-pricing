@@ -321,7 +321,7 @@ function pmprovp_load_scripts() {
 	
 	$var_pricing = pmprovp_get_settings( $pmpro_level->id );
 	
-	// Bail if no variable pricing is not enabled.
+	// Bail if variable pricing is not enabled.
 	if( 0 === $var_pricing['variable_pricing'] ) {
 		return;
 	}
@@ -352,7 +352,7 @@ function pmprovp_enqueue_scripts() {
 
 	$var_pricing = pmprovp_get_settings( $pmpro_level->id );
 	
-	// Bail if no variable pricing is not enabled.
+	// Bail if variable pricing is not enabled.
 	if( 0 === $var_pricing['variable_pricing'] ) {
 		return;
 	}
