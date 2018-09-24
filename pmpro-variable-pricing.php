@@ -68,26 +68,26 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 
 <table>
 <tbody class="form-table">
-	<tr>		
+	<tr>
 		<th scope="row" valign="top"><label for="pmprovp_variable_pricing"><?php _e( 'Enable:', 'pmpro-variable-pricing' ); ?></label></th>
-		<td>					
+		<td>
 			<input type="checkbox" name="variable_pricing" id="pmprovp_variable_pricing" value="1" <?php checked( $variable_pricing, '1' ); ?> /> <label for="pmprovp_variable_pricing"><?php _e( 'Enable Variable Pricing', 'pmpro-variable-pricing' ); ?></label>
 		</td>
 	</tr>
-	<tr class="pmprovp_setting">				
+	<tr class="pmprovp_setting">
 		<th scope="row" valign="top"><label for="pmprovp_min_price"><?php _e( 'Min Price:', 'pmpro-variable-pricing' ); ?></label></th>
 		<td>
 			<?php echo $pmpro_currency_symbol; ?><input type="text" name="min_price" id="pmprovp_min_price" value="<?php echo esc_attr( $min_price ); ?>" />
 		</td>
 	</tr>
-	<tr class="pmprovp_setting">				
+	<tr class="pmprovp_setting">
 		<th scope="row" valign="top"><label for="pmprovp_max_price"><?php _e( 'Max Price:', 'pmpro-variable-pricing' ); ?></label></th>
 		<td>
 			<?php echo $pmpro_currency_symbol; ?><input type="text" name="max_price" id="pmprovp_max_price" value="<?php echo esc_attr( $max_price ); ?>" />
 			<?php _e( 'Leave this blank to allow any maximum amount.', 'pmpro-variable-pricing' ); ?>
 		</td>
 	</tr>
-	<tr class="pmprovp_setting">				
+	<tr class="pmprovp_setting">
 		<th scope="row" valign="top"><label for="pmprovp_suggested_price"><?php _e( 'Suggested Price:', 'pmpro-variable-pricing' ); ?></label></th>
 		<td>
 			<?php echo $pmpro_currency_symbol; ?><input type="text" name="suggested_price" id="pmprovp_suggested_price" value="<?php echo esc_attr( $suggested_price ); ?>" />
@@ -100,7 +100,7 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 	jQuery(document).ready(function(){
 		function pmprovp_toggleSettings() {
 			var pmprovp_enabled = jQuery('#pmprovp_variable_pricing:checked').val();
-			
+
 			if(typeof pmprovp_enabled == 'undefined') {
 				//disabled
 				jQuery('tr.pmprovp_setting').hide();
@@ -143,7 +143,7 @@ add_action( 'pmpro_save_membership_level', 'pmprovp_pmpro_save_membership_level'
 // override level cost text on checkout page
 function pmprovp_pmpro_level_cost_text( $text, $level ) {
 	global $pmpro_pages;
-	if ( is_page( $pmpro_pages['checkout'] ) ) {
+	if ( is_page( $pmpro_pages['checkout'] ) && !did_action( 'pmpro_after_checkout' ) ) {
 		$vpfields = pmprovp_get_settings( $level->id );
 		if ( ! empty( $vpfields ) && ! empty( $vpfields['variable_pricing'] ) ) {
 			$text = '';
