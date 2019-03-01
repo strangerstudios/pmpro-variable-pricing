@@ -1,4 +1,4 @@
- <?php
+<?php
 /*
 Plugin Name: Paid Memberships Pro - Variable Pricing Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/
