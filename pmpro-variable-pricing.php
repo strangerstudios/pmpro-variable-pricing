@@ -333,6 +333,7 @@ function pmprovp_load_scripts() {
 				'gateway_billing' => ( in_array( $gateway, array( 'paypalexpress', 'twocheckout' ) ) !== false ) ? 'false' : 'true',
 			),
 			'pricing_billing' => ! pmpro_isLevelFree( $pmpro_level ) ? 'true' : 'false',
+			'vp_data' => wp_json_encode( $vpfields )
 		)
 	);
 }
