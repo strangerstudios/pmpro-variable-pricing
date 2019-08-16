@@ -313,7 +313,19 @@ add_action( 'init', 'pmprovp_init_load_session_vars', 5 );
  */
 function pmprovp_load_scripts() {
 
-	global $gateway;
+	global $gateway, $pmpro_level;
+
+	if ( empty( $pmpro_level ) ) {
+		return;
+	}
+
+	// get variable pricing info
+	$vpfields = pmprovp_get_settings( $pmpro_level->id );
+
+	// no variable pricing? just return
+	if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) ) {
+		return;
+	}
 
 	// Bail if PMPro is not loaded.
 	if ( ! function_exists( 'pmpro_getOption' ) ) {
@@ -342,6 +354,20 @@ add_action( 'wp_enqueue_scripts', 'pmprovp_load_scripts', 5 );
  * Split register/localize and enqueue operation to simplify unhooking JS from plugin if needed
  */
 function pmprovp_enqueue_scripts() {
+
+	global $pmpro_level;
+
+	if ( empty( $pmpro_level ) ) {
+		return;
+	}
+
+	// get variable pricing info
+	$vpfields = pmprovp_get_settings( $pmpro_level->id );
+
+	// no variable pricing? just return
+	if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) ) {
+		return;
+	}
 
 	wp_enqueue_script( 'pmprovp' );
 }
