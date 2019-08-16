@@ -49,6 +49,13 @@ jQuery( document ).ready(
 				this.paymentMethod       = jQuery( '#pmpro_payment_method' );
 				this.regSubmitSpan       = jQuery( '#pmpro_submit_span' );
 				this.ppeSubmitSpan       = jQuery( '#pmpro_paypalexpress_checkout' );
+				this.vp_data			 = JSON.parse( pmprovp.vp_data );
+
+
+				// If this ain't empty, then disable the checkout button for now.
+				if ( this.vp_data.min_price ) {
+					jQuery( '.pmpro_form #pmpro_btn-submit' ).attr( 'disabled', true );
+				}
 
 				// bind check to price field
 				this.price_timer = null;
@@ -56,6 +63,8 @@ jQuery( document ).ready(
 					'keyup change', function() {
 						// use our global var name here, since we're in a closure
 						PMProVariablePricing.price_timer = setTimeout( PMProVariablePricing.checkForFree, 500 );
+						PMProVariablePricing.price_timer = setTimeout( PMProVariablePricing.checkPrice, 500 );
+						
 					}
 				);
 
@@ -66,6 +75,7 @@ jQuery( document ).ready(
 						'click', function() {
 							// use our global var name here, since we're in a closure
 							PMProVariablePricing.price_timer = setTimeout( PMProVariablePricing.checkForFree, 500 );
+							PMProVariablePricing.price_timer = setTimeout( PMProVariablePricing.checkPrice, 500 );
 						}
 					);
 				} else {
@@ -122,6 +132,25 @@ jQuery( document ).ready(
 				} else {
 					PMProVariablePricing.ppeSubmitSpan.hide();
 					PMProVariablePricing.regSubmitSpan.show();
+				}
+			},
+			checkPrice: function() {
+
+				var min_price = PMProVariablePricing.vp_data.min_price;
+
+				// If min_price is empty, bail.
+				if ( !min_price ) {
+					return;
+				}
+
+				// price entered on checkout.
+				var vp_price = PMProVariablePricing.priceElem.val();
+
+				// Check if price entered is greater than min_price and enable checkout button if true.
+				if ( parseFloat( vp_price ) >= parseFloat( min_price ) ) {
+					jQuery('.pmpro_form #pmpro_btn-submit').removeAttr( 'disabled' );
+				} else {
+					jQuery( '.pmpro_form #pmpro_btn-submit' ).attr( 'disabled', true );
 				}
 			}
 		}
