@@ -156,7 +156,7 @@ add_filter( 'pmpro_level_cost_text', 'pmprovp_pmpro_level_cost_text', 10, 2 );
 
 // show form
 function pmprovp_pmpro_checkout_after_level_cost() {
-	global $pmpro_currency_symbol, $pmpro_level, $gateway, $pmpro_review;
+	global $pmpro_level, $gateway, $pmpro_review, $pmpro_currencies, $pmpro_currency, $pmpro_currency_symbol;
 
 	// get variable pricing info
 	$vpfields = pmprovp_get_settings( $pmpro_level->id );
@@ -171,6 +171,7 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 	$max_price       = $vpfields['max_price'];
 	$suggested_price = $vpfields['suggested_price'];
 
+
 	if ( isset( $_REQUEST['price'] ) ) {
 		$price = preg_replace( '[^0-9\.]', '', $_REQUEST['price'] );
 	} else {
@@ -178,18 +179,21 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 	}
 
 	// setup price text description based on price ranges
-	if ( ! empty( $max_price ) ) {
+	if ( ! empty( $max_price ) && ! empty( $min_price ) ) {
 		$price_text_description = sprintf(
-			__( 'Enter a price between %1$s%2$s and %1$s%3$s.', 'pmpro-variable-pricing' ),
-			esc_html( $pmpro_currency_symbol ),
-			esc_html( $vpfields['min_price'] ),
-			esc_html( $vpfields['max_price'] )
+			__( 'Enter a price between %1$s and %2$s.', 'pmpro-variable-pricing' ),
+			esc_html( pmpro_formatPrice( $vpfields['min_price'] ) ),
+			esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
 		);
-	} else {
+	} elseif( empty( $max_price ) && ! empty( $min_price ) ) {
 		$price_text_description = sprintf(
 			__( 'Enter a minimum price of %1$s%2$s or higher.', 'pmpro-variable-pricing' ),
-			esc_html( $pmpro_currency_symbol ),
 			esc_html( $vpfields['min_price'] )
+		);
+	} elseif( ! empty( $max_price ) && empty( $min_price ) ) {
+		$price_text_description = sprintf(
+			__( 'Enter a price of %s or lower.', 'pmpro-variable-pricing' ),
+			esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
 		);
 	}
 
@@ -198,11 +202,16 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 	 * @param string $price_text_description
 	 */
 	$price_text_description = apply_filters( 'pmpropvp_checkout_price_description', $price_text_description );
-
-	$price_text = sprintf(
-		__( 'Your price: %s', 'pmpro-variable-pricing' ),
-		esc_html( $pmpro_currency_symbol )
-	);
+		
+	if ( empty( $pmpro_currencies[$pmpro_currency]['position'] ) || $pmpro_currencies[$pmpro_currency]['position'] == 'left' ) {
+		$price_text = sprintf(
+			__( 'Your price: %s', 'pmpro-variable-pricing' ),
+			esc_html( $pmpro_currency_symbol )
+		);
+	} else {
+		$price_text = __( 'Your price:', 'pmpro-variable-pricing' );
+	}
+	
 	/**
 	 * @filter pmprovp_checkout_price_input_label - Filter to modify the label for the Variable Price input box on the checkout page
 	 * @param string $price_text
@@ -211,7 +220,7 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 
 ?>
 <p><?php esc_html_e( $price_text_description ); ?></p>
-<p><?php esc_html_e( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" /></p>
+<p><?php esc_html_e( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" /> <?php if ( $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo $pmpro_currency_symbol; } ?> </p>
 <?php
 }
 add_action( 'pmpro_checkout_after_level_cost', 'pmprovp_pmpro_checkout_after_level_cost' );
