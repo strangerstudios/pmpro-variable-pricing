@@ -53,8 +53,12 @@ jQuery( document ).ready(
 
 
 				// If this ain't empty, then disable the checkout button for now.
-				if ( this.vp_data.min_price ) {
-					jQuery( '.pmpro_form #pmpro_btn-submit' ).attr( 'disabled', true );
+				if ( this.vp_data.min_price || this.vp_data.max_price ) {
+					// Check if loaded value on page load.
+					if ( parseFloat( this.priceElem.val() ) < parseFloat( this.vp_data.min_price ) || parseFloat( this.priceElem.val() ) > parseFloat( this.vp_data.max_price ) ) {
+						jQuery( '.pmpro_form #pmpro_btn-submit' ).attr( 'disabled', true );
+					}
+					
 				}
 
 				// bind check to price field
@@ -137,21 +141,39 @@ jQuery( document ).ready(
 			checkPrice: function() {
 
 				var min_price = PMProVariablePricing.vp_data.min_price;
-
-				// If min_price is empty, bail.
-				if ( !min_price ) {
-					return;
-				}
+				var max_price = PMProVariablePricing.vp_data.max_price;
 
 				// price entered on checkout.
 				var vp_price = PMProVariablePricing.priceElem.val();
 
-				// Check if price entered is greater than min_price and enable checkout button if true.
-				if ( parseFloat( vp_price ) >= parseFloat( min_price ) ) {
-					jQuery('.pmpro_form #pmpro_btn-submit').removeAttr( 'disabled' );
-				} else {
-					jQuery( '.pmpro_form #pmpro_btn-submit' ).attr( 'disabled', true );
+				// Bail if no limits are set.
+				if ( !min_price && !max_price ) {
+					return;
 				}
+
+				//  Check values against constraints.
+				if ( min_price && max_price ) { // Check if price entered is greater than min_price and enable checkout button if true.
+					if ( parseFloat( vp_price ) >= parseFloat( min_price ) && parseFloat( vp_price ) <= parseFloat( max_price )) {
+						jQuery('.pmpro_form #pmpro_btn-submit').removeAttr( 'disabled' );
+					} else {
+						jQuery( '.pmpro_form #pmpro_btn-submit' ).attr( 'disabled', true );
+					}
+				} else if ( min_price && !max_price ) { // check only min price
+					if ( parseFloat( vp_price ) >= parseFloat( min_price ) ) {
+						jQuery('.pmpro_form #pmpro_btn-submit').removeAttr( 'disabled' );
+					} else {
+						jQuery( '.pmpro_form #pmpro_btn-submit' ).attr( 'disabled', true );
+					}
+				} else if ( !min_price && max_price) { // check if only max price
+					if ( parseFloat( vp_price ) <= parseFloat( max_price )) {
+						jQuery('.pmpro_form #pmpro_btn-submit').removeAttr( 'disabled' );
+					} else {
+						jQuery( '.pmpro_form #pmpro_btn-submit' ).attr( 'disabled', true );
+					}
+				} else {  //fallback in case we get here.
+					jQuery('.pmpro_form #pmpro_btn-submit').removeAttr( 'disabled' );
+				}
+
 			}
 		}
 
