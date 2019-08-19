@@ -195,6 +195,8 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 			__( 'Enter a price of %s or lower.', 'pmpro-variable-pricing' ),
 			esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
 		);
+	} else {
+		$price_text_description = __( 'Enter a price for your membership', 'pmpro-variable-pricing' );
 	}
 
 	/**
@@ -220,7 +222,7 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 
 ?>
 <p><?php esc_html_e( $price_text_description ); ?></p>
-<p><?php esc_html_e( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" /> <?php if ( $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo $pmpro_currency_symbol; } ?> </p>
+<p><?php esc_html_e( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" /> <?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) && $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo $pmpro_currency_symbol; } ?> </p>
 <?php
 }
 add_action( 'pmpro_checkout_after_level_cost', 'pmprovp_pmpro_checkout_after_level_cost' );
