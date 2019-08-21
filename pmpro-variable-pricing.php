@@ -185,10 +185,10 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 			esc_html( pmpro_formatPrice( $vpfields['min_price'] ) ),
 			esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
 		);
-	} elseif( empty( $max_price ) && ! empty( $min_price ) ) {
+	} elseif( ! empty( $min_price ) && empty( $max_price ) ) {
 		$price_text_description = sprintf(
-			__( 'Enter a minimum price of %1$s%2$s or higher.', 'pmpro-variable-pricing' ),
-			esc_html( $vpfields['min_price'] )
+			__( 'Enter a minimum price of %s or higher.', 'pmpro-variable-pricing' ),
+			esc_html( pmpro_formatPrice( $vpfields['min_price'] ) )
 		);
 	} elseif( ! empty( $max_price ) && empty( $min_price ) ) {
 		$price_text_description = sprintf(
@@ -222,7 +222,8 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 
 ?>
 <p><?php esc_html_e( $price_text_description ); ?></p>
-<p><?php esc_html_e( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" /> <?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) && $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo $pmpro_currency_symbol; } ?> </p>
+<p><?php esc_html_e( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" /> <?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) &&  $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo $pmpro_currency_symbol; } ?>
+<span id="pmprovp-warning" class="pmpro_message pmpro_error" style="display:none;"><small><?php echo $price_text_description; ?></small></span></p>
 <?php
 }
 add_action( 'pmpro_checkout_after_level_cost', 'pmprovp_pmpro_checkout_after_level_cost' );

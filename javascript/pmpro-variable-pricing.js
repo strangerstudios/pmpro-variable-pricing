@@ -49,13 +49,7 @@ jQuery( document ).ready(
 				this.paymentMethod       = jQuery( '#pmpro_payment_method' );
 				this.regSubmitSpan       = jQuery( '#pmpro_submit_span' );
 				this.ppeSubmitSpan       = jQuery( '#pmpro_paypalexpress_checkout' );
-				this.vp_data			 = JSON.parse( pmprovp.vp_data );
-
-
-				// If this ain't empty, then disable the checkout button for now.
-				if ( this.vp_data.min_price ) {
-					jQuery( '.pmpro_form #pmpro_btn-submit' ).attr( 'disabled', true );
-				}
+				this.vp_data			 = JSON.parse( pmprovp.vp_data );			
 
 				// bind check to price field
 				this.price_timer = null;
@@ -137,21 +131,54 @@ jQuery( document ).ready(
 			checkPrice: function() {
 
 				var min_price = PMProVariablePricing.vp_data.min_price;
-
-				// If min_price is empty, bail.
-				if ( !min_price ) {
-					return;
-				}
+				var max_price = PMProVariablePricing.vp_data.max_price;
 
 				// price entered on checkout.
 				var vp_price = PMProVariablePricing.priceElem.val();
 
-				// Check if price entered is greater than min_price and enable checkout button if true.
-				if ( parseFloat( vp_price ) >= parseFloat( min_price ) ) {
-					jQuery('.pmpro_form #pmpro_btn-submit').removeAttr( 'disabled' );
-				} else {
-					jQuery( '.pmpro_form #pmpro_btn-submit' ).attr( 'disabled', true );
+				// Bail if no limits are set.
+				if ( !min_price && !max_price ) {
+					return;
 				}
+				
+
+				//  Check values against constraints.
+				if ( min_price && max_price ) { // Check if price entered is greater than min_price and enable checkout button if true.
+					if ( parseFloat( vp_price ) >= parseFloat( min_price ) && parseFloat( vp_price ) <= parseFloat( max_price )) {
+						jQuery( '#pmprovp-warning' ).hide();
+						jQuery( 'input#price').removeClass( 'pmpro_error' );
+					} else {
+						jQuery( '#pmprovp-warning'  ).show();
+						jQuery( 'input#price').addClass( 'pmpro_error' );
+					}
+				} else if ( min_price && !max_price ) { // check only min price
+					if ( parseFloat( vp_price ) >= parseFloat( min_price ) ) {
+						jQuery( '#pmprovp-warning' ).hide();
+						jQuery( 'input#price').removeClass( 'pmpro_error' );
+					} else {
+						jQuery( '#pmprovp-warning'  ).show();
+						jQuery( 'input#price').addClass( 'pmpro_error' );
+					}
+				} else if ( !min_price && max_price) { // check if only max price
+					if ( parseFloat( vp_price ) <= parseFloat( max_price )) {
+						jQuery( '#pmprovp-warning' ).hide();
+						jQuery( 'input#price').removeClass( 'pmpro_error' );
+					} else {
+						jQuery( '#pmprovp-warning'  ).show();
+						jQuery( 'input#price').addClass( 'pmpro_error' );
+					}
+				} else {  //fallback in case we get here.
+					jQuery( '#pmprovp-warning' ).hide();
+					jQuery( 'input#price').removeClass( 'pmpro_error' );
+				}
+
+
+				// remove warning if field is empty.
+				if ( ! vp_price ) {
+					jQuery( '#pmprovp-warning' ).hide();
+					jQuery( 'input#price').removeClass( 'pmpro_error' );
+				}
+
 			}
 		}
 
