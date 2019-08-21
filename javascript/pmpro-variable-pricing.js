@@ -140,7 +140,7 @@ jQuery( document ).ready(
 				if ( !min_price && !max_price ) {
 					return;
 				}
-	
+				
 
 				//  Check values against constraints.
 				if ( min_price && max_price ) { // Check if price entered is greater than min_price and enable checkout button if true.
@@ -168,6 +168,13 @@ jQuery( document ).ready(
 						jQuery( 'input#price').addClass( 'pmpro_error' );
 					}
 				} else {  //fallback in case we get here.
+					jQuery( '#pmprovp-warning' ).hide();
+					jQuery( 'input#price').removeClass( 'pmpro_error' );
+				}
+
+
+				// remove warning if field is empty.
+				if ( ! vp_price ) {
 					jQuery( '#pmprovp-warning' ).hide();
 					jQuery( 'input#price').removeClass( 'pmpro_error' );
 				}
