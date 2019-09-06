@@ -221,9 +221,11 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 	$price_text = apply_filters( 'pmprovp_checkout_price_input_label', $price_text );
 
 ?>
-<p><?php esc_html_e( $price_text_description ); ?></p>
-<p><?php esc_html_e( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" /> <?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) &&  $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo $pmpro_currency_symbol; } ?>
-<span id="pmprovp-warning" class="pmpro_message pmpro_error" style="display:none;"><small><?php echo $price_text_description; ?></small></span></p>
+<div class="pmprovp">
+	<p class="pmprovp_price_text_description"><?php esc_html_e( $price_text_description ); ?></p>
+	<p class="pmprovp_price_input"><?php esc_html_e( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" /> <?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) &&  $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo $pmpro_currency_symbol; } ?>
+	<span id="pmprovp-warning" class="pmpro_message pmpro_error" style="display:none;"><small><?php echo $price_text_description; ?></small></span></p>
+</div> <!-- end .pmprovp -->
 <?php
 }
 add_action( 'pmpro_checkout_after_level_cost', 'pmprovp_pmpro_checkout_after_level_cost' );
