@@ -3,7 +3,7 @@
 Plugin Name: Paid Memberships Pro - Variable Pricing Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/
 Description: Allow customers to set their own price when checking out for your membership levels.
-Version: .4.2
+Version: .4.3
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
 Text Domain: pmpro-variable-pricing
@@ -25,7 +25,7 @@ Text Domain: pmpro-variable-pricing
 function pmprovp_load_textdomain() {
 	load_plugin_textdomain( 'pmpro-variable-pricing', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 }
-add_action( 'plugins_loaded', 'pmprovp_load_textdomain' );
+add_action( 'init', 'pmprovp_load_textdomain' );
 
 /**
  * Get settings for a specified level.
@@ -63,8 +63,8 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 		$suggested_price  = '';
 	}
 ?>
-<h3 class="topborder"><?php _e( 'Variable Pricing', 'pmpro-variable-pricing' ); ?></h3>
-<p><?php _e( 'If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maxium, and suggested price for this level.', 'pmpro-variable-pricing' ); ?></p>
+<h3 class="topborder"><?php esc_html_e( 'Variable Pricing', 'pmpro-variable-pricing' ); ?></h3>
+<p><?php esc_html_e( 'If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maxium, and suggested price for this level.', 'pmpro-variable-pricing' ); ?></p>
 
 <table>
 <tbody class="form-table">
@@ -77,21 +77,21 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 	<tr class="pmprovp_setting">
 		<th scope="row" valign="top"><label for="pmprovp_min_price"><?php _e( 'Min Price:', 'pmpro-variable-pricing' ); ?></label></th>
 		<td>
-			<?php echo $pmpro_currency_symbol; ?><input type="text" name="min_price" id="pmprovp_min_price" value="<?php echo esc_attr( $min_price ); ?>" />
+			<?php echo esc_html( $pmpro_currency_symbol ); ?><input type="text" name="min_price" id="pmprovp_min_price" value="<?php echo esc_attr( $min_price ); ?>" />
 		</td>
 	</tr>
 	<tr class="pmprovp_setting">
-		<th scope="row" valign="top"><label for="pmprovp_max_price"><?php _e( 'Max Price:', 'pmpro-variable-pricing' ); ?></label></th>
+		<th scope="row" valign="top"><label for="pmprovp_max_price"><?php esc_html_e( 'Max Price:', 'pmpro-variable-pricing' ); ?></label></th>
 		<td>
-			<?php echo $pmpro_currency_symbol; ?><input type="text" name="max_price" id="pmprovp_max_price" value="<?php echo esc_attr( $max_price ); ?>" />
-			<?php _e( 'Leave this blank to allow any maximum amount.', 'pmpro-variable-pricing' ); ?>
+			<?php echo esc_html( $pmpro_currency_symbol ); ?><input type="text" name="max_price" id="pmprovp_max_price" value="<?php echo esc_attr( $max_price ); ?>" />
+			<?php esc_html_e( 'Leave this blank to allow any maximum amount.', 'pmpro-variable-pricing' ); ?>
 		</td>
 	</tr>
 	<tr class="pmprovp_setting">
-		<th scope="row" valign="top"><label for="pmprovp_suggested_price"><?php _e( 'Suggested Price:', 'pmpro-variable-pricing' ); ?></label></th>
+		<th scope="row" valign="top"><label for="pmprovp_suggested_price"><?php esc_html_e( 'Suggested Price:', 'pmpro-variable-pricing' ); ?></label></th>
 		<td>
-			<?php echo $pmpro_currency_symbol; ?><input type="text" name="suggested_price" id="pmprovp_suggested_price" value="<?php echo esc_attr( $suggested_price ); ?>" />
-			<?php _e( 'You may leave this blank.', 'pmpro-variable-pricing' ); ?>
+			<?php echo esc_html( $pmpro_currency_symbol ); ?><input type="text" name="suggested_price" id="pmprovp_suggested_price" value="<?php echo esc_attr( $suggested_price ); ?>" />
+			<?php esc_html_e( 'You may leave this blank.', 'pmpro-variable-pricing' ); ?>
 		</td>
 	</tr>
 </tbody>
@@ -293,8 +293,8 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 
 ?>
 <div class="pmprovp">
-	<p class="pmprovp_price_text_description"><?php esc_html_e( $price_text_description ); ?></p>
-	<p class="pmprovp_price_input"><?php esc_html_e( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" /> <?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) &&  $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo $pmpro_currency_symbol; } ?>
+	<p class="pmprovp_price_text_description"><?php echo esc_html( $price_text_description ); ?></p>
+	<p class="pmprovp_price_input"><?php echo esc_html( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" /> <?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) &&  $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo $pmpro_currency_symbol; } ?>
 	<span id="pmprovp-warning" class="pmpro_message pmpro_alert" style="display:none;"><small><?php echo $price_text_description; ?></small></span></p>
 </div> <!-- end .pmprovp -->
 <?php
@@ -465,8 +465,8 @@ Function to add links to the plugin row meta
 function pmprovp_plugin_row_meta( $links, $file ) {
 	if ( strpos( $file, 'pmpro-variable-pricing.php' ) !== false ) {
 		$new_links = array(
-			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/' ) . '" title="' . esc_attr( __( 'View Documentation', 'pmpro' ) ) . '">' . __( 'Docs', 'pmpro' ) . '</a>',
-			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/support/' ) . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro' ) ) . '">' . __( 'Support', 'pmpro' ) . '</a>',
+			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/' ) . '" title="' . esc_attr( __( 'View Documentation', 'pmpro' ) ) . '">' . __( 'Docs', 'paid-memberships-pro' ) . '</a>',
+			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/support/' ) . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'paid-memberships-pro' ) ) . '">' . __( 'Support', 'paid-memberships-pro' ) . '</a>',
 		);
 		$links     = array_merge( $links, $new_links );
 	}
