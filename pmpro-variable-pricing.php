@@ -177,7 +177,7 @@ function pmprovp_pmpro_membership_levels_table_extra_cols_body( $level ) { ?>
 		$vpfields = pmprovp_get_settings( $level->id );
 
 		// No variable pricing? Show "--" and return.
-		if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) || $pmpro_review ) {
+		if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) ) {
 			echo '--';
 			return;
 		}
@@ -233,7 +233,7 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 	$vpfields = pmprovp_get_settings( $pmpro_level->id );
 
 	// no variable pricing? just return
-	if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) || $pmpro_review ) {
+	if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) ) {
 		return;
 	}
 
@@ -294,7 +294,7 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 ?>
 <div class="pmprovp">
 	<p class="pmprovp_price_text_description"><?php echo esc_html( $price_text_description ); ?></p>
-	<p class="pmprovp_price_input"><?php echo esc_html( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" /> <?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) &&  $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo $pmpro_currency_symbol; } ?>
+<p class="pmprovp_price_input"><?php echo esc_html( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" <?php if( $pmpro_review ) { ?> readonly <?php } ?>/> <?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) &&  $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo $pmpro_currency_symbol; } ?>
 	<span id="pmprovp-warning" class="pmpro_message pmpro_alert" style="display:none;"><small><?php echo $price_text_description; ?></small></span></p>
 </div> <!-- end .pmprovp -->
 <?php
@@ -333,6 +333,11 @@ function pmprovp_pmpro_registration_checks( $continue ) {
 			// get values
 			$level_id = intval( $_REQUEST['level'] );
 			$vpfields = pmprovp_get_settings( $level_id );
+
+			// Bail if the Variable Pricing is not set for this level.
+			if( empty( $vpfields['variable_pricing'] ) ){
+				return $continue;
+			}
 
 			// make sure this level has variable pricing
 			if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) ) {
