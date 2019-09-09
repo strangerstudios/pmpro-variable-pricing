@@ -154,6 +154,77 @@ function pmprovp_pmpro_level_cost_text( $text, $level ) {
 }
 add_filter( 'pmpro_level_cost_text', 'pmprovp_pmpro_level_cost_text', 10, 2 );
 
+
+/**
+ * Display Variable Price details column on Membership Levels Settings Page
+ *
+ */
+function pmprovp_pmpro_membership_levels_table_extra_cols_header( $level ) {
+	?>
+	<th><?php _e( 'Variable Pricing', 'pmpro-variable-pricing' ); ?></th>
+	<?php
+}
+add_action( 'pmpro_membership_levels_table_extra_cols_header', 'pmprovp_pmpro_membership_levels_table_extra_cols_header' );
+
+/**
+ * Display Variable Price level details on Membership Levels Settings Page
+ *
+ */
+function pmprovp_pmpro_membership_levels_table_extra_cols_body( $level ) { ?>
+	<td>
+		<?php
+		// get variable pricing info
+		$vpfields = pmprovp_get_settings( $level->id );
+
+		// No variable pricing? Show "--" and return.
+		if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) || $pmpro_review ) {
+			echo '--';
+			return;
+		}
+
+		// Get the variable pricing data from the level.
+		$min_price       = $vpfields['min_price'];
+		$max_price       = $vpfields['max_price'];
+		$suggested_price = $vpfields['suggested_price'];
+
+		// Setup price text description based on price ranges.
+		if ( ! empty( $max_price ) && ! empty( $min_price ) ) {
+			$price_text_description = sprintf(
+				__( 'Between %1$s and %2$s.', 'pmpro-variable-pricing' ),
+				esc_html( pmpro_formatPrice( $vpfields['min_price'] ) ),
+				esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
+			);
+		} elseif( ! empty( $min_price ) && empty( $max_price ) ) {
+			$price_text_description = sprintf(
+				__( 'Minimum price of %s or higher.', 'pmpro-variable-pricing' ),
+				esc_html( pmpro_formatPrice( $vpfields['min_price'] ) )
+			);
+		} elseif( ! empty( $max_price ) && empty( $min_price ) ) {
+			$price_text_description = sprintf(
+				__( '%s or lower.', 'pmpro-variable-pricing' ),
+				esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
+			);
+		} else {
+			$price_text_description = __( 'Any', 'pmpro-variable-pricing' );
+		}
+
+		// Show suggested price if specified.
+		if ( ! empty( $suggested_price ) ) {
+			$price_text_description .= '<br />';
+			$price_text_description .= sprintf(
+				__( 'Suggested Price: %s.', 'pmpro-variable-pricing' ),
+				esc_html( pmpro_formatPrice( $vpfields['suggested_price'] ) )
+			);
+		}
+
+		// Display the price text and suggested price in the row.
+		echo $price_text_description;
+	?>
+	</td>
+	<?php
+}
+add_action( 'pmpro_membership_levels_table_extra_cols_body', 'pmprovp_pmpro_membership_levels_table_extra_cols_body' );
+
 // show form
 function pmprovp_pmpro_checkout_after_level_cost() {
 	global $pmpro_level, $gateway, $pmpro_review, $pmpro_currencies, $pmpro_currency, $pmpro_currency_symbol;
@@ -221,9 +292,11 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 	$price_text = apply_filters( 'pmprovp_checkout_price_input_label', $price_text );
 
 ?>
-<p><?php esc_html_e( $price_text_description ); ?></p>
-<p><?php esc_html_e( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" /> <?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) &&  $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo $pmpro_currency_symbol; } ?>
-<span id="pmprovp-warning" class="pmpro_message pmpro_error" style="display:none;"><small><?php echo $price_text_description; ?></small></span></p>
+<div class="pmprovp">
+	<p class="pmprovp_price_text_description"><?php esc_html_e( $price_text_description ); ?></p>
+	<p class="pmprovp_price_input"><?php esc_html_e( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" /> <?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) &&  $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo $pmpro_currency_symbol; } ?>
+	<span id="pmprovp-warning" class="pmpro_message pmpro_alert" style="display:none;"><small><?php echo $price_text_description; ?></small></span></p>
+</div> <!-- end .pmprovp -->
 <?php
 }
 add_action( 'pmpro_checkout_after_level_cost', 'pmprovp_pmpro_checkout_after_level_cost' );
