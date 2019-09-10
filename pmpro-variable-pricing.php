@@ -3,7 +3,7 @@
 Plugin Name: Paid Memberships Pro - Variable Pricing Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/
 Description: Allow customers to set their own price when checking out for your membership levels.
-Version: .4.2
+Version: .4.3
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
 Text Domain: pmpro-variable-pricing
@@ -25,7 +25,7 @@ Text Domain: pmpro-variable-pricing
 function pmprovp_load_textdomain() {
 	load_plugin_textdomain( 'pmpro-variable-pricing', false, plugin_basename( dirname( __FILE__ ) ) . '/languages' );
 }
-add_action( 'plugins_loaded', 'pmprovp_load_textdomain' );
+add_action( 'init', 'pmprovp_load_textdomain' );
 
 /**
  * Get settings for a specified level.
@@ -63,8 +63,8 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 		$suggested_price  = '';
 	}
 ?>
-<h3 class="topborder"><?php _e( 'Variable Pricing', 'pmpro-variable-pricing' ); ?></h3>
-<p><?php _e( 'If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maxium, and suggested price for this level.', 'pmpro-variable-pricing' ); ?></p>
+<h3 class="topborder"><?php esc_html_e( 'Variable Pricing', 'pmpro-variable-pricing' ); ?></h3>
+<p><?php esc_html_e( 'If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maxium, and suggested price for this level.', 'pmpro-variable-pricing' ); ?></p>
 
 <table>
 <tbody class="form-table">
@@ -77,21 +77,21 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 	<tr class="pmprovp_setting">
 		<th scope="row" valign="top"><label for="pmprovp_min_price"><?php _e( 'Min Price:', 'pmpro-variable-pricing' ); ?></label></th>
 		<td>
-			<?php echo $pmpro_currency_symbol; ?><input type="text" name="min_price" id="pmprovp_min_price" value="<?php echo esc_attr( $min_price ); ?>" />
+			<?php echo esc_html( $pmpro_currency_symbol ); ?><input type="text" name="min_price" id="pmprovp_min_price" value="<?php echo esc_attr( $min_price ); ?>" />
 		</td>
 	</tr>
 	<tr class="pmprovp_setting">
-		<th scope="row" valign="top"><label for="pmprovp_max_price"><?php _e( 'Max Price:', 'pmpro-variable-pricing' ); ?></label></th>
+		<th scope="row" valign="top"><label for="pmprovp_max_price"><?php esc_html_e( 'Max Price:', 'pmpro-variable-pricing' ); ?></label></th>
 		<td>
-			<?php echo $pmpro_currency_symbol; ?><input type="text" name="max_price" id="pmprovp_max_price" value="<?php echo esc_attr( $max_price ); ?>" />
-			<?php _e( 'Leave this blank to allow any maximum amount.', 'pmpro-variable-pricing' ); ?>
+			<?php echo esc_html( $pmpro_currency_symbol ); ?><input type="text" name="max_price" id="pmprovp_max_price" value="<?php echo esc_attr( $max_price ); ?>" />
+			<?php esc_html_e( 'Leave this blank to allow any maximum amount.', 'pmpro-variable-pricing' ); ?>
 		</td>
 	</tr>
 	<tr class="pmprovp_setting">
-		<th scope="row" valign="top"><label for="pmprovp_suggested_price"><?php _e( 'Suggested Price:', 'pmpro-variable-pricing' ); ?></label></th>
+		<th scope="row" valign="top"><label for="pmprovp_suggested_price"><?php esc_html_e( 'Suggested Price:', 'pmpro-variable-pricing' ); ?></label></th>
 		<td>
-			<?php echo $pmpro_currency_symbol; ?><input type="text" name="suggested_price" id="pmprovp_suggested_price" value="<?php echo esc_attr( $suggested_price ); ?>" />
-			<?php _e( 'You may leave this blank.', 'pmpro-variable-pricing' ); ?>
+			<?php echo esc_html( $pmpro_currency_symbol ); ?><input type="text" name="suggested_price" id="pmprovp_suggested_price" value="<?php echo esc_attr( $suggested_price ); ?>" />
+			<?php esc_html_e( 'You may leave this blank.', 'pmpro-variable-pricing' ); ?>
 		</td>
 	</tr>
 </tbody>
@@ -154,15 +154,86 @@ function pmprovp_pmpro_level_cost_text( $text, $level ) {
 }
 add_filter( 'pmpro_level_cost_text', 'pmprovp_pmpro_level_cost_text', 10, 2 );
 
+
+/**
+ * Display Variable Price details column on Membership Levels Settings Page
+ *
+ */
+function pmprovp_pmpro_membership_levels_table_extra_cols_header( $level ) {
+	?>
+	<th><?php _e( 'Variable Pricing', 'pmpro-variable-pricing' ); ?></th>
+	<?php
+}
+add_action( 'pmpro_membership_levels_table_extra_cols_header', 'pmprovp_pmpro_membership_levels_table_extra_cols_header' );
+
+/**
+ * Display Variable Price level details on Membership Levels Settings Page
+ *
+ */
+function pmprovp_pmpro_membership_levels_table_extra_cols_body( $level ) { ?>
+	<td>
+		<?php
+		// get variable pricing info
+		$vpfields = pmprovp_get_settings( $level->id );
+
+		// No variable pricing? Show "--" and return.
+		if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) ) {
+			echo '--';
+			return;
+		}
+
+		// Get the variable pricing data from the level.
+		$min_price       = $vpfields['min_price'];
+		$max_price       = $vpfields['max_price'];
+		$suggested_price = $vpfields['suggested_price'];
+
+		// Setup price text description based on price ranges.
+		if ( ! empty( $max_price ) && ! empty( $min_price ) ) {
+			$price_text_description = sprintf(
+				__( 'Between %1$s and %2$s.', 'pmpro-variable-pricing' ),
+				esc_html( pmpro_formatPrice( $vpfields['min_price'] ) ),
+				esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
+			);
+		} elseif( ! empty( $min_price ) && empty( $max_price ) ) {
+			$price_text_description = sprintf(
+				__( 'Minimum price of %s or higher.', 'pmpro-variable-pricing' ),
+				esc_html( pmpro_formatPrice( $vpfields['min_price'] ) )
+			);
+		} elseif( ! empty( $max_price ) && empty( $min_price ) ) {
+			$price_text_description = sprintf(
+				__( '%s or lower.', 'pmpro-variable-pricing' ),
+				esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
+			);
+		} else {
+			$price_text_description = __( 'Any', 'pmpro-variable-pricing' );
+		}
+
+		// Show suggested price if specified.
+		if ( ! empty( $suggested_price ) ) {
+			$price_text_description .= '<br />';
+			$price_text_description .= sprintf(
+				__( 'Suggested Price: %s.', 'pmpro-variable-pricing' ),
+				esc_html( pmpro_formatPrice( $vpfields['suggested_price'] ) )
+			);
+		}
+
+		// Display the price text and suggested price in the row.
+		echo $price_text_description;
+	?>
+	</td>
+	<?php
+}
+add_action( 'pmpro_membership_levels_table_extra_cols_body', 'pmprovp_pmpro_membership_levels_table_extra_cols_body' );
+
 // show form
 function pmprovp_pmpro_checkout_after_level_cost() {
-	global $pmpro_currency_symbol, $pmpro_level, $gateway, $pmpro_review;
+	global $pmpro_level, $gateway, $pmpro_review, $pmpro_currencies, $pmpro_currency, $pmpro_currency_symbol;
 
 	// get variable pricing info
 	$vpfields = pmprovp_get_settings( $pmpro_level->id );
 
 	// no variable pricing? just return
-	if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) || $pmpro_review ) {
+	if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) ) {
 		return;
 	}
 
@@ -171,6 +242,7 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 	$max_price       = $vpfields['max_price'];
 	$suggested_price = $vpfields['suggested_price'];
 
+
 	if ( isset( $_REQUEST['price'] ) ) {
 		$price = preg_replace( '[^0-9\.]', '', $_REQUEST['price'] );
 	} else {
@@ -178,19 +250,24 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 	}
 
 	// setup price text description based on price ranges
-	if ( ! empty( $max_price ) ) {
+	if ( ! empty( $max_price ) && ! empty( $min_price ) ) {
 		$price_text_description = sprintf(
-			__( 'Enter a price between %1$s%2$s and %1$s%3$s.', 'pmpro-variable-pricing' ),
-			esc_html( $pmpro_currency_symbol ),
-			esc_html( $vpfields['min_price'] ),
-			esc_html( $vpfields['max_price'] )
+			__( 'Enter a price between %1$s and %2$s.', 'pmpro-variable-pricing' ),
+			esc_html( pmpro_formatPrice( $vpfields['min_price'] ) ),
+			esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
+		);
+	} elseif( ! empty( $min_price ) && empty( $max_price ) ) {
+		$price_text_description = sprintf(
+			__( 'Enter a minimum price of %s or higher.', 'pmpro-variable-pricing' ),
+			esc_html( pmpro_formatPrice( $vpfields['min_price'] ) )
+		);
+	} elseif( ! empty( $max_price ) && empty( $min_price ) ) {
+		$price_text_description = sprintf(
+			__( 'Enter a price of %s or lower.', 'pmpro-variable-pricing' ),
+			esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
 		);
 	} else {
-		$price_text_description = sprintf(
-			__( 'Enter a minimum price of %1$s%2$s or higher.', 'pmpro-variable-pricing' ),
-			esc_html( $pmpro_currency_symbol ),
-			esc_html( $vpfields['min_price'] )
-		);
+		$price_text_description = __( 'Enter a price for your membership', 'pmpro-variable-pricing' );
 	}
 
 	/**
@@ -198,11 +275,16 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 	 * @param string $price_text_description
 	 */
 	$price_text_description = apply_filters( 'pmpropvp_checkout_price_description', $price_text_description );
-
-	$price_text = sprintf(
-		__( 'Your price: %s', 'pmpro-variable-pricing' ),
-		esc_html( $pmpro_currency_symbol )
-	);
+		
+	if ( empty( $pmpro_currencies[$pmpro_currency]['position'] ) || $pmpro_currencies[$pmpro_currency]['position'] == 'left' ) {
+		$price_text = sprintf(
+			__( 'Your price: %s', 'pmpro-variable-pricing' ),
+			esc_html( $pmpro_currency_symbol )
+		);
+	} else {
+		$price_text = __( 'Your price:', 'pmpro-variable-pricing' );
+	}
+	
 	/**
 	 * @filter pmprovp_checkout_price_input_label - Filter to modify the label for the Variable Price input box on the checkout page
 	 * @param string $price_text
@@ -210,8 +292,11 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 	$price_text = apply_filters( 'pmprovp_checkout_price_input_label', $price_text );
 
 ?>
-<p><?php esc_html_e( $price_text_description ); ?></p>
-<p><?php esc_html_e( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" /></p>
+<div class="pmprovp">
+	<p class="pmprovp_price_text_description"><?php echo esc_html( $price_text_description ); ?></p>
+<p class="pmprovp_price_input"><?php echo esc_html( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" <?php if( $pmpro_review ) { ?> readonly <?php } ?>/> <?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) &&  $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo $pmpro_currency_symbol; } ?>
+	<span id="pmprovp-warning" class="pmpro_message pmpro_alert" style="display:none;"><small><?php echo $price_text_description; ?></small></span></p>
+</div> <!-- end .pmprovp -->
 <?php
 }
 add_action( 'pmpro_checkout_after_level_cost', 'pmprovp_pmpro_checkout_after_level_cost' );
@@ -248,6 +333,11 @@ function pmprovp_pmpro_registration_checks( $continue ) {
 			// get values
 			$level_id = intval( $_REQUEST['level'] );
 			$vpfields = pmprovp_get_settings( $level_id );
+
+			// Bail if the Variable Pricing is not set for this level.
+			if( empty( $vpfields['variable_pricing'] ) ){
+				return $continue;
+			}
 
 			// make sure this level has variable pricing
 			if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) ) {
@@ -313,7 +403,19 @@ add_action( 'init', 'pmprovp_init_load_session_vars', 5 );
  */
 function pmprovp_load_scripts() {
 
-	global $gateway;
+	global $gateway, $pmpro_level;
+
+	if ( empty( $pmpro_level ) ) {
+		return;
+	}
+
+	// get variable pricing info
+	$vpfields = pmprovp_get_settings( $pmpro_level->id );
+
+	// no variable pricing? just return
+	if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) ) {
+		return;
+	}
 
 	// Bail if PMPro is not loaded.
 	if ( ! function_exists( 'pmpro_getOption' ) ) {
@@ -333,6 +435,7 @@ function pmprovp_load_scripts() {
 				'gateway_billing' => ( in_array( $gateway, array( 'paypalexpress', 'twocheckout' ) ) !== false ) ? 'false' : 'true',
 			),
 			'pricing_billing' => ! pmpro_isLevelFree( $pmpro_level ) ? 'true' : 'false',
+			'vp_data' => wp_json_encode( $vpfields )
 		)
 	);
 }
@@ -342,6 +445,20 @@ add_action( 'wp_enqueue_scripts', 'pmprovp_load_scripts', 5 );
  * Split register/localize and enqueue operation to simplify unhooking JS from plugin if needed
  */
 function pmprovp_enqueue_scripts() {
+
+	global $pmpro_level;
+
+	if ( empty( $pmpro_level ) ) {
+		return;
+	}
+
+	// get variable pricing info
+	$vpfields = pmprovp_get_settings( $pmpro_level->id );
+
+	// no variable pricing? just return
+	if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) ) {
+		return;
+	}
 
 	wp_enqueue_script( 'pmprovp' );
 }
@@ -353,8 +470,8 @@ Function to add links to the plugin row meta
 function pmprovp_plugin_row_meta( $links, $file ) {
 	if ( strpos( $file, 'pmpro-variable-pricing.php' ) !== false ) {
 		$new_links = array(
-			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/' ) . '" title="' . esc_attr( __( 'View Documentation', 'pmpro' ) ) . '">' . __( 'Docs', 'pmpro' ) . '</a>',
-			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/support/' ) . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro' ) ) . '">' . __( 'Support', 'pmpro' ) . '</a>',
+			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/' ) . '" title="' . esc_attr( __( 'View Documentation', 'pmpro' ) ) . '">' . __( 'Docs', 'paid-memberships-pro' ) . '</a>',
+			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/support/' ) . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'paid-memberships-pro' ) ) . '">' . __( 'Support', 'paid-memberships-pro' ) . '</a>',
 		);
 		$links     = array_merge( $links, $new_links );
 	}
