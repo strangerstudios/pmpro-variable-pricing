@@ -3,7 +3,7 @@
 Plugin Name: Paid Memberships Pro - Variable Pricing Add On
 Plugin URI: https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/
 Description: Allow customers to set their own price when checking out for your membership levels.
-Version: .4.3
+Version: .4.4
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
 Text Domain: pmpro-variable-pricing
@@ -303,6 +303,14 @@ add_action( 'pmpro_checkout_after_level_cost', 'pmprovp_pmpro_checkout_after_lev
 
 // set price
 function pmprovp_pmpro_checkout_level( $level ) {
+	// Get variable pricing info.
+	$vpfields = pmprovp_get_settings( $level->id );
+
+	// Make sure level has variable pricing.
+	if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) ) {
+		return $level;
+	}
+
 	if ( isset( $_REQUEST['price'] ) ) {
 		$price = preg_replace( '[^0-9\.\,]', '', $_REQUEST['price'] );
 	}
@@ -337,12 +345,6 @@ function pmprovp_pmpro_registration_checks( $continue ) {
 			// Bail if the Variable Pricing is not set for this level.
 			if( empty( $vpfields['variable_pricing'] ) ){
 				return $continue;
-			}
-
-			// make sure this level has variable pricing
-			if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) ) {
-				$pmpro_msg  = __( "Error: You tried to set the price on a level that doesn't have variable pricing. Please try again.", 'pmpro-variable-pricing' );
-				$pmpro_msgt = 'pmpro_error';
 			}
 
 			// get price

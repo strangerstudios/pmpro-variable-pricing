@@ -2,8 +2,8 @@
 Contributors: strangerstudios
 Tags: paid memberships pro, pmpro, membership, donate, donations, charity, charities
 Requires at least: 4.0
-Tested up to: 5.2.2
-Stable tag: .4.3
+Tested up to: 5.4
+Stable tag: .4.4
 
 Allow customers to set their own price when checking out for your membership levels.
 
@@ -23,6 +23,9 @@ This plugin requires Paid Memberships Pro.
 Please post it in the issues section of GitHub and we'll fix it as soon as we can. Thanks for helping. https://github.com/strangerstudios/pmpro-variable-pricing/issues
 
 == Changelog ==
+
+= .4.4 - 09-04-2020 =
+*  BUG FIX: Fixed issue where non variable pricing levels would still be able to adjust the price via query parameters.
 
 = .4.3 =
 * SECURITY: Escape and sanitization of strings.
