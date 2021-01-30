@@ -7,6 +7,7 @@ Version: .4.4
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
 Text Domain: pmpro-variable-pricing
+Domain Path: /languages
 */
 
 /*
@@ -64,7 +65,7 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 	}
 ?>
 <h3 class="topborder"><?php esc_html_e( 'Variable Pricing', 'pmpro-variable-pricing' ); ?></h3>
-<p><?php esc_html_e( 'If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maxium, and suggested price for this level.', 'pmpro-variable-pricing' ); ?></p>
+<p><?php esc_html_e( 'If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maximum, and suggested price for this level.', 'pmpro-variable-pricing' ); ?></p>
 
 <table>
 <tbody class="form-table">
@@ -190,17 +191,20 @@ function pmprovp_pmpro_membership_levels_table_extra_cols_body( $level ) { ?>
 		// Setup price text description based on price ranges.
 		if ( ! empty( $max_price ) && ! empty( $min_price ) ) {
 			$price_text_description = sprintf(
+				/* translators: placeholders are for minimum and maximum amounts */
 				__( 'Between %1$s and %2$s.', 'pmpro-variable-pricing' ),
 				esc_html( pmpro_formatPrice( $vpfields['min_price'] ) ),
 				esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
 			);
 		} elseif( ! empty( $min_price ) && empty( $max_price ) ) {
 			$price_text_description = sprintf(
+				/* translators: placeholder is for minimum amount */
 				__( 'Minimum price of %s or higher.', 'pmpro-variable-pricing' ),
 				esc_html( pmpro_formatPrice( $vpfields['min_price'] ) )
 			);
 		} elseif( ! empty( $max_price ) && empty( $min_price ) ) {
 			$price_text_description = sprintf(
+				/* translators: placeholder is for maximum amount */
 				__( '%s or lower.', 'pmpro-variable-pricing' ),
 				esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
 			);
@@ -212,6 +216,7 @@ function pmprovp_pmpro_membership_levels_table_extra_cols_body( $level ) { ?>
 		if ( ! empty( $suggested_price ) ) {
 			$price_text_description .= '<br />';
 			$price_text_description .= sprintf(
+				/* translators: placeholder is for suggested price amount */
 				__( 'Suggested Price: %s.', 'pmpro-variable-pricing' ),
 				esc_html( pmpro_formatPrice( $vpfields['suggested_price'] ) )
 			);
@@ -252,17 +257,20 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 	// setup price text description based on price ranges
 	if ( ! empty( $max_price ) && ! empty( $min_price ) ) {
 		$price_text_description = sprintf(
+			/* translators: placeholders are for minimum and maximum amounts */
 			__( 'Enter a price between %1$s and %2$s.', 'pmpro-variable-pricing' ),
 			esc_html( pmpro_formatPrice( $vpfields['min_price'] ) ),
 			esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
 		);
 	} elseif( ! empty( $min_price ) && empty( $max_price ) ) {
 		$price_text_description = sprintf(
+			/* translators: placeholder is for minimum amount */
 			__( 'Enter a minimum price of %s or higher.', 'pmpro-variable-pricing' ),
 			esc_html( pmpro_formatPrice( $vpfields['min_price'] ) )
 		);
 	} elseif( ! empty( $max_price ) && empty( $min_price ) ) {
 		$price_text_description = sprintf(
+			/* translators: placeholder is for maximum amount */
 			__( 'Enter a price of %s or lower.', 'pmpro-variable-pricing' ),
 			esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
 		);
@@ -278,6 +286,7 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 		
 	if ( empty( $pmpro_currencies[$pmpro_currency]['position'] ) || $pmpro_currencies[$pmpro_currency]['position'] == 'left' ) {
 		$price_text = sprintf(
+			/* translators: placeholder is for currency symbol */
 			__( 'Your price: %s', 'pmpro-variable-pricing' ),
 			esc_html( $pmpro_currency_symbol )
 		);
@@ -361,6 +370,7 @@ function pmprovp_pmpro_registration_checks( $continue ) {
 				$continue   = false;
 			} elseif ( ! empty( $vpfields['max_price'] ) && ( (double) $price > (double) $vpfields['max_price'] ) ) {
 				$pmpro_msg  = sprintf(
+					/* translators: placeholders are for a currency symbol and the numerical amount */
 					__( 'The highest accepted price is %1$s%2$s. Please enter a new amount.', 'pmpro-variable-pricing' ),
 					esc_html( $pmpro_currency_symbol ),
 					esc_html( $vpfields['max_price'] )

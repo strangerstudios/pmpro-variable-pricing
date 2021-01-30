@@ -1,0 +1,129 @@
+# Copyright (C) 2021 Paid Memberships Pro
+# This file is distributed under the same license as the Paid Memberships Pro - Variable Pricing Add On plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Paid Memberships Pro - Variable Pricing Add On .4.4\n"
+"Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
+"Last-Translator: Paid Memberships Pro <info@paidmembershipspro.com>\n"
+"Language-Team: Paid Memberships Pro <info@paidmembershipspro.com>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-01-30T07:21:41+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.3.0\n"
+"X-Domain: pmpro-variable-pricing\n"
+
+#. Plugin Name of the plugin
+msgid "Paid Memberships Pro - Variable Pricing Add On"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Allow customers to set their own price when checking out for your membership levels."
+msgstr ""
+
+#. Author of the plugin
+msgid "Paid Memberships Pro"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.paidmembershipspro.com"
+msgstr ""
+
+#: pmpro-variable-pricing.php:67
+#: pmpro-variable-pricing.php:165
+msgid "Variable Pricing"
+msgstr ""
+
+#: pmpro-variable-pricing.php:68
+msgid "If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maximum, and suggested price for this level."
+msgstr ""
+
+#: pmpro-variable-pricing.php:73
+msgid "Enable:"
+msgstr ""
+
+#: pmpro-variable-pricing.php:75
+msgid "Enable Variable Pricing"
+msgstr ""
+
+#: pmpro-variable-pricing.php:79
+msgid "Min Price:"
+msgstr ""
+
+#: pmpro-variable-pricing.php:85
+msgid "Max Price:"
+msgstr ""
+
+#: pmpro-variable-pricing.php:88
+msgid "Leave this blank to allow any maximum amount."
+msgstr ""
+
+#: pmpro-variable-pricing.php:92
+msgid "Suggested Price:"
+msgstr ""
+
+#: pmpro-variable-pricing.php:95
+msgid "You may leave this blank."
+msgstr ""
+
+#. translators: placeholders are for minimum and maximum amounts
+#: pmpro-variable-pricing.php:195
+msgid "Between %1$s and %2$s."
+msgstr ""
+
+#. translators: placeholder is for minimum amount
+#: pmpro-variable-pricing.php:202
+msgid "Minimum price of %s or higher."
+msgstr ""
+
+#. translators: placeholder is for maximum amount
+#: pmpro-variable-pricing.php:208
+msgid "%s or lower."
+msgstr ""
+
+#: pmpro-variable-pricing.php:212
+msgid "Any"
+msgstr ""
+
+#. translators: placeholder is for suggested price amount
+#: pmpro-variable-pricing.php:220
+msgid "Suggested Price: %s."
+msgstr ""
+
+#. translators: placeholders are for minimum and maximum amounts
+#: pmpro-variable-pricing.php:261
+msgid "Enter a price between %1$s and %2$s."
+msgstr ""
+
+#. translators: placeholder is for minimum amount
+#: pmpro-variable-pricing.php:268
+msgid "Enter a minimum price of %s or higher."
+msgstr ""
+
+#. translators: placeholder is for maximum amount
+#: pmpro-variable-pricing.php:274
+msgid "Enter a price of %s or lower."
+msgstr ""
+
+#: pmpro-variable-pricing.php:278
+msgid "Enter a price for your membership"
+msgstr ""
+
+#. translators: placeholder is for currency symbol
+#: pmpro-variable-pricing.php:290
+msgid "Your price: %s"
+msgstr ""
+
+#: pmpro-variable-pricing.php:294
+msgid "Your price:"
+msgstr ""
+
+#. translators: placeholders are for a currency symbol and the numerical amount
+#: pmpro-variable-pricing.php:374
+msgid "The highest accepted price is %1$s%2$s. Please enter a new amount."
+msgstr ""
