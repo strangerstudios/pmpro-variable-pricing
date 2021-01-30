@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PMPro Variable Pricing\n"
 "POT-Creation-Date: 2018-02-15 11:58+0100\n"
-"PO-Revision-Date: 2018-02-15 12:05+0100\n"
+"PO-Revision-Date: 2021-01-30 07:41+0000\n"
 "Last-Translator: Alfonso Sánchez Uzábal <skotperez@voragine.net>\n"
-"Language-Team: Montera34 <info@montera34.com>\n"
+"Language-Team: French (France)\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.0.3\n"
+"X-Generator: Loco https://localise.biz/\n"
 "X-Poedit-Basepath: ..\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Poedit-KeywordsList: __;_e;_x\n"
@@ -17,16 +17,77 @@ msgstr ""
 "X-Poedit-SearchPathExcluded-0: languages\n"
 "X-Poedit-SearchPathExcluded-1: .git\n"
 
-#: pmpro-variable-pricing.php:65
-msgid "Variable Pricing"
-msgstr "Tarification variable"
+#. translators: placeholder is for maximum amount
+#: pmpro-variable-pricing.php:208
+msgid "%s or lower."
+msgstr ""
 
-#: pmpro-variable-pricing.php:66
+#. Description of the plugin
+msgid ""
+"Allow customers to set their own price when checking out for your membership "
+"levels."
+msgstr ""
+
+#: pmpro-variable-pricing.php:212
+msgid "Any"
+msgstr ""
+
+#. translators: placeholders are for minimum and maximum amounts
+#: pmpro-variable-pricing.php:195
+msgid "Between %1$s and %2$s."
+msgstr ""
+
+#: pmpro-variable-pricing.php:75
+msgid "Enable Variable Pricing"
+msgstr "Activer la tarification variable"
+
+#: pmpro-variable-pricing.php:73
+msgid "Enable:"
+msgstr "Activer :"
+
+#. translators: placeholder is for minimum amount
+#: pmpro-variable-pricing.php:268
+#, fuzzy, php-format
+#| msgid "Enter a minimum price of %s%s or higher."
+msgid "Enter a minimum price of %s or higher."
+msgstr "Entrez un prix minimum de %s%s ou plus."
+
+#. translators: placeholders are for minimum and maximum amounts
+#: pmpro-variable-pricing.php:261
+#, fuzzy, php-format
+#| msgid "Enter a price between %1$s%2$s and %1$s%3$s."
+msgid "Enter a price between %1$s and %2$s."
+msgstr "Entrez un prix entre %1$s%2$s et %1$s%3$s."
+
+#: pmpro-variable-pricing.php:278
+msgid "Enter a price for your membership"
+msgstr ""
+
+#. translators: placeholder is for maximum amount
+#: pmpro-variable-pricing.php:274
+msgid "Enter a price of %s or lower."
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://www.paidmembershipspro.com"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/"
+msgstr ""
+
+#: pmpro-variable-pricing.php:68
+#, fuzzy
+#| msgid ""
+#| "If variable pricing is enabled, users will be able to set their own price "
+#| "at checkout. That price will override any initial payment and billing "
+#| "amount values you set on this level. You can set the minimum, maxium, and "
+#| "suggested price for this level."
 msgid ""
 "If variable pricing is enabled, users will be able to set their own price at "
 "checkout. That price will override any initial payment and billing amount "
-"values you set on this level. You can set the minimum, maxium, and suggested "
-"price for this level."
+"values you set on this level. You can set the minimum, maximum, and "
+"suggested price for this level."
 msgstr ""
 "Si la tarification variable est activée, les utilisateurs pourront définir "
 "leur propre prix à la caisse. Ce prix remplace toutes les valeurs de "
@@ -34,82 +95,62 @@ msgstr ""
 "niveau. Vous pouvez définir le minimum, le maximum et le prix suggéré pour "
 "ce niveau."
 
-#: pmpro-variable-pricing.php:71
-msgid "Enable:"
-msgstr "Activer :"
-
-#: pmpro-variable-pricing.php:73
-msgid "Enable Variable Pricing"
-msgstr "Activer la tarification variable"
-
-#: pmpro-variable-pricing.php:77
-msgid "Min Price:"
-msgstr "Prix minimal :"
-
-#: pmpro-variable-pricing.php:83
-msgid "Max Price:"
-msgstr "Prix maximal"
-
-#: pmpro-variable-pricing.php:86
+#: pmpro-variable-pricing.php:88
 msgid "Leave this blank to allow any maximum amount."
 msgstr "Laissez ce champ vide pour ne pas avoir de montant maximal."
 
-#: pmpro-variable-pricing.php:90
+#: pmpro-variable-pricing.php:85
+msgid "Max Price:"
+msgstr "Prix maximal"
+
+#: pmpro-variable-pricing.php:79
+msgid "Min Price:"
+msgstr "Prix minimal :"
+
+#. translators: placeholder is for minimum amount
+#: pmpro-variable-pricing.php:202
+msgid "Minimum price of %s or higher."
+msgstr ""
+
+#. Author of the plugin
+msgid "Paid Memberships Pro"
+msgstr ""
+
+#. Plugin Name of the plugin
+msgid "Paid Memberships Pro - Variable Pricing Add On"
+msgstr ""
+
+#: pmpro-variable-pricing.php:92
 msgid "Suggested Price:"
 msgstr "Prix suggéré:"
 
-#: pmpro-variable-pricing.php:93
-msgid "You may leave this blank."
-msgstr "Vous pouvez laisser ce champ vide."
+#. translators: placeholder is for suggested price amount
+#: pmpro-variable-pricing.php:220
+msgid "Suggested Price: %s."
+msgstr "Prix suggéré: %s."
 
-#: pmpro-variable-pricing.php:179
-#, php-format
-msgid "Enter a price between %1$s%2$s and %1$s%3$s."
-msgstr "Entrez un prix entre %1$s%2$s et %1$s%3$s."
-
-#: pmpro-variable-pricing.php:186
-#, php-format
-msgid "Enter a minimum price of %s%s or higher."
-msgstr "Entrez un prix minimum de %s%s ou plus."
-
-#: pmpro-variable-pricing.php:200
-#, php-format
-msgid "Your price: %s"
-msgstr "Votre prix: %s"
-
-#: pmpro-variable-pricing.php:255
-msgid ""
-"Error: You tried to set the price on a level that doesn't have variable "
-"pricing. Please try again."
-msgstr ""
-"Erreur: Vous avez essayé de définir le prix à un niveau qui n'a pas de prix "
-"variable. Veuillez réessayer."
-
-#: pmpro-variable-pricing.php:266
-#, php-format
-msgid "The lowest accepted price is %1$s%2$s. Please enter a new amount."
-msgstr ""
-"Le prix accepté le plus bas est %1$s%2$s. Veuillez entrer un nouveau montant."
-
-#: pmpro-variable-pricing.php:276
+#. translators: placeholders are for a currency symbol and the numerical amount
+#: pmpro-variable-pricing.php:374
 #, php-format
 msgid "The highest accepted price is %1$s%2$s. Please enter a new amount."
 msgstr ""
 "Le prix le plus élevé accepté est %1$s%2$s. Veuillez entrer un nouveau "
 "montant."
 
-#: pmpro-variable-pricing.php:352
-msgid "View Documentation"
-msgstr "Afficher la documentation"
+#: pmpro-variable-pricing.php:67 pmpro-variable-pricing.php:165
+msgid "Variable Pricing"
+msgstr "Tarification variable"
 
-#: pmpro-variable-pricing.php:352
-msgid "Docs"
-msgstr "Documentation"
+#: pmpro-variable-pricing.php:95
+msgid "You may leave this blank."
+msgstr "Vous pouvez laisser ce champ vide."
 
-#: pmpro-variable-pricing.php:353
-msgid "Visit Customer Support Forum"
-msgstr "Visitez le forum de support client"
+#: pmpro-variable-pricing.php:294
+msgid "Your price:"
+msgstr "Votre prix:"
 
-#: pmpro-variable-pricing.php:353
-msgid "Support"
-msgstr "Support"
+#. translators: placeholder is for currency symbol
+#: pmpro-variable-pricing.php:290
+#, php-format
+msgid "Your price: %s"
+msgstr "Votre prix: %s"
