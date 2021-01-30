@@ -65,7 +65,7 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 	}
 ?>
 <h3 class="topborder"><?php esc_html_e( 'Variable Pricing', 'pmpro-variable-pricing' ); ?></h3>
-<p><?php esc_html_e( 'If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maxium, and suggested price for this level.', 'pmpro-variable-pricing' ); ?></p>
+<p><?php esc_html_e( 'If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maximum, and suggested price for this level.', 'pmpro-variable-pricing' ); ?></p>
 
 <table>
 <tbody class="form-table">
