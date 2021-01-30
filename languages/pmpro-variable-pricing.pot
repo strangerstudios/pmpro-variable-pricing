@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2021-01-30T06:02:49+00:00\n"
+"POT-Creation-Date: 2021-01-30T06:18:19+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.3.0\n"
 "X-Domain: pmpro-variable-pricing\n"
@@ -71,50 +71,59 @@ msgstr ""
 msgid "You may leave this blank."
 msgstr ""
 
-#: pmpro-variable-pricing.php:194
+#. translators: placeholders are for minimum and maximum amounts
+#: pmpro-variable-pricing.php:195
 msgid "Between %1$s and %2$s."
 msgstr ""
 
-#: pmpro-variable-pricing.php:200
+#. translators: placeholder is for minimum amount
+#: pmpro-variable-pricing.php:202
 msgid "Minimum price of %s or higher."
 msgstr ""
 
-#: pmpro-variable-pricing.php:205
+#. translators: placeholder is for maximum amount
+#: pmpro-variable-pricing.php:208
 msgid "%s or lower."
 msgstr ""
 
-#: pmpro-variable-pricing.php:209
+#: pmpro-variable-pricing.php:212
 msgid "Any"
 msgstr ""
 
-#: pmpro-variable-pricing.php:216
+#. translators: placeholder is for suggested price amount
+#: pmpro-variable-pricing.php:220
 msgid "Suggested Price: %s."
 msgstr ""
 
-#: pmpro-variable-pricing.php:256
+#. translators: placeholders are for minimum and maximum amounts
+#: pmpro-variable-pricing.php:261
 msgid "Enter a price between %1$s and %2$s."
 msgstr ""
 
-#: pmpro-variable-pricing.php:262
+#. translators: placeholder is for minimum amount
+#: pmpro-variable-pricing.php:268
 msgid "Enter a minimum price of %s or higher."
 msgstr ""
 
-#: pmpro-variable-pricing.php:267
+#. translators: placeholder is for maximum amount
+#: pmpro-variable-pricing.php:274
 msgid "Enter a price of %s or lower."
 msgstr ""
 
-#: pmpro-variable-pricing.php:271
+#: pmpro-variable-pricing.php:278
 msgid "Enter a price for your membership"
 msgstr ""
 
-#: pmpro-variable-pricing.php:282
+#. translators: placeholder is for currency symbol
+#: pmpro-variable-pricing.php:290
 msgid "Your price: %s"
 msgstr ""
 
-#: pmpro-variable-pricing.php:286
+#: pmpro-variable-pricing.php:294
 msgid "Your price:"
 msgstr ""
 
-#: pmpro-variable-pricing.php:365
+#. translators: placeholders are for a currency symbol and the numerical amount
+#: pmpro-variable-pricing.php:374
 msgid "The highest accepted price is %1$s%2$s. Please enter a new amount."
 msgstr ""
