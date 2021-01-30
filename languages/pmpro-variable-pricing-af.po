@@ -1,0 +1,150 @@
+# Copyright (C) 2021 Paid Memberships Pro
+# This file is distributed under the same license as the Paid Memberships Pro - Variable Pricing Add On plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Paid Memberships Pro - Variable Pricing Add On .4.4\n"
+"Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
+"Last-Translator: \n"
+"Language-Team: Afrikaans\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2021-01-30T06:18:19+00:00\n"
+"PO-Revision-Date: 2021-01-30 07:38+0000\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Domain: pmpro-variable-pricing\n"
+"Language: af\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Loco-Version: 2.5.0; wp-5.6"
+
+#. translators: placeholder is for maximum amount
+#: pmpro-variable-pricing.php:208
+msgid "%s or lower."
+msgstr "%s of minder."
+
+#. Description of the plugin
+msgid ""
+"Allow customers to set their own price when checking out for your membership "
+"levels."
+msgstr ""
+"Laat kliënte toe om hulle eie prys te bepaal wanneer hulle aanteken vir jou "
+"lidmaatskap vlakke."
+
+#: pmpro-variable-pricing.php:212
+msgid "Any"
+msgstr "Enige"
+
+#. translators: placeholders are for minimum and maximum amounts
+#: pmpro-variable-pricing.php:195
+msgid "Between %1$s and %2$s."
+msgstr "Tussen %1$s en %2$s."
+
+#: pmpro-variable-pricing.php:75
+msgid "Enable Variable Pricing"
+msgstr "Aktiveer Veranderlike Pryse"
+
+#: pmpro-variable-pricing.php:73
+msgid "Enable:"
+msgstr "Aktiveer:"
+
+#. translators: placeholder is for minimum amount
+#: pmpro-variable-pricing.php:268
+msgid "Enter a minimum price of %s or higher."
+msgstr "Voer 'n minimum prys van %s of meer in."
+
+#. translators: placeholders are for minimum and maximum amounts
+#: pmpro-variable-pricing.php:261
+msgid "Enter a price between %1$s and %2$s."
+msgstr "Voer 'n prys tussen %1$s en %2$s in."
+
+#: pmpro-variable-pricing.php:278
+msgid "Enter a price for your membership"
+msgstr "Voer 'n prys in vir jou lidmaatskap"
+
+#. translators: placeholder is for maximum amount
+#: pmpro-variable-pricing.php:274
+msgid "Enter a price of %s or lower."
+msgstr "Voer 'n prys van %s of minder in."
+
+#. Author URI of the plugin
+msgid "https://www.paidmembershipspro.com"
+msgstr "https://www.paidmembershipspro.com"
+
+#. Plugin URI of the plugin
+msgid "https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/"
+msgstr "https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/"
+
+#: pmpro-variable-pricing.php:68
+#| msgid ""
+#| "If variable pricing is enabled, users will be able to set their own price "
+#| "at checkout. That price will override any initial payment and billing "
+#| "amount values you set on this level. You can set the minimum, maxium, and "
+#| "suggested price for this level."
+msgid ""
+"If variable pricing is enabled, users will be able to set their own price at "
+"checkout. That price will override any initial payment and billing amount "
+"values you set on this level. You can set the minimum, maximum, and "
+"suggested price for this level."
+msgstr ""
+"As veranderlike pryse geaktiveer is, sal gebruikers hul eie prys by die "
+"afhandeling kan stel. Daardie prys sal enige aanvanklike betalings- en "
+"faktureringsbedragwaardes, wat jy op hierdie vlak gestel het, oorheers. U "
+"kan die minimum, maksimum en voorgestelde prys vir hierdie vlak stel."
+
+#: pmpro-variable-pricing.php:88
+msgid "Leave this blank to allow any maximum amount."
+msgstr "Los hierdie leeg om enige maksimum hoeveelheid toe te laat."
+
+#: pmpro-variable-pricing.php:85
+msgid "Max Price:"
+msgstr "Maksimum Prys:"
+
+#: pmpro-variable-pricing.php:79
+msgid "Min Price:"
+msgstr "Minimum Prys:"
+
+#. translators: placeholder is for minimum amount
+#: pmpro-variable-pricing.php:202
+msgid "Minimum price of %s or higher."
+msgstr "Minimum prys van %s of meer."
+
+#. Author of the plugin
+msgid "Paid Memberships Pro"
+msgstr "Paid Memberships Pro"
+
+#. Plugin Name of the plugin
+msgid "Paid Memberships Pro - Variable Pricing Add On"
+msgstr "Paid Memberships Pro - Variable Pricing Add On"
+
+#: pmpro-variable-pricing.php:92
+msgid "Suggested Price:"
+msgstr "Voorgestelde Prys:"
+
+#. translators: placeholder is for suggested price amount
+#: pmpro-variable-pricing.php:220
+msgid "Suggested Price: %s."
+msgstr "Voorgestelde Prys: %s"
+
+#. translators: placeholders are for a currency symbol and the numerical amount
+#: pmpro-variable-pricing.php:374
+msgid "The highest accepted price is %1$s%2$s. Please enter a new amount."
+msgstr ""
+"Die hoogste aanvaarbare prys is %1$s%2$s. Voer asseblief 'n nuwe hoeveelheid "
+"in."
+
+#: pmpro-variable-pricing.php:67 pmpro-variable-pricing.php:165
+msgid "Variable Pricing"
+msgstr "Veranderlike Pryse"
+
+#: pmpro-variable-pricing.php:95
+msgid "You may leave this blank."
+msgstr "Jy kan dit leeg los."
+
+#: pmpro-variable-pricing.php:294
+msgid "Your price:"
+msgstr "Jou prys:"
+
+#. translators: placeholder is for currency symbol
+#: pmpro-variable-pricing.php:290
+msgid "Your price: %s"
+msgstr "Jou prys: %s"
