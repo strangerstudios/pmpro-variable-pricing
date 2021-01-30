@@ -7,6 +7,7 @@ Version: .4.4
 Author: Paid Memberships Pro
 Author URI: https://www.paidmembershipspro.com
 Text Domain: pmpro-variable-pricing
+Domain Path: /languages
 */
 
 /*
