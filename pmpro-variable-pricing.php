@@ -353,7 +353,7 @@ function pmprovp_pmpro_registration_checks( $continue ) {
 			// check that the price falls between the min and max
 			if ( (double) $price < (double) $vpfields['min_price'] ) {
 				$pmpro_msg  = sprintf(
-					__( 'The lowest accepted price is %1$s%2$s. Please enter a new amount.', 'pmpro-variable-procing' ),
+					__( 'The lowest accepted price is %1$s%2$s. Please enter a new amount.', 'pmpro-variable-pricing' ),
 					esc_html( $pmpro_currency_symbol ),
 					esc_html( $vpfields['min_price'] )
 				);
@@ -472,8 +472,8 @@ Function to add links to the plugin row meta
 function pmprovp_plugin_row_meta( $links, $file ) {
 	if ( strpos( $file, 'pmpro-variable-pricing.php' ) !== false ) {
 		$new_links = array(
-			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/' ) . '" title="' . esc_attr( __( 'View Documentation', 'pmpro' ) ) . '">' . __( 'Docs', 'paid-memberships-pro' ) . '</a>',
-			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/support/' ) . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'paid-memberships-pro' ) ) . '">' . __( 'Support', 'paid-memberships-pro' ) . '</a>',
+			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/' ) . '" title="' . esc_attr( __( 'View Documentation', 'pmpro-variable-pricing' ) ) . '">' . __( 'Docs', 'pmpro-variable-pricing' ) . '</a>',
+			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/support/' ) . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro-variable-pricing' ) ) . '">' . __( 'Support', 'pmpro-variable-pricing' ) . '</a>',
 		);
 		$links     = array_merge( $links, $new_links );
 	}
