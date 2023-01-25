@@ -398,7 +398,7 @@ function pmprovp_init_load_session_vars() {
 		$_REQUEST['price'] = $_SESSION['price'];
 	}
 }
-add_action( 'init', 'pmprovp_init_load_session_vars', 5 );
+add_action( 'pmpro_checkout_preheader_before_get_level_at_checkout', 'pmprovp_init_load_session_vars', 5 );
 
 /**
  * Register and set variables for JavaScript
