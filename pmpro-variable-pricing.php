@@ -19,6 +19,8 @@ Text Domain: pmpro-variable-pricing
 	- Set price is the "suggested price"
 */
 
+define( 'PMPROVP_VERSION', '0.4.4' );
+
 /*
 	Load plugin textdomain.
 */
@@ -244,7 +246,7 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 
 
 	if ( isset( $_REQUEST['price'] ) ) {
-		$price = preg_replace( '[^0-9\.]', '', $_REQUEST['price'] );
+		$price = preg_replace( '[^0-9\.]', '', floatval( $_REQUEST['price'] ) );
 	} else {
 		$price = $suggested_price;
 	}
@@ -294,8 +296,8 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 ?>
 <div class="pmprovp">
 	<p class="pmprovp_price_text_description"><?php echo esc_html( $price_text_description ); ?></p>
-<p class="pmprovp_price_input"><?php echo esc_html( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" <?php if( $pmpro_review ) { ?> readonly <?php } ?>/> <?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) &&  $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo $pmpro_currency_symbol; } ?>
-	<span id="pmprovp-warning" class="pmpro_message pmpro_alert" style="display:none;"><small><?php echo $price_text_description; ?></small></span></p>
+<p class="pmprovp_price_input"><?php echo esc_html( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" <?php if( $pmpro_review ) { ?> readonly <?php } ?>/> <?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) &&  $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo esc_html( $pmpro_currency_symbol ); } ?>
+	<span id="pmprovp-warning" class="pmpro_message pmpro_alert" style="display:none;"><small><?php echo esc_html( $price_text_description ); ?></small></span></p>
 </div> <!-- end .pmprovp -->
 <?php
 }
@@ -312,7 +314,7 @@ function pmprovp_pmpro_checkout_level( $level ) {
 	}
 
 	if ( isset( $_REQUEST['price'] ) ) {
-		$price = preg_replace( '[^0-9\.\,]', '', $_REQUEST['price'] );
+		$price = preg_replace( '[^0-9\.\,]', '', floatval( $_REQUEST['price'] ) );
 	}
 
 	if ( isset( $price ) ) {
@@ -348,7 +350,7 @@ function pmprovp_pmpro_registration_checks( $continue ) {
 			}
 
 			// get price
-			$price = preg_replace( '[^0-9\.]', '', $_REQUEST['price'] );
+			$price = preg_replace( '[^0-9\.]', '', floatval( $_REQUEST['price'] ) );
 
 			// check that the price falls between the min and max
 			if ( (double) $price < (double) $vpfields['min_price'] ) {
@@ -380,7 +382,7 @@ add_filter( 'pmpro_registration_checks', 'pmprovp_pmpro_registration_checks' );
 // save fields in session for PayPal Express/etc
 function pmprovp_pmpro_paypalexpress_session_vars() {
 	if ( ! empty( $_REQUEST['price'] ) ) {
-		$_SESSION['price'] = $_REQUEST['price'];
+		$_SESSION['price'] = floatval( $_REQUEST['price'] );
 	} else {
 		$_SESSION['price'] = '';
 	}
@@ -395,7 +397,7 @@ function pmprovp_init_load_session_vars() {
 	}
 
 	if ( empty( $_REQUEST['price'] ) && ! empty( $_SESSION['price'] ) ) {
-		$_REQUEST['price'] = $_SESSION['price'];
+		$_REQUEST['price'] = floatval( $_SESSION['price'] );
 	}
 }
 add_action( 'pmpro_checkout_preheader_before_get_level_at_checkout', 'pmprovp_init_load_session_vars', 5 );
@@ -428,7 +430,7 @@ function pmprovp_load_scripts() {
 		$gateway = pmpro_getOption( 'gateway' );
 	}
 
-	wp_register_script( 'pmprovp', plugins_url( 'javascript/pmpro-variable-pricing.js', __FILE__ ), array( 'jquery' ), '0.4', true );
+	wp_register_script( 'pmprovp', plugins_url( 'javascript/pmpro-variable-pricing.js', __FILE__ ), array( 'jquery' ), PMPROVP_VERSION, true );
 
 	wp_localize_script(
 		'pmprovp', 'pmprovp', array(
@@ -472,8 +474,8 @@ Function to add links to the plugin row meta
 function pmprovp_plugin_row_meta( $links, $file ) {
 	if ( strpos( $file, 'pmpro-variable-pricing.php' ) !== false ) {
 		$new_links = array(
-			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/' ) . '" title="' . esc_attr( __( 'View Documentation', 'pmpro-variable-pricing' ) ) . '">' . __( 'Docs', 'pmpro-variable-pricing' ) . '</a>',
-			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/support/' ) . '" title="' . esc_attr( __( 'Visit Customer Support Forum', 'pmpro-variable-pricing' ) ) . '">' . __( 'Support', 'pmpro-variable-pricing' ) . '</a>',
+			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/' ) . '" title="' . esc_attr__( 'View Documentation', 'pmpro-variable-pricing' ) . '">' . esc_html__( 'Docs', 'pmpro-variable-pricing' ) . '</a>',
+			'<a href="' . esc_url( 'https://www.paidmembershipspro.com/support/' ) . '" title="' . esc_attr__( 'Visit Customer Support Forum', 'pmpro-variable-pricing' ). '">' . esc_html__( 'Support', 'pmpro-variable-pricing' ) . '</a>',
 		);
 		$links     = array_merge( $links, $new_links );
 	}
