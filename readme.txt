@@ -24,7 +24,12 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 
 == Changelog ==
 
-= .4.4 - 09-04-2020 =
+= 0.4.5 - 2023-01-30 =
+* ENHANCEMENT: Improved translation logic within the plugin and translated some missing strings.
+* ENHANCEMENT: Updated French translation (@paullaffitte).
+* BUG FIX: Fixed an issue where PHP sessions were interfering with the REST API.
+
+= .4.4 - 2020-04-09 =
 *  BUG FIX: Fixed issue where non variable pricing levels would still be able to adjust the price via query parameters.
 
 = .4.3 =
@@ -60,5 +65,3 @@ Please post it in the issues section of GitHub and we'll fix it as soon as we ca
 
 = .2 =
 * Updated JS logic to hide/show billing to work for PayPal, PayPal Express, and Stripe (with no billing fields) gateway options.
-
-= .1 =
