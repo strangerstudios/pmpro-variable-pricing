@@ -16,7 +16,7 @@ msgstr ""
 
 #. Plugin Name of the plugin
 msgid "Paid Memberships Pro - Variable Pricing Add On"
-msgstr "Paid Memberships Pro - Add-On pour Prix Variables"
+msgstr ""
 
 #. Plugin URI of the plugin
 msgid "https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/"
@@ -24,7 +24,7 @@ msgstr ""
 
 #. Description of the plugin
 msgid "Allow customers to set their own price when checking out for your membership levels."
-msgstr "Autoriser les clients à choisir leur propre prix lors du choix de niveau d'adhésion."
+msgstr ""
 
 #. Author of the plugin
 msgid "Paid Memberships Pro"
@@ -34,132 +34,107 @@ msgstr ""
 msgid "https://www.paidmembershipspro.com"
 msgstr ""
 
-#: pmpro-variable-pricing.php:66
-#: pmpro-variable-pricing.php:164
 #: pmpro-variable-pricing.php:69
 #: pmpro-variable-pricing.php:167
 msgid "Variable Pricing"
-msgstr "Tarification variable"
+msgstr ""
 
-#: pmpro-variable-pricing.php:67
 #: pmpro-variable-pricing.php:70
 msgid "If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maxium, and suggested price for this level."
-msgstr "Si la tarification variable est activée, les utilisateurs pourront définir leur propre prix à la caisse. Ce prix remplace toutes les valeurs de paiement initial et de montant de facturation que vous avez définies à ce niveau. Vous pouvez définir le minimum, le maximum et le prix suggéré pour ce niveau."
+msgstr ""
 
-#: pmpro-variable-pricing.php:72
 #: pmpro-variable-pricing.php:75
 msgid "Enable:"
-msgstr "Activer :"
+msgstr ""
 
-#: pmpro-variable-pricing.php:74
 #: pmpro-variable-pricing.php:77
 msgid "Enable Variable Pricing"
-msgstr "Activer la tarification variable"
+msgstr ""
 
-#: pmpro-variable-pricing.php:78
 #: pmpro-variable-pricing.php:81
 msgid "Min Price:"
-msgstr "Prix minimal :"
+msgstr ""
 
-#: pmpro-variable-pricing.php:84
 #: pmpro-variable-pricing.php:87
 msgid "Max Price:"
-msgstr "Prix maximal :"
+msgstr ""
 
-#: pmpro-variable-pricing.php:87
 #: pmpro-variable-pricing.php:90
 msgid "Leave this blank to allow any maximum amount."
-msgstr "Laissez ce champ vide pour ne pas avoir de montant maximal."
+msgstr ""
 
-#: pmpro-variable-pricing.php:91
 #: pmpro-variable-pricing.php:94
 msgid "Suggested Price:"
-msgstr "Prix suggéré :"
+msgstr ""
 
-#: pmpro-variable-pricing.php:94
 #: pmpro-variable-pricing.php:97
 msgid "You may leave this blank."
-msgstr "Vous pouvez laisser ce champ vide."
+msgstr ""
 
-#: pmpro-variable-pricing.php:193
 #: pmpro-variable-pricing.php:196
 msgid "Between %1$s and %2$s."
-msgstr "Entre %1$s et %2$s."
+msgstr ""
 
-#: pmpro-variable-pricing.php:199
 #: pmpro-variable-pricing.php:202
 msgid "Minimum price of %s or higher."
-msgstr "Prix minimum de %s ou plus."
+msgstr ""
 
-#: pmpro-variable-pricing.php:204
 #: pmpro-variable-pricing.php:207
 msgid "%s or lower."
-msgstr "%s ou moins."
+msgstr ""
 
-#: pmpro-variable-pricing.php:208
 #: pmpro-variable-pricing.php:211
 msgid "Any"
-msgstr "Peu importe"
+msgstr ""
 
-#: pmpro-variable-pricing.php:215
 #: pmpro-variable-pricing.php:218
 msgid "Suggested Price: %s."
-msgstr "Prix suggéré: %s."
+msgstr ""
 
-#: pmpro-variable-pricing.php:255
 #: pmpro-variable-pricing.php:258
 msgid "Enter a price between %1$s and %2$s."
-msgstr "Entrez un prix entre %1$s et %2$s."
+msgstr ""
 
-#: pmpro-variable-pricing.php:261
 #: pmpro-variable-pricing.php:264
 msgid "Enter a minimum price of %s or higher."
-msgstr "Entrez un prix minimum de %s ou plus."
+msgstr ""
 
-#: pmpro-variable-pricing.php:266
 #: pmpro-variable-pricing.php:269
 msgid "Enter a price of %s or lower."
-msgstr "Entrez un prix de %s%s ou plus."
+msgstr ""
 
-#: pmpro-variable-pricing.php:270
 #: pmpro-variable-pricing.php:273
 msgid "Enter a price for your membership"
-msgstr "Entrez un prix pour votre adhésion"
+msgstr ""
 
-#: pmpro-variable-pricing.php:281
 #: pmpro-variable-pricing.php:284
 msgid "Your price: %s"
-msgstr "Votre prix : %s"
+msgstr ""
 
-#: pmpro-variable-pricing.php:285
 #: pmpro-variable-pricing.php:288
 msgid "Your price:"
-msgstr "Votre prix :"
-
-#: pmpro-variable-pricing.php:364
-#: pmpro-variable-pricing.php:367
-msgid "The highest accepted price is %1$s%2$s. Please enter a new amount."
-msgstr "Le prix le plus élevé accepté est %1$s%2$s. Veuillez entrer un nouveau montant."
-
-#~ msgid "Error: You tried to set the price on a level that doesn't have variable pricing. Please try again."
-#~ msgstr "Erreur: Vous avez essayé de définir le prix à un niveau qui n'a pas de prix variable. Veuillez réessayer."
+msgstr ""
 
 #: pmpro-variable-pricing.php:359
-#~ msgid "The lowest accepted price is %1$s%2$s. Please enter a new amount."
-#~ msgstr "Le prix accepté le plus bas est %1$s%2$s. Veuillez entrer un nouveau montant."
+msgid "The lowest accepted price is %1$s%2$s. Please enter a new amount."
+msgstr ""
+
+#: pmpro-variable-pricing.php:367
+msgid "The highest accepted price is %1$s%2$s. Please enter a new amount."
+msgstr ""
 
 #: pmpro-variable-pricing.php:478
-#~ msgid "View Documentation"
-#~ msgstr "Afficher la documentation"
+msgid "View Documentation"
+msgstr ""
 
 #: pmpro-variable-pricing.php:478
-#~ msgid "Docs"
-#~ msgstr "Documentation"
+msgid "Docs"
+msgstr ""
 
 #: pmpro-variable-pricing.php:479
-#~ msgid "Visit Customer Support Forum"
-#~ msgstr "Visitez le forum de support client"
+msgid "Visit Customer Support Forum"
+msgstr ""
 
 #: pmpro-variable-pricing.php:479
-#~ msgid "Support"
-#~ msgstr "Support"
+msgid "Support"
+msgstr ""
