@@ -423,12 +423,12 @@ function pmprovp_load_scripts() {
 	}
 
 	// Bail if PMPro is not loaded.
-	if ( ! function_exists( 'pmpro_getOption' ) ) {
+	if ( ! function_exists( 'pmpro_init' ) ) {
 		return;
 	}
 
 	if ( empty( $gateway ) ) {
-		$gateway = pmpro_getOption( 'gateway' );
+		$gateway = get_option( 'pmpro_gateway' );
 	}
 
 	wp_register_script( 'pmprovp', plugins_url( 'javascript/pmpro-variable-pricing.js', __FILE__ ), array( 'jquery' ), PMPROVP_VERSION, true );
