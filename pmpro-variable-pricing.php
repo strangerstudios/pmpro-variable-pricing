@@ -423,7 +423,7 @@ function pmprovp_load_scripts() {
 	}
 
 	// Bail if PMPro is not loaded.
-	if ( ! function_exists( 'pmpro_init' ) ) {
+	if ( ! function_exists( 'pmpro_getGateway' ) ) {
 		return;
 	}
 
