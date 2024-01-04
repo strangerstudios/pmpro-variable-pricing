@@ -40,10 +40,10 @@ function pmprovp_get_settings( $level_id ) {
 		'max_price'        => '',
 		'suggested_price'  => '',
 	);
-	$settings = get_option( "pmprovp_{$level_id}", $defaults );
-	$settings = array_merge( $defaults, $settings );  // make sure newly added settings have defaults appended
 
-	return $settings;
+	$existing_settings = empty( $level_id ) ? array() : get_option( "pmprovp_{$level_id}", array() );
+
+	return array_merge( $defaults, $existing_settings );
 }
 
 /*
@@ -342,7 +342,8 @@ function pmprovp_pmpro_registration_checks( $continue ) {
 		// was a price passed in?
 		if ( isset( $_REQUEST['price'] ) ) {
 			// get values
-			$level_id = intval( $_REQUEST['level'] );
+			$level    = pmpro_getLevelAtCheckout();
+			$level_id = empty( $level->id ) ? null : intval( $level->id );
 			$vpfields = pmprovp_get_settings( $level_id );
 
 			// Bail if the Variable Pricing is not set for this level.
