@@ -3,7 +3,7 @@
  * Plugin Name: Paid Memberships Pro - Variable Pricing Add On
  * Plugin URI: https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/
  * Description: Allow customers to set their own price when checking out for your membership levels.
- * Version: 0.4.5
+ * Version: 0.4.6
  * Author: Paid Memberships Pro
  * Author URI: https://www.paidmembershipspro.com
  * Text Domain: pmpro-variable-pricing
@@ -20,7 +20,7 @@
 	- Set price is the "suggested price"
 */
 
-define( 'PMPROVP_VERSION', '0.4.4' );
+define( 'PMPROVP_VERSION', '0.4.6' );
 
 /*
 	Load plugin textdomain.
@@ -40,10 +40,10 @@ function pmprovp_get_settings( $level_id ) {
 		'max_price'        => '',
 		'suggested_price'  => '',
 	);
-	$settings = get_option( "pmprovp_{$level_id}", $defaults );
-	$settings = array_merge( $defaults, $settings );  // make sure newly added settings have defaults appended
 
-	return $settings;
+	$existing_settings = empty( $level_id ) ? array() : get_option( "pmprovp_{$level_id}", array() );
+
+	return array_merge( $defaults, $existing_settings );
 }
 
 /*
@@ -66,7 +66,7 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 		$suggested_price  = '';
 	}
 ?>
-<h3 class="topborder"><?php esc_html_e( 'Variable Pricing', 'pmpro-variable-pricing' ); ?></h3>
+<h2 class="topborder"><?php esc_html_e( 'Variable Pricing', 'pmpro-variable-pricing' ); ?></h2>
 <p><?php esc_html_e( 'If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maxium, and suggested price for this level.', 'pmpro-variable-pricing' ); ?></p>
 
 <table>
@@ -342,7 +342,8 @@ function pmprovp_pmpro_registration_checks( $continue ) {
 		// was a price passed in?
 		if ( isset( $_REQUEST['price'] ) ) {
 			// get values
-			$level_id = intval( $_REQUEST['level'] );
+			$level    = pmpro_getLevelAtCheckout();
+			$level_id = empty( $level->id ) ? null : intval( $level->id );
 			$vpfields = pmprovp_get_settings( $level_id );
 
 			// Bail if the Variable Pricing is not set for this level.
@@ -423,12 +424,12 @@ function pmprovp_load_scripts() {
 	}
 
 	// Bail if PMPro is not loaded.
-	if ( ! function_exists( 'pmpro_getOption' ) ) {
+	if ( ! function_exists( 'pmpro_getGateway' ) ) {
 		return;
 	}
 
 	if ( empty( $gateway ) ) {
-		$gateway = pmpro_getOption( 'gateway' );
+		$gateway = get_option( 'pmpro_gateway' );
 	}
 
 	wp_register_script( 'pmprovp', plugins_url( 'javascript/pmpro-variable-pricing.js', __FILE__ ), array( 'jquery' ), PMPROVP_VERSION, true );
