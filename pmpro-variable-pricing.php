@@ -41,12 +41,9 @@ function pmprovp_get_settings( $level_id ) {
 		'suggested_price'  => '',
 	);
 
-	if ( ! empty( $level_id) ) {
-		$settings = get_option( "pmprovp_{$level_id}", $defaults );
-		$settings = array_merge( $defaults, $settings );  // make sure newly added settings have defaults appended
-	}
+	$existing_settings = empty( $level_id ) ? array() : get_option( "pmprovp_{$level_id}", array() );
 
-	return $settings;
+	return array_merge( $defaults, $existing_settings );
 }
 
 /*
