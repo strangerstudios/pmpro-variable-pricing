@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2024-01-04T17:07:32+00:00\n"
+"POT-Creation-Date: 2024-01-04T17:16:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.9.0\n"
 "X-Domain: pmpro-variable-pricing\n"
@@ -137,53 +137,35 @@ msgid "Your price:"
 msgstr "Votre prix :"
 
 #: pmpro-variable-pricing.php:364
-<<<<<<< HEAD
 #: pmpro-variable-pricing.php:367
-=======
 #: pmpro-variable-pricing.php:368
->>>>>>> dev
 msgid "The highest accepted price is %1$s%2$s. Please enter a new amount."
 msgstr "Le prix le plus élevé accepté est %1$s%2$s. Veuillez entrer un nouveau montant."
 
 #~ msgid "Error: You tried to set the price on a level that doesn't have variable pricing. Please try again."
 #~ msgstr "Erreur: Vous avez essayé de définir le prix à un niveau qui n'a pas de prix variable. Veuillez réessayer."
 
-<<<<<<< HEAD
 #: pmpro-variable-pricing.php:359
-#~ msgid "The lowest accepted price is %1$s%2$s. Please enter a new amount."
-#~ msgstr "Le prix accepté le plus bas est %1$s%2$s. Veuillez entrer un nouveau montant."
-
-#: pmpro-variable-pricing.php:478
-#~ msgid "View Documentation"
-#~ msgstr "Afficher la documentation"
-
-#: pmpro-variable-pricing.php:478
-#~ msgid "Docs"
-#~ msgstr "Documentation"
-
 #: pmpro-variable-pricing.php:479
-#~ msgid "Visit Customer Support Forum"
-#~ msgstr "Visitez le forum de support client"
-
-#: pmpro-variable-pricing.php:479
-=======
 #: pmpro-variable-pricing.php:360
 #~ msgid "The lowest accepted price is %1$s%2$s. Please enter a new amount."
 #~ msgstr "Le prix accepté le plus bas est %1$s%2$s. Veuillez entrer un nouveau montant."
 
+#: pmpro-variable-pricing.php:478
 #: pmpro-variable-pricing.php:479
 #~ msgid "View Documentation"
 #~ msgstr "Afficher la documentation"
 
+#: pmpro-variable-pricing.php:478
 #: pmpro-variable-pricing.php:479
 #~ msgid "Docs"
 #~ msgstr "Documentation"
 
+#: pmpro-variable-pricing.php:479
 #: pmpro-variable-pricing.php:480
 #~ msgid "Visit Customer Support Forum"
 #~ msgstr "Visitez le forum de support client"
 
 #: pmpro-variable-pricing.php:480
->>>>>>> dev
 #~ msgid "Support"
 #~ msgstr "Support"
