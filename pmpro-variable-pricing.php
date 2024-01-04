@@ -3,7 +3,7 @@
  * Plugin Name: Paid Memberships Pro - Variable Pricing Add On
  * Plugin URI: https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/
  * Description: Allow customers to set their own price when checking out for your membership levels.
- * Version: 0.4.5
+ * Version: 0.4.6
  * Author: Paid Memberships Pro
  * Author URI: https://www.paidmembershipspro.com
  * Text Domain: pmpro-variable-pricing
@@ -20,7 +20,7 @@
 	- Set price is the "suggested price"
 */
 
-define( 'PMPROVP_VERSION', '0.4.4' );
+define( 'PMPROVP_VERSION', '0.4.6' );
 
 /*
 	Load plugin textdomain.
