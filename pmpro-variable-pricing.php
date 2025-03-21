@@ -124,7 +124,10 @@ add_action( 'pmpro_membership_level_after_other_settings', 'pmprovp_pmpro_member
 
 // save level cost text when the level is saved/added
 function pmprovp_pmpro_save_membership_level( $level_id ) {
-	$variable_pricing = intval( $_REQUEST['variable_pricing'] );
+	$variable_pricing =	0;
+	if ( isset( $_REQUEST['variable_pricing'] ) ) {
+		$variable_pricing = intval( $_REQUEST['variable_pricing'] );
+	}
 	$min_price        = preg_replace( '[^0-9\.]', '', $_REQUEST['min_price'] );
 	$max_price        = preg_replace( '[^0-9\.]', '', $_REQUEST['max_price'] );
 	$suggested_price  = preg_replace( '[^0-9\.]', '', $_REQUEST['suggested_price'] );
@@ -306,6 +309,10 @@ add_action( 'pmpro_checkout_after_level_cost', 'pmprovp_pmpro_checkout_after_lev
 
 // set price
 function pmprovp_pmpro_checkout_level( $level ) {
+	//Bail if level object is empty.
+	if ( empty( $level->id ) ) {
+		return $level;
+	}
 	// Get variable pricing info.
 	$vpfields = pmprovp_get_settings( $level->id );
 
