@@ -296,13 +296,12 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 
 ?>
 	<fieldset id="pmpro-variable-pricing" class="<?php echo esc_attr( pmpro_get_element_class(
-				'pmpro_form_fieldset pmpro-variable-pricing' ) ); ?>">
+				'pmpro_form_fieldset pmpro-variable-pricing', 'pmpro-variable-pricing' ) ); ?>">
 		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card') ); ?>">
 			<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_content' ) ); ?>">
 				<legend class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_legend' ) ); ?>">
 					<h2 class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_heading pmpro_font-large' ) ); ?>">
-						<!-- add text within a filter for easier customization -->
-						 <?php echo apply_filters( 'pmprovp_checkout_price_legend', esc_html__( 'Variable Pricing', 'pmpro-variable-pricing' ) ); ?>
+						 <?php echo esc_html__( 'Variable Pricing', 'pmpro-variable-pricing' ); ?>
 					</h2>
 				</legend>
 				<p class="<?php echo esc_attr( pmpro_get_element_class( "pmprovp_price_text_description" ) ) ?>">
@@ -310,11 +309,11 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 				</p>
 				<p class="<?php echo esc_attr( pmpro_get_element_class( "pmprovp_price_input" ) ) ?>">
 					<?php echo esc_html( $price_text ); ?>
-					<input type="text" id="price" name="price" size="10" value="<?php echo esc_attr( $price ); ?>" style="width:auto;" <?php if( $pmpro_review ) { ?> readonly <?php } ?>/>
+					<input type="text" id="price" name="price" size="10" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-text', 'price' ) ); ?>" value="<?php echo esc_attr( $price ); ?>" style="width:auto;" <?php if( $pmpro_review ) { ?> readonly <?php } ?>/>
 					<?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) &&  $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) {
 							echo esc_html( $pmpro_currency_symbol );
 					} ?>
-					<span id="pmprovp-warning" class="<?php echo esc_attr( pmpro_get_element_class( "pmpro_message pmpro_alert" ) ) ?>" style="display:none;">
+					<span id="pmprovp-warning" class="<?php echo esc_attr( pmpro_get_element_class( "pmpro_message pmpro_alert", 'pmprovp-warning' ) ) ?>" style="display:none;">
 						<small>
 							<?php echo esc_html( $price_text_description ); ?>
 						</small>
