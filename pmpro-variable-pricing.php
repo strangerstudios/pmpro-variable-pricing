@@ -100,27 +100,21 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 </tbody>
 </table>
 <script>
-	jQuery(document).ready( function( $ ) {
-		/**
-		 * Toggle settings based on the variable pricing checkbox.
-		 */
+	jQuery(document).ready(function(){
 		function pmprovp_toggleSettings() {
-			const pmprovp_enabled = $( '#pmprovp_variable_pricing:checked' ).val();
-			$( 'tr.pmprovp_setting' ).show();
-			if(! pmprovp_enabled ) {
-				//disable
-				$( 'tr.pmprovp_setting' ).hide();
+			var pmprovp_enabled = jQuery('#pmprovp_variable_pricing:checked').val();
+
+			if(typeof pmprovp_enabled == 'undefined') {
+				//disabled
+				jQuery('tr.pmprovp_setting').hide();
+			} else {
+				//enabled
+				jQuery('tr.pmprovp_setting').show();
 			}
 		}
 
-		/**
-		 * Toggle settings based on the variable pricing checkbox.
-		 */
-		$('#pmprovp_variable_pricing').change( function() {
-			pmprovp_toggleSettings();
-		});
+		jQuery('#pmprovp_variable_pricing').change(function(){pmprovp_toggleSettings()});
 
-		//run on load
 		pmprovp_toggleSettings();
 	});
 </script>
@@ -130,12 +124,7 @@ add_action( 'pmpro_membership_level_after_other_settings', 'pmprovp_pmpro_member
 
 // save level cost text when the level is saved/added
 function pmprovp_pmpro_save_membership_level( $level_id ) {
-	//If the request is empty, set the variable pricing to 0, otherwise we get a warning.
-	if ( empty( $_REQUEST['variable_pricing'] ) ) {
-		$variable_pricing = 0;
-	} else {
-		$variable_pricing = intval( $_REQUEST['variable_pricing'] );
-	}
+	$variable_pricing = isset( $_REQUEST['variable_pricing'] ) ? intval( $_REQUEST['variable_pricing'] ) : 0;
 	$min_price        = preg_replace( '[^0-9\.]', '', $_REQUEST['min_price'] );
 	$max_price        = preg_replace( '[^0-9\.]', '', $_REQUEST['max_price'] );
 	$suggested_price  = preg_replace( '[^0-9\.]', '', $_REQUEST['suggested_price'] );
