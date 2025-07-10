@@ -145,8 +145,15 @@ add_action( 'pmpro_save_membership_level', 'pmprovp_pmpro_save_membership_level'
 */
 // override level cost text on checkout page
 function pmprovp_pmpro_level_cost_text( $text, $level ) {
-	global $pmpro_pages;
-	if ( is_page( $pmpro_pages['checkout'] ) && !did_action( 'pmpro_after_checkout' ) ) {
+	global $pmpro_pages, $pmpro_review;
+
+	// Bail if we are not on the checkout page.
+	if ( is_page( $pmpro_pages['checkout'] ) && ! did_action( 'pmpro_after_checkout' ) ) {
+		// Bail if we are in the review step.
+		if ( $pmpro_review ) {
+			return $text;
+		}
+
 		$vpfields = pmprovp_get_settings( $level->id );
 		if ( ! empty( $vpfields ) && ! empty( $vpfields['variable_pricing'] ) ) {
 			$text = '';
@@ -232,6 +239,11 @@ add_action( 'pmpro_membership_levels_table_extra_cols_body', 'pmprovp_pmpro_memb
 function pmprovp_pmpro_checkout_after_level_cost() {
 	global $pmpro_level, $gateway, $pmpro_review, $pmpro_currencies, $pmpro_currency, $pmpro_currency_symbol;
 
+	// Return if we are in the review step.
+	if ( $pmpro_review ) {
+		return;
+	}
+
 	// get variable pricing info
 	$vpfields = pmprovp_get_settings( $pmpro_level->id );
 
@@ -310,7 +322,7 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 							<?php echo esc_html( $price_text ); ?>
 							<span class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_asterisk' ) ); ?>"> <abbr title="<?php esc_attr_e( 'Required Field' ,'paid-memberships-pro' ); ?>">*</abbr></span>
 						</label>
-						<input type="text" id="price" name="price" aria-describedby="pmprovp-price-description" size="20" required class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-text pmpro_form_input-price pmpro_form_input-required pmpro_alter_price', 'pmpro_form_input-price' ) ); ?>" style="align-self: start" value="<?php echo esc_attr( $price ); ?>"<?php echo $pmpro_review ? 'readonly' :  '' ?>/>
+						<input type="text" id="price" name="price" aria-describedby="pmprovp-price-description" size="20" required class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-text pmpro_form_input-price pmpro_form_input-required pmpro_alter_price', 'pmpro_form_input-price' ) ); ?>" style="align-self: start" value="<?php echo esc_attr( $price ); ?>" />
 					</div> <!-- end pmpro_form_field -->
 				</div> <!-- end pmpro_form_fields -->
 			</div> <!-- end pmpro_card_content -->
