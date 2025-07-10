@@ -1,4 +1,10 @@
+# Items to ignore when downloading a zip
+
+# Files
 .gitattributes export-ignore
-.github export-ignore
-README.MD export-ignore
+.gitignore export-ignore
 pmpro-variable-pricing-banner.png export-ignore
+README.md export-ignore
+
+# Folders
+.github export-ignore
