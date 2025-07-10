@@ -318,7 +318,7 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 	</fieldset>
 <?php
 }
-add_action( 'pmpro_checkout_boxes', 'pmprovp_pmpro_checkout_after_level_cost' );
+add_action( 'pmpro_checkout_boxes', 'pmprovp_pmpro_checkout_after_level_cost', 5 );
 
 // set price
 function pmprovp_pmpro_checkout_level( $level ) {
