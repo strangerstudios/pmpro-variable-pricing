@@ -130,55 +130,57 @@ jQuery( document ).ready(
 			},
 			checkPrice: function() {
 
-				var min_price = PMProVariablePricing.vp_data.min_price;
-				var max_price = PMProVariablePricing.vp_data.max_price;
+				// Site-defined pricing variables.
+				const min_price = PMProVariablePricing.vp_data.min_price;
+				const max_price = PMProVariablePricing.vp_data.max_price;
 
-				// price entered on checkout.
-				var vp_price = PMProVariablePricing.priceElem.val();
+				// Price entered on checkout.
+				const vp_price = PMProVariablePricing.priceElem.val();
 
-				// Bail if no limits are set.
+				// Form field elements and values.
+				const priceInput = document.querySelector( 'input#price' );
+				const value = parseFloat( vp_price );
+				const minPrice = parseFloat( min_price );
+				const maxPrice = parseFloat( max_price );
+				const priceDescription = document.querySelector( '#pmprovp-price-description' );
+
+				// Clear validity and return early if empty
+				if ( !vp_price ) {
+					priceInput.setCustomValidity('');
+					priceInput.classList.remove('pmpro_form_input-error');
+					return;
+				}
+
+				// Return early if no min or max price is set.
 				if ( !min_price && !max_price ) {
 					return;
 				}
-				
 
-				//  Check values against constraints.
-				if ( min_price && max_price ) { // Check if price entered is greater than min_price and enable checkout button if true.
-					if ( parseFloat( vp_price ) >= parseFloat( min_price ) && parseFloat( vp_price ) <= parseFloat( max_price )) {
-						jQuery( '#pmprovp-warning' ).hide();
-						jQuery( 'input#price').removeClass( 'pmpro_error' );
-					} else {
-						jQuery( '#pmprovp-warning'  ).show();
-						jQuery( 'input#price').addClass( 'pmpro_error' );
-					}
-				} else if ( min_price && !max_price ) { // check only min price
-					if ( parseFloat( vp_price ) >= parseFloat( min_price ) ) {
-						jQuery( '#pmprovp-warning' ).hide();
-						jQuery( 'input#price').removeClass( 'pmpro_error' );
-					} else {
-						jQuery( '#pmprovp-warning'  ).show();
-						jQuery( 'input#price').addClass( 'pmpro_error' );
-					}
-				} else if ( !min_price && max_price) { // check if only max price
-					if ( parseFloat( vp_price ) <= parseFloat( max_price )) {
-						jQuery( '#pmprovp-warning' ).hide();
-						jQuery( 'input#price').removeClass( 'pmpro_error' );
-					} else {
-						jQuery( '#pmprovp-warning'  ).show();
-						jQuery( 'input#price').addClass( 'pmpro_error' );
-					}
-				} else {  //fallback in case we get here.
-					jQuery( '#pmprovp-warning' ).hide();
-					jQuery( 'input#price').removeClass( 'pmpro_error' );
+				// Invalid number
+				if ( isNaN( value ) ) {
+					priceInput.setCustomValidity(priceDescription.textContent);
+					priceInput.classList.add('pmpro_form_input-error');
+					return;
 				}
 
+				// Check values against constraints.
+				let isValid = true;
 
-				// remove warning if field is empty.
-				if ( ! vp_price ) {
-					jQuery( '#pmprovp-warning' ).hide();
-					jQuery( 'input#price').removeClass( 'pmpro_error' );
+				if ( min_price && max_price ) {
+					isValid = value >= minPrice && value <= maxPrice;
+				} else if ( min_price && !max_price ) {
+					isValid = value >= minPrice;
+				} else if ( !min_price && max_price ) {
+					isValid = value <= maxPrice;
 				}
 
+				if ( isValid ) {
+					priceInput.setCustomValidity('');
+					priceInput.classList.remove('pmpro_form_input-error');
+				} else {
+					priceInput.setCustomValidity(priceDescription.textContent);
+					priceInput.classList.add('pmpro_form_input-error');
+				}
 			}
 		}
 
