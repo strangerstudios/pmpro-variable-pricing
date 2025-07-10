@@ -142,7 +142,7 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 	</script>
 	<?php
 }
-add_action( 'pmpro_membership_level_before_content_settings', 'pmprovp_pmpro_membership_level_after_other_settings' );
+add_action( 'pmpro_membership_level_after_expiration_settings', 'pmprovp_pmpro_membership_level_after_other_settings' );
 
 // save level cost text when the level is saved/added
 function pmprovp_pmpro_save_membership_level( $level_id ) {
