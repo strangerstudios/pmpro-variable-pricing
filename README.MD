@@ -1,6 +1,6 @@
 ![](pmpro-variable-pricing-banner.png)
 
-# [Variable Pricing](https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/) #
+# [Paid Memberships Pro - Variable Pricing](https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/) #
 [comment]: # (Generate badges from shields.io, only works for .org plugins to get other stats etc. We'd have to create our own endpoints for Premium plugins)
 
 ![License](https://img.shields.io/badge/license-GPL--2.0%2B-red.svg?style=flat-square)
@@ -35,3 +35,4 @@ Here are some ways for **non-developers to contribute** to Variable Pricing:
 
 1. Translate Variable Pricing into your own [language](https://www.paidmembershipspro.com/paid-memberships-pro-in-your-language/).
 2. [Purchase a paid membership](https://paidmembershipspro.com/pricing) to help fund ongoing development and bug fixes.
+3. Leave an honest review for [Paid Memberships Pro - Variable Pricing](https://www.paidmembershipspro.com/submit-testimonial/).
