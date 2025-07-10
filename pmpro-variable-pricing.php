@@ -65,62 +65,84 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 		$max_price        = '';
 		$suggested_price  = '';
 	}
-?>
-<h3 class="topborder"><?php esc_html_e( 'Variable Pricing', 'pmpro-variable-pricing' ); ?></h3>
-<p><?php esc_html_e( 'If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maxium, and suggested price for this level.', 'pmpro-variable-pricing' ); ?></p>
+	if ( ! empty( $variable_pricing ) ) {
+		$section_visibility = 'visible';
+		$section_activated  = 'true';
+	} else {
+		$section_visibility = 'hidden';
+		$section_activated  = 'false';
+	}
+	?>
+	<div id="pmpro-variable-pricing" class="pmpro_section" data-visibility="<?php echo esc_attr( $section_visibility ); ?>" data-activated="<?php echo esc_attr( $section_activated ); ?>">
+		<div class="pmpro_section_toggle">
+			<button class="pmpro_section-toggle-button" type="button" aria-expanded="<?php echo $section_visibility === 'hidden' ? 'false' : 'true'; ?>">
+				<span class="dashicons dashicons-arrow-<?php echo $section_visibility === 'hidden' ? 'down' : 'up'; ?>-alt2"></span>
+				<?php esc_html_e( 'Variable Pricing Settings', 'pmpro-variable-pricing' ); ?>
+			</button>
+		</div>
+		<div class="pmpro_section_inside" <?php echo $section_visibility === 'hidden' ? 'style="display: none"' : ''; ?>>
+			<p><?php esc_html_e( 'If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maxium, and suggested price for this level.', 'pmpro-variable-pricing' ); ?></p>
+			<table>
+				<tbody class="form-table">
+					<tr>
+						<th scope="row" valign="top"><label for="pmprovp_variable_pricing"><?php esc_html_e( 'Enable', 'pmpro-variable-pricing' ); ?></label></th>
+						<td>
+							<input type="checkbox" name="variable_pricing" id="pmprovp_variable_pricing" value="1" <?php checked( $variable_pricing, '1' ); ?> /> <label for="pmprovp_variable_pricing"><?php esc_html_e( 'Enable Variable Pricing', 'pmpro-variable-pricing' ); ?></label>
+						</td>
+					</tr>
+					<tr class="pmprovp_setting">
+						<th scope="row" valign="top"><label for="pmprovp_min_price"><?php esc_html_e( 'Min Price', 'pmpro-variable-pricing' ); ?></label></th>
+						<td>
+							<?php echo esc_html( $pmpro_currency_symbol ); ?> <input type="text" name="min_price" id="pmprovp_min_price" value="<?php echo esc_attr( $min_price ); ?>" class="regular-text" />
+						</td>
+					</tr>
+					<tr class="pmprovp_setting">
+						<th scope="row" valign="top"><label for="pmprovp_max_price"><?php esc_html_e( 'Max Price', 'pmpro-variable-pricing' ); ?></label></th>
+						<td>
+							<?php echo esc_html( $pmpro_currency_symbol ); ?> <input type="text" name="max_price" id="pmprovp_max_price" value="<?php echo esc_attr( $max_price ); ?>" class="regular-text" />
+							<p class="description"><?php esc_html_e( 'Leave this blank to allow any maximum amount.', 'pmpro-variable-pricing' ); ?></p>
+						</td>
+					</tr>
+					<tr class="pmprovp_setting">
+						<th scope="row" valign="top"><label for="pmprovp_suggested_price"><?php esc_html_e( 'Suggested Price', 'pmpro-variable-pricing' ); ?></label></th>
+						<td>
+							<?php echo esc_html( $pmpro_currency_symbol ); ?> <input type="text" name="suggested_price" id="pmprovp_suggested_price" value="<?php echo esc_attr( $suggested_price ); ?>" class="regular-text" />
+							<p class="description"><?php esc_html_e( 'You may leave this blank.', 'pmpro-variable-pricing' ); ?></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<p>
+				<?php
+					$variable_pricing_link = '<a title="' . esc_attr__( 'Paid Memberships Pro - Variable Pricing Add On', 'paid-memberships-pro' ) . '" target="_blank" rel="nofollow noopener" href="https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/?utm_source=plugin&utm_medium=pmpro-membershiplevels&utm_campaign=add-ons&utm_content=variable-pricing">' . esc_html__( 'Variable Pricing', 'paid-memberships-pro' ) . '</a>';
+					// translators: %s: Link to Variable Pricing doc.
+					printf( esc_html__('Learn more about %s.', 'paid-memberships-pro' ), $variable_pricing_link ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				?>
+			</p>
+		</div>
+	</div>
+	<script>
+		jQuery(document).ready(function(){
+			function pmprovp_toggleSettings() {
+				var pmprovp_enabled = jQuery('#pmprovp_variable_pricing:checked').val();
 
-<table>
-<tbody class="form-table">
-	<tr>
-		<th scope="row" valign="top"><label for="pmprovp_variable_pricing"><?php _e( 'Enable:', 'pmpro-variable-pricing' ); ?></label></th>
-		<td>
-			<input type="checkbox" name="variable_pricing" id="pmprovp_variable_pricing" value="1" <?php checked( $variable_pricing, '1' ); ?> /> <label for="pmprovp_variable_pricing"><?php _e( 'Enable Variable Pricing', 'pmpro-variable-pricing' ); ?></label>
-		</td>
-	</tr>
-	<tr class="pmprovp_setting">
-		<th scope="row" valign="top"><label for="pmprovp_min_price"><?php _e( 'Min Price:', 'pmpro-variable-pricing' ); ?></label></th>
-		<td>
-			<?php echo esc_html( $pmpro_currency_symbol ); ?><input type="text" name="min_price" id="pmprovp_min_price" value="<?php echo esc_attr( $min_price ); ?>" />
-		</td>
-	</tr>
-	<tr class="pmprovp_setting">
-		<th scope="row" valign="top"><label for="pmprovp_max_price"><?php esc_html_e( 'Max Price:', 'pmpro-variable-pricing' ); ?></label></th>
-		<td>
-			<?php echo esc_html( $pmpro_currency_symbol ); ?><input type="text" name="max_price" id="pmprovp_max_price" value="<?php echo esc_attr( $max_price ); ?>" />
-			<?php esc_html_e( 'Leave this blank to allow any maximum amount.', 'pmpro-variable-pricing' ); ?>
-		</td>
-	</tr>
-	<tr class="pmprovp_setting">
-		<th scope="row" valign="top"><label for="pmprovp_suggested_price"><?php esc_html_e( 'Suggested Price:', 'pmpro-variable-pricing' ); ?></label></th>
-		<td>
-			<?php echo esc_html( $pmpro_currency_symbol ); ?><input type="text" name="suggested_price" id="pmprovp_suggested_price" value="<?php echo esc_attr( $suggested_price ); ?>" />
-			<?php esc_html_e( 'You may leave this blank.', 'pmpro-variable-pricing' ); ?>
-		</td>
-	</tr>
-</tbody>
-</table>
-<script>
-	jQuery(document).ready(function(){
-		function pmprovp_toggleSettings() {
-			var pmprovp_enabled = jQuery('#pmprovp_variable_pricing:checked').val();
-
-			if(typeof pmprovp_enabled == 'undefined') {
-				//disabled
-				jQuery('tr.pmprovp_setting').hide();
-			} else {
-				//enabled
-				jQuery('tr.pmprovp_setting').show();
+				if(typeof pmprovp_enabled == 'undefined') {
+					//disabled
+					jQuery('tr.pmprovp_setting').hide();
+				} else {
+					//enabled
+					jQuery('tr.pmprovp_setting').show();
+				}
 			}
-		}
 
-		jQuery('#pmprovp_variable_pricing').change(function(){pmprovp_toggleSettings()});
+			jQuery('#pmprovp_variable_pricing').change(function(){pmprovp_toggleSettings()});
 
-		pmprovp_toggleSettings();
-	});
-</script>
-<?php
+			pmprovp_toggleSettings();
+		});
+	</script>
+	<?php
 }
-add_action( 'pmpro_membership_level_after_other_settings', 'pmprovp_pmpro_membership_level_after_other_settings' );
+add_action( 'pmpro_membership_level_before_content_settings', 'pmprovp_pmpro_membership_level_after_other_settings' );
 
 // save level cost text when the level is saved/added
 function pmprovp_pmpro_save_membership_level( $level_id ) {
