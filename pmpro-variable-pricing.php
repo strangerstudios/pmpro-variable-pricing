@@ -145,8 +145,15 @@ add_action( 'pmpro_save_membership_level', 'pmprovp_pmpro_save_membership_level'
 */
 // override level cost text on checkout page
 function pmprovp_pmpro_level_cost_text( $text, $level ) {
-	global $pmpro_pages;
-	if ( is_page( $pmpro_pages['checkout'] ) && !did_action( 'pmpro_after_checkout' ) ) {
+	global $pmpro_pages, $pmpro_review;
+
+	// Bail if we are not on the checkout page.
+	if ( is_page( $pmpro_pages['checkout'] ) && ! did_action( 'pmpro_after_checkout' ) ) {
+		// Bail if we are in the review step.
+		if ( $pmpro_review ) {
+			return $text;
+		}
+
 		$vpfields = pmprovp_get_settings( $level->id );
 		if ( ! empty( $vpfields ) && ! empty( $vpfields['variable_pricing'] ) ) {
 			$text = '';
@@ -232,6 +239,11 @@ add_action( 'pmpro_membership_levels_table_extra_cols_body', 'pmprovp_pmpro_memb
 function pmprovp_pmpro_checkout_after_level_cost() {
 	global $pmpro_level, $gateway, $pmpro_review, $pmpro_currencies, $pmpro_currency, $pmpro_currency_symbol;
 
+	// Return if we are in the review step.
+	if ( $pmpro_review ) {
+		return;
+	}
+
 	// get variable pricing info
 	$vpfields = pmprovp_get_settings( $pmpro_level->id );
 
@@ -281,11 +293,11 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 		
 	if ( empty( $pmpro_currencies[$pmpro_currency]['position'] ) || $pmpro_currencies[$pmpro_currency]['position'] == 'left' ) {
 		$price_text = sprintf(
-			__( 'Your price: %s', 'pmpro-variable-pricing' ),
+			__( 'Your Price (%s)', 'pmpro-variable-pricing' ),
 			esc_html( $pmpro_currency_symbol )
 		);
 	} else {
-		$price_text = __( 'Your price:', 'pmpro-variable-pricing' );
+		$price_text = __( 'Your Price', 'pmpro-variable-pricing' );
 	}
 	
 	/**
@@ -295,14 +307,30 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 	$price_text = apply_filters( 'pmprovp_checkout_price_input_label', $price_text );
 
 ?>
-<div class="pmprovp">
-	<p class="pmprovp_price_text_description"><?php echo esc_html( $price_text_description ); ?></p>
-<p class="pmprovp_price_input"><?php echo esc_html( $price_text ); ?> <input type="text" id="price" name="price" size="10" value="<?php esc_attr_e( $price ); ?>" style="width:auto;" <?php if( $pmpro_review ) { ?> readonly <?php } ?>/> <?php if ( !empty( $pmpro_currencies[$pmpro_currency]['position'] ) &&  $pmpro_currencies[$pmpro_currency]['position'] == 'right' ) { echo esc_html( $pmpro_currency_symbol ); } ?>
-	<span id="pmprovp-warning" class="pmpro_message pmpro_alert" style="display:none;"><small><?php echo esc_html( $price_text_description ); ?></small></span></p>
-</div> <!-- end .pmprovp -->
+	<fieldset id="pmprovp_fields" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fieldset', 'pmprovp_fields' ) ); ?>">
+		<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card' ) ); ?>">
+			<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_card_content' ) ); ?>">
+				<legend class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_legend' ) ); ?>">
+					<h2 class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_heading pmpro_font-large' ) ); ?>"><?php esc_html_e( 'Membership Pricing', 'pmpro-variable-pricing' ); ?></h2>
+				</legend>
+				<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fields' ) ); ?>">
+					<div id="pmprovp-price-description" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_fields-description', 'pmprovp-price-description' ) ) ?>">
+						<?php echo esc_html( $price_text_description ); ?>
+					</div>
+					<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_field pmpro_form_field-text pmpro_form_field-price pmpro_form_field-required', 'pmpro_form_field-price' ) ) ?>">
+						<label for="price" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_label' ) ); ?>">
+							<?php echo esc_html( $price_text ); ?>
+							<span class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_asterisk' ) ); ?>"> <abbr title="<?php esc_attr_e( 'Required Field' ,'paid-memberships-pro' ); ?>">*</abbr></span>
+						</label>
+						<input type="text" id="price" name="price" aria-describedby="pmprovp-price-description" size="20" required class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-text pmpro_form_input-price pmpro_form_input-required pmpro_alter_price', 'pmpro_form_input-price' ) ); ?>" style="align-self: start" value="<?php echo esc_attr( $price ); ?>" />
+					</div> <!-- end pmpro_form_field -->
+				</div> <!-- end pmpro_form_fields -->
+			</div> <!-- end pmpro_card_content -->
+		</div> <!-- end pmpro_card -->
+	</fieldset>
 <?php
 }
-add_action( 'pmpro_checkout_after_level_cost', 'pmprovp_pmpro_checkout_after_level_cost' );
+add_action( 'pmpro_checkout_boxes', 'pmprovp_pmpro_checkout_after_level_cost', 5 );
 
 // set price
 function pmprovp_pmpro_checkout_level( $level ) {
@@ -484,3 +512,4 @@ function pmprovp_plugin_row_meta( $links, $file ) {
 	return $links;
 }
 add_filter( 'plugin_row_meta', 'pmprovp_plugin_row_meta', 10, 2 );
+
