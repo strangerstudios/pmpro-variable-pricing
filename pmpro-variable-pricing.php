@@ -344,26 +344,28 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 							<?php echo esc_html( $price_text ); ?>
 							<span class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_asterisk' ) ); ?>"> <abbr title="<?php esc_attr_e( 'Required Field' ,'paid-memberships-pro' ); ?>">*</abbr></span>
 						</label>
-						<input type="text" id="price" name="price" aria-describedby="pmprovp-price-description" size="20" required class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-text pmpro_form_input-price pmpro_form_input-required pmpro_alter_price', 'pmpro_form_input-price' ) ); ?>" style="align-self: start" value="<?php echo esc_attr( $price ); ?>" />
-						<?php
-						// Show recurring period if applicable.
-						if ( ! empty( $pmpro_level->billing_amount ) && $pmpro_level->billing_amount > 0 ) {
-							switch ( $pmpro_level->cycle_period ) {
-								case 'Day':
-									echo esc_html( sprintf( _n( 'per day', 'per %d days', $pmpro_level->cycle_number, 'pmpro-variable-pricing' ), $pmpro_level->cycle_number ) );
-									break;
-								case 'Week':
-									echo esc_html( sprintf( _n( 'per week', 'per %d weeks', $pmpro_level->cycle_number, 'pmpro-variable-pricing' ), $pmpro_level->cycle_number ) );
-									break;
-								case 'Year':
-									echo esc_html( sprintf( _n( 'per year', 'per %d years', $pmpro_level->cycle_number, 'pmpro-variable-pricing' ), $pmpro_level->cycle_number ) );
-									break;
-								default:
-									echo esc_html( sprintf( _n( 'per month', 'per %d months', $pmpro_level->cycle_number, 'pmpro-variable-pricing' ), $pmpro_level->cycle_number ) );
-									break;
+						<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmprovp_field-price' ) ); ?>">
+							<input type="text" id="price" name="price" aria-describedby="pmprovp-price-description" size="20" required class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-text pmpro_form_input-price pmpro_form_input-required pmpro_alter_price', 'pmpro_form_input-price' ) ); ?>" style="align-self: start" value="<?php echo esc_attr( $price ); ?>" />
+							<?php
+							// Show recurring period if applicable.
+							if ( ! empty( $pmpro_level->billing_amount ) && $pmpro_level->billing_amount > 0 ) {
+								switch ( $pmpro_level->cycle_period ) {
+									case 'Day':
+										echo esc_html( sprintf( _n( 'per day', 'per %d days', $pmpro_level->cycle_number, 'pmpro-variable-pricing' ), $pmpro_level->cycle_number ) );
+										break;
+									case 'Week':
+										echo esc_html( sprintf( _n( 'per week', 'per %d weeks', $pmpro_level->cycle_number, 'pmpro-variable-pricing' ), $pmpro_level->cycle_number ) );
+										break;
+									case 'Year':
+										echo esc_html( sprintf( _n( 'per year', 'per %d years', $pmpro_level->cycle_number, 'pmpro-variable-pricing' ), $pmpro_level->cycle_number ) );
+										break;
+									default:
+										echo esc_html( sprintf( _n( 'per month', 'per %d months', $pmpro_level->cycle_number, 'pmpro-variable-pricing' ), $pmpro_level->cycle_number ) );
+										break;
+								}
 							}
-						}
-						?>
+							?>
+						</div> <!-- end pmprovp_field-price -->
 					</div> <!-- end pmpro_form_field -->
 				</div> <!-- end pmpro_form_fields -->
 			</div> <!-- end pmpro_card_content -->
