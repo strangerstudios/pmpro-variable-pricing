@@ -221,32 +221,121 @@ function pmprovp_pmpro_membership_levels_table_extra_cols_body( $level ) { ?>
 
 		// Setup price text description based on price ranges.
 		if ( ! empty( $max_price ) && ! empty( $min_price ) ) {
-			$price_text_description = sprintf(
-				__( 'Between %1$s and %2$s.', 'pmpro-variable-pricing' ),
-				esc_html( pmpro_formatPrice( $vpfields['min_price'] ) ),
-				esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
-			);
+			if ( empty( $level->billing_amount ) || $level->billing_amount <= 0 ) {
+				$price_text_description = sprintf(
+					// translators: %1$s - min price, %2$s - max price
+					__( 'Between %1$s and %2$s.', 'pmpro-variable-pricing' ),
+					esc_html( pmpro_formatPrice( $vpfields['min_price'] ) ),
+					esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
+				);
+			} elseif ( $level->cycle_number == 1 ) {
+				$price_text_description = sprintf(
+					// translators: %1$s - min price, %2$s - max price, %3$s - billing period
+					__( 'Between %1$s and %2$s per %3$s.', 'pmpro-variable-pricing' ),
+					esc_html( pmpro_formatPrice( $vpfields['min_price'] ) ),
+					esc_html( pmpro_formatPrice( $vpfields['max_price'] ) ),
+					esc_html( pmpro_translate_billing_period( $level->cycle_period, $level->cycle_number ) )
+				);
+			} else {
+				$price_text_description = sprintf(
+					// translators: %1$s - min price, %2$s - max price, %3$d - cycle number, %4$s - billing period
+					__( 'Between %1$s and %2$s every %3$d %4$s.', 'pmpro-variable-pricing' ),
+					esc_html( pmpro_formatPrice( $vpfields['min_price'] ) ),
+					esc_html( pmpro_formatPrice( $vpfields['max_price'] ) ),
+					esc_html( $level->cycle_number ),
+					esc_html( pmpro_translate_billing_period( $level->cycle_period, $level->cycle_number ) )
+				);
+			}
 		} elseif( ! empty( $min_price ) && empty( $max_price ) ) {
-			$price_text_description = sprintf(
-				__( 'Minimum price of %s or higher.', 'pmpro-variable-pricing' ),
-				esc_html( pmpro_formatPrice( $vpfields['min_price'] ) )
-			);
+			if ( empty( $level->billing_amount ) || $level->billing_amount <= 0 ) {
+				$price_text_description = sprintf(
+					// translators: %s - min price
+					__( 'Minimum price of %s or higher.', 'pmpro-variable-pricing' ),
+					esc_html( pmpro_formatPrice( $vpfields['min_price'] ) )
+				);
+			} elseif ( $level->cycle_number == 1 ) {
+				$price_text_description = sprintf(
+					// translators: %1$s - min price, %2$s - billing period
+					__( 'Minimum price of %1$s per %2$s.', 'pmpro-variable-pricing' ),
+					esc_html( pmpro_formatPrice( $vpfields['min_price'] ) ),
+					esc_html( pmpro_translate_billing_period( $level->cycle_period, $level->cycle_number ) )
+				);
+			} else {
+				$price_text_description = sprintf(
+					// translators: %1$s - min price, %2$d - cycle number, %3$s - billing period
+					__( 'Minimum price of %1$s every %2$d %3$s.', 'pmpro-variable-pricing' ),
+					esc_html( pmpro_formatPrice( $vpfields['min_price'] ) ),
+					esc_html( $level->cycle_number ),
+					esc_html( pmpro_translate_billing_period( $level->cycle_period, $level->cycle_number ) )
+				);
+			}
 		} elseif( ! empty( $max_price ) && empty( $min_price ) ) {
-			$price_text_description = sprintf(
-				__( '%s or lower.', 'pmpro-variable-pricing' ),
-				esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
-			);
+			if ( empty( $level->billing_amount ) || $level->billing_amount <= 0 ) {
+				$price_text_description = sprintf(
+					// translators: %s - max price
+					__( 'Maximum price of %s or lower.', 'pmpro-variable-pricing' ),
+					esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
+				);
+			} elseif ( $level->cycle_number == 1 ) {
+				$price_text_description = sprintf(
+					// translators: %1$s - max price, %2$s - billing period
+					__( 'Maximum price of %1$s per %2$s.', 'pmpro-variable-pricing' ),
+					esc_html( pmpro_formatPrice( $vpfields['max_price'] ) ),
+					esc_html( pmpro_translate_billing_period( $level->cycle_period, $level->cycle_number ) )
+				);
+			} else {
+				$price_text_description = sprintf(
+					// translators: %1$s - max price, %2$d - cycle number, %3$s - billing period
+					__( 'Maximum price of %1$s every %2$d %3$s.', 'pmpro-variable-pricing' ),
+					esc_html( pmpro_formatPrice( $vpfields['max_price'] ) ),
+					esc_html( $level->cycle_number ),
+					esc_html( pmpro_translate_billing_period( $level->cycle_period, $level->cycle_number ) )
+				);
+			}
 		} else {
-			$price_text_description = __( 'Any', 'pmpro-variable-pricing' );
+			if ( empty( $level->billing_amount ) || $level->billing_amount <= 0 ) {
+				$price_text_description = __( 'Any.', 'pmpro-variable-pricing' );
+			} elseif ( $level->cycle_number == 1 ) {
+				$price_text_description = sprintf(
+					// translators: %s - billing period
+					__( 'Any price per %s.', 'pmpro-variable-pricing' ),
+					esc_html( pmpro_translate_billing_period( $level->cycle_period, $level->cycle_number ) )
+				);
+			} else {
+				$price_text_description = sprintf(
+					// translators: %1$d - cycle number, %2$s - billing period
+					__( 'Any price every %1$d %2$s.', 'pmpro-variable-pricing' ),
+					esc_html( $level->cycle_number ),
+					esc_html( pmpro_translate_billing_period( $level->cycle_period, $level->cycle_number ) )
+				);
+			}
 		}
 
 		// Show suggested price if specified.
 		if ( ! empty( $suggested_price ) ) {
 			$price_text_description .= '<br />';
-			$price_text_description .= sprintf(
-				__( 'Suggested Price: %s.', 'pmpro-variable-pricing' ),
-				esc_html( pmpro_formatPrice( $vpfields['suggested_price'] ) )
-			);
+			if ( empty( $level->billing_amount) || $level->billing_amount <= 0 ) {
+				$price_text_description .= sprintf(
+					// translators: %s - suggested price
+					__( 'Suggested Price: %s.', 'pmpro-variable-pricing' ),
+					esc_html( pmpro_formatPrice( $vpfields['suggested_price'] ) )
+				);
+			} elseif ( $level->cycle_number == 1 ) {
+				$price_text_description .= sprintf(
+					// translators: %1$s - suggested price, %2$s - billing period
+					__( 'Suggested Price: %1$s per %2$s.', 'pmpro-variable-pricing' ),
+					esc_html( pmpro_formatPrice( $vpfields['suggested_price'] ) ),
+					esc_html( pmpro_translate_billing_period( $level->cycle_period, $level->cycle_number ) )
+				);
+			} else {
+				$price_text_description .= sprintf(
+					// translators: %1$s - suggested price, %2$d - cycle number, %3$s - billing period
+					__( 'Suggested Price: %1$s every %2$d %3$s.', 'pmpro-variable-pricing' ),
+					esc_html( pmpro_formatPrice( $vpfields['suggested_price'] ) ),
+					esc_html( $level->cycle_number ),
+					esc_html( pmpro_translate_billing_period( $level->cycle_period, $level->cycle_number ) )
+				);
+			}
 		}
 
 		// Display the price text and suggested price in the row.
@@ -349,19 +438,12 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 							<?php
 							// Show recurring period if applicable.
 							if ( ! empty( $pmpro_level->billing_amount ) && $pmpro_level->billing_amount > 0 ) {
-								switch ( $pmpro_level->cycle_period ) {
-									case 'Day':
-										echo esc_html( sprintf( _n( 'per day', 'per %d days', $pmpro_level->cycle_number, 'pmpro-variable-pricing' ), $pmpro_level->cycle_number ) );
-										break;
-									case 'Week':
-										echo esc_html( sprintf( _n( 'per week', 'per %d weeks', $pmpro_level->cycle_number, 'pmpro-variable-pricing' ), $pmpro_level->cycle_number ) );
-										break;
-									case 'Year':
-										echo esc_html( sprintf( _n( 'per year', 'per %d years', $pmpro_level->cycle_number, 'pmpro-variable-pricing' ), $pmpro_level->cycle_number ) );
-										break;
-									default:
-										echo esc_html( sprintf( _n( 'per month', 'per %d months', $pmpro_level->cycle_number, 'pmpro-variable-pricing' ), $pmpro_level->cycle_number ) );
-										break;
+								if  ( 1 == $pmpro_level->cycle_number ) {
+									// translators: %s - period.
+									echo esc_html( sprintf( __( 'per %s', 'paid-memberships-pro' ), pmpro_translate_billing_period( $pmpro_level->cycle_period, $pmpro_level->cycle_number ) ) );
+								} else {
+									// translators: %1$d - number, %2$s - period.
+									echo esc_html( sprintf( __( 'every %1$d %2$s', 'paid-memberships-pro' ), $pmpro_level->cycle_number, pmpro_translate_billing_period( $pmpro_level->cycle_period, $pmpro_level->cycle_number ) ) );
 								}
 							}
 							?>
