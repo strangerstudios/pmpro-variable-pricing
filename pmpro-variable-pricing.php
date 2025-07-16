@@ -114,9 +114,9 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 			</table>
 			<p>
 				<?php
-					$variable_pricing_link = '<a title="' . esc_attr__( 'Paid Memberships Pro - Variable Pricing Add On', 'paid-memberships-pro' ) . '" target="_blank" rel="nofollow noopener" href="https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/?utm_source=plugin&utm_medium=pmpro-membershiplevels&utm_campaign=add-ons&utm_content=variable-pricing">' . esc_html__( 'Variable Pricing', 'paid-memberships-pro' ) . '</a>';
+					$variable_pricing_link = '<a title="' . esc_attr__( 'Paid Memberships Pro - Variable Pricing Add On', 'pmpro-variable-pricing' ) . '" target="_blank" rel="nofollow noopener" href="https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/?utm_source=plugin&utm_medium=pmpro-membershiplevels&utm_campaign=add-ons&utm_content=variable-pricing">' . esc_html__( 'Variable Pricing', 'pmpro-variable-pricing' ) . '</a>';
 					// translators: %s: Link to Variable Pricing doc.
-					printf( esc_html__('Learn more about %s.', 'paid-memberships-pro' ), $variable_pricing_link ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+					printf( esc_html__('Learn more about %s.', 'pmpro-variable-pricing' ), $variable_pricing_link ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				?>
 			</p>
 		</div>
@@ -431,7 +431,7 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 					<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_field pmpro_form_field-text pmpro_form_field-price pmpro_form_field-required', 'pmpro_form_field-price' ) ) ?>">
 						<label for="price" class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_label' ) ); ?>">
 							<?php echo esc_html( $price_text ); ?>
-							<span class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_asterisk' ) ); ?>"> <abbr title="<?php esc_attr_e( 'Required Field' ,'paid-memberships-pro' ); ?>">*</abbr></span>
+							<span class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_asterisk' ) ); ?>"> <abbr title="<?php esc_attr_e( 'Required Field' ,'pmpro-variable-pricing' ); ?>">*</abbr></span>
 						</label>
 						<div class="<?php echo esc_attr( pmpro_get_element_class( 'pmprovp_field-price' ) ); ?>">
 							<input type="text" id="price" name="price" aria-describedby="pmprovp-price-description" size="20" required class="<?php echo esc_attr( pmpro_get_element_class( 'pmpro_form_input pmpro_form_input-text pmpro_form_input-price pmpro_form_input-required pmpro_alter_price', 'pmpro_form_input-price' ) ); ?>" style="align-self: start" value="<?php echo esc_attr( $price ); ?>" />
@@ -440,10 +440,10 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 							if ( ! empty( $pmpro_level->billing_amount ) && $pmpro_level->billing_amount > 0 ) {
 								if  ( 1 == $pmpro_level->cycle_number ) {
 									// translators: %s - period.
-									echo esc_html( sprintf( __( 'per %s', 'paid-memberships-pro' ), pmpro_translate_billing_period( $pmpro_level->cycle_period, $pmpro_level->cycle_number ) ) );
+									echo esc_html( sprintf( __( 'per %s', 'pmpro-variable-pricing' ), pmpro_translate_billing_period( $pmpro_level->cycle_period, $pmpro_level->cycle_number ) ) );
 								} else {
 									// translators: %1$d - number, %2$s - period.
-									echo esc_html( sprintf( __( 'every %1$d %2$s', 'paid-memberships-pro' ), $pmpro_level->cycle_number, pmpro_translate_billing_period( $pmpro_level->cycle_period, $pmpro_level->cycle_number ) ) );
+									echo esc_html( sprintf( __( 'every %1$d %2$s', 'pmpro-variable-pricing' ), $pmpro_level->cycle_number, pmpro_translate_billing_period( $pmpro_level->cycle_period, $pmpro_level->cycle_number ) ) );
 								}
 							}
 							?>
