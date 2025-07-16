@@ -3,7 +3,7 @@
  * Plugin Name: Paid Memberships Pro - Variable Pricing Add On
  * Plugin URI: https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/
  * Description: Allow customers to set their own price when checking out for your membership levels.
- * Version: 0.4.6
+ * Version: 1.0
  * Author: Paid Memberships Pro
  * Author URI: https://www.paidmembershipspro.com
  * Text Domain: pmpro-variable-pricing
@@ -20,7 +20,7 @@
 	- Set price is the "suggested price"
 */
 
-define( 'PMPROVP_VERSION', '0.4.6' );
+define( 'PMPROVP_VERSION', '1.0' );
 
 /*
 	Load plugin textdomain.
@@ -193,7 +193,7 @@ add_filter( 'pmpro_level_cost_text', 'pmprovp_pmpro_level_cost_text', 10, 2 );
  */
 function pmprovp_pmpro_membership_levels_table_extra_cols_header( $level ) {
 	?>
-	<th><?php _e( 'Variable Pricing', 'pmpro-variable-pricing' ); ?></th>
+	<th><?php esc_html_e( 'Variable Pricing', 'pmpro-variable-pricing' ); ?></th>
 	<?php
 }
 add_action( 'pmpro_membership_levels_table_extra_cols_header', 'pmprovp_pmpro_membership_levels_table_extra_cols_header' );
@@ -339,7 +339,7 @@ function pmprovp_pmpro_membership_levels_table_extra_cols_body( $level ) { ?>
 		}
 
 		// Display the price text and suggested price in the row.
-		echo $price_text_description;
+		echo esc_html( $price_text_description );
 	?>
 	</td>
 	<?php
