@@ -508,7 +508,7 @@ function pmprovp_pmpro_registration_checks( $continue ) {
 			$price = preg_replace( '[^0-9\.]', '', floatval( $_REQUEST['price'] ) );
 
 			// check that the price falls between the min and max
-			if ( (double) $price < (double) $vpfields['min_price'] ) {
+			if ( (float) $price < (float) $vpfields['min_price'] ) {
 				$pmpro_msg  = sprintf(
 					__( 'The lowest accepted price is %1$s%2$s. Please enter a new amount.', 'pmpro-variable-pricing' ),
 					esc_html( $pmpro_currency_symbol ),
@@ -516,7 +516,7 @@ function pmprovp_pmpro_registration_checks( $continue ) {
 				);
 				$pmpro_msgt = 'pmpro_error';
 				$continue   = false;
-			} elseif ( ! empty( $vpfields['max_price'] ) && ( (double) $price > (double) $vpfields['max_price'] ) ) {
+			} elseif ( ! empty( $vpfields['max_price'] ) && ( (float) $price > (float) $vpfields['max_price'] ) ) {
 				$pmpro_msg  = sprintf(
 					__( 'The highest accepted price is %1$s%2$s. Please enter a new amount.', 'pmpro-variable-pricing' ),
 					esc_html( $pmpro_currency_symbol ),
