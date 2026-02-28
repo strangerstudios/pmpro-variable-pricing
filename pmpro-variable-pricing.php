@@ -114,7 +114,7 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 			</table>
 			<p>
 				<?php
-					$variable_pricing_link = '<a title="' . esc_attr__( 'Paid Memberships Pro - Variable Pricing Add On', 'pmpro-variable-pricing' ) . '" target="_blank" rel="nofollow noopener" href="https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/?utm_source=plugin&utm_medium=pmpro-membershiplevels&utm_campaign=add-ons&utm_content=variable-pricing">' . esc_html__( 'Variable Pricing', 'pmpro-variable-pricing' ) . '</a>';
+					$variable_pricing_link = '<a title="' . esc_attr__( 'Paid Memberships Pro - Variable Pricing Add On', 'pmpro-variable-pricing' ) . '" target="_blank" rel="nofollow noopener" href="https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/?utm_source=plugin&utm_medium=pmpro-variable-pricing&utm_campaign=add-ons&utm_content=&utm_term=">' . esc_html__( 'Variable Pricing', 'pmpro-variable-pricing' ) . '</a>';
 					// translators: %s: Link to Variable Pricing doc.
 					printf( esc_html__('Learn more about %s.', 'pmpro-variable-pricing' ), $variable_pricing_link ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 				?>
