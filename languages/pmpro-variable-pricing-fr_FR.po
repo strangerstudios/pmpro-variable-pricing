@@ -1,15 +1,15 @@
-# Copyright (C) 2025 Paid Memberships Pro
+# Copyright (C) 2026 Paid Memberships Pro
 # This file is distributed under the same license as the Paid Memberships Pro - Variable Pricing Add On plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Paid Memberships Pro - Variable Pricing Add On 1.0\n"
+"Project-Id-Version: Paid Memberships Pro - Variable Pricing Add On 1.0.1\n"
 "Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
 "Last-Translator: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "Language-Team: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-07-16T19:07:44+00:00\n"
+"POT-Creation-Date: 2026-04-23T16:35:11+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pmpro-variable-pricing\n"
@@ -46,6 +46,7 @@ msgstr ""
 #: pmpro-variable-pricing.php:167
 #: pmpro-variable-pricing.php:117
 #: pmpro-variable-pricing.php:196
+#: pmpro-variable-pricing.php:87
 msgid "Variable Pricing"
 msgstr "Tarification variable"
 
@@ -62,6 +63,7 @@ msgstr "Activer :"
 #: pmpro-variable-pricing.php:74
 #: pmpro-variable-pricing.php:77
 #: pmpro-variable-pricing.php:90
+#: pmpro-variable-pricing.php:97
 msgid "Enable Variable Pricing"
 msgstr "Activer la tarification variable"
 
@@ -78,6 +80,7 @@ msgstr "Prix maximal :"
 #: pmpro-variable-pricing.php:87
 #: pmpro-variable-pricing.php:90
 #: pmpro-variable-pricing.php:103
+#: pmpro-variable-pricing.php:110
 msgid "Leave this blank to allow any maximum amount."
 msgstr "Laissez ce champ vide pour ne pas avoir de montant maximal."
 
@@ -89,6 +92,7 @@ msgstr "Prix suggéré :"
 #: pmpro-variable-pricing.php:94
 #: pmpro-variable-pricing.php:97
 #: pmpro-variable-pricing.php:110
+#: pmpro-variable-pricing.php:117
 msgid "You may leave this blank."
 msgstr "Vous pouvez laisser ce champ vide."
 
@@ -210,27 +214,33 @@ msgid "Variable Pricing Settings"
 msgstr ""
 
 #: pmpro-variable-pricing.php:84
+#: pmpro-variable-pricing.php:85
 msgid "If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maximum, and suggested price for this level."
 msgstr ""
 
 #: pmpro-variable-pricing.php:88
+#: pmpro-variable-pricing.php:95
 msgid "Enable"
 msgstr ""
 
 #: pmpro-variable-pricing.php:94
+#: pmpro-variable-pricing.php:101
 msgid "Min Price"
 msgstr ""
 
 #: pmpro-variable-pricing.php:100
+#: pmpro-variable-pricing.php:107
 msgid "Max Price"
 msgstr ""
 
 #: pmpro-variable-pricing.php:107
+#: pmpro-variable-pricing.php:114
 msgid "Suggested Price"
 msgstr ""
 
 #. translators: %s: Link to Variable Pricing doc.
 #: pmpro-variable-pricing.php:119
+#: pmpro-variable-pricing.php:89
 #, php-format
 msgid "Learn more about %s."
 msgstr ""
@@ -332,4 +342,8 @@ msgstr ""
 #: pmpro-variable-pricing.php:446
 #, php-format
 msgid "every %1$d %2$s"
+msgstr ""
+
+#: pmpro-variable-pricing.php:87
+msgid "Paid Memberships Pro - Variable Pricing Add On Documentation"
 msgstr ""
