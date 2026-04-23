@@ -81,7 +81,14 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 			</button>
 		</div>
 		<div class="pmpro_section_inside" <?php echo $section_visibility === 'hidden' ? 'style="display: none"' : ''; ?>>
-			<p><?php esc_html_e( 'If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maximum, and suggested price for this level.', 'pmpro-variable-pricing' ); ?></p>
+			<p>
+				<?php esc_html_e( 'If variable pricing is enabled, users will be able to set their own price at checkout. That price will override any initial payment and billing amount values you set on this level. You can set the minimum, maximum, and suggested price for this level.', 'pmpro-variable-pricing' ); ?>
+				<?php
+					$variable_pricing_link = '<a title="' . esc_attr__( 'Paid Memberships Pro - Variable Pricing Add On Documentation', 'pmpro-variable-pricing' ) . '" target="_blank" rel="nofollow noopener" href="https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/?utm_source=plugin&utm_medium=pmpro-variable-pricing&utm_campaign=add-ons">' . esc_html__( 'Variable Pricing', 'pmpro-variable-pricing' ) . '</a>';
+					// translators: %s: Link to Variable Pricing doc.
+					printf( esc_html__('Learn more about %s.', 'pmpro-variable-pricing' ), $variable_pricing_link ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+				?>
+			</p>
 			<table>
 				<tbody class="form-table">
 					<tr>
@@ -112,13 +119,6 @@ function pmprovp_pmpro_membership_level_after_other_settings() {
 					</tr>
 				</tbody>
 			</table>
-			<p>
-				<?php
-					$variable_pricing_link = '<a title="' . esc_attr__( 'Paid Memberships Pro - Variable Pricing Add On', 'pmpro-variable-pricing' ) . '" target="_blank" rel="nofollow noopener" href="https://www.paidmembershipspro.com/add-ons/variable-pricing-add-on/?utm_source=plugin&utm_medium=pmpro-membershiplevels&utm_campaign=add-ons&utm_content=variable-pricing">' . esc_html__( 'Variable Pricing', 'pmpro-variable-pricing' ) . '</a>';
-					// translators: %s: Link to Variable Pricing doc.
-					printf( esc_html__('Learn more about %s.', 'pmpro-variable-pricing' ), $variable_pricing_link ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-				?>
-			</p>
 		</div>
 	</div>
 	<script>
