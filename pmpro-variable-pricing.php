@@ -375,11 +375,13 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 	$suggested_price = $vpfields['suggested_price'];
 
 
-	if ( isset( $_REQUEST['price'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Checkout field cast with floatval; the checkout nonce is verified by PMPro core (preheaders/checkout.php).
-		$price = preg_replace( '[^0-9\.]', '', floatval( $_REQUEST['price'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Checkout field cast with floatval; the checkout nonce is verified by PMPro core (preheaders/checkout.php).
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Display only; the value is cast with floatval and escaped on output.
+	if ( isset( $_REQUEST['price'] ) ) {
+		$price = preg_replace( '[^0-9\.]', '', floatval( $_REQUEST['price'] ) );
 	} else {
 		$price = $suggested_price;
 	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 	// setup price text description based on price ranges
 	if ( ! empty( $max_price ) && ! empty( $min_price ) ) {
@@ -473,9 +475,11 @@ function pmprovp_pmpro_checkout_level( $level ) {
 		return $level;
 	}
 
-	if ( isset( $_REQUEST['price'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Checkout field cast with floatval; the checkout nonce is verified by PMPro core (preheaders/checkout.php).
-		$price = preg_replace( '[^0-9\.\,]', '', floatval( $_REQUEST['price'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Checkout field cast with floatval; the checkout nonce is verified by PMPro core (preheaders/checkout.php).
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Value cast with floatval and validated against min/max in pmprovp_pmpro_registration_checks().
+	if ( isset( $_REQUEST['price'] ) ) {
+		$price = preg_replace( '[^0-9\.\,]', '', floatval( $_REQUEST['price'] ) );
 	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 	if ( isset( $price ) ) {
 		$level->initial_payment = $price;
@@ -499,7 +503,8 @@ function pmprovp_pmpro_registration_checks( $continue ) {
 		global $pmpro_currency_symbol, $pmpro_msg, $pmpro_msgt;
 
 		// was a price passed in?
-		if ( isset( $_REQUEST['price'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Checkout field cast with floatval; the checkout nonce is verified by PMPro core (preheaders/checkout.php).
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Value cast with floatval; this function enforces the min/max price.
+		if ( isset( $_REQUEST['price'] ) ) {
 			// get values
 			$level    = pmpro_getLevelAtCheckout();
 			$level_id = empty( $level->id ) ? null : intval( $level->id );
@@ -511,7 +516,8 @@ function pmprovp_pmpro_registration_checks( $continue ) {
 			}
 
 			// get price
-			$price = preg_replace( '[^0-9\.]', '', floatval( $_REQUEST['price'] ) ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Checkout field cast with floatval; the checkout nonce is verified by PMPro core (preheaders/checkout.php).
+			$price = preg_replace( '[^0-9\.]', '', floatval( $_REQUEST['price'] ) );
+			// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 			// check that the price falls between the min and max
 			if ( (float) $price < (float) $vpfields['min_price'] ) {
@@ -542,11 +548,13 @@ add_filter( 'pmpro_registration_checks', 'pmprovp_pmpro_registration_checks' );
 
 // save fields in session for PayPal Express/etc
 function pmprovp_pmpro_paypalexpress_session_vars() {
-	if ( ! empty( $_REQUEST['price'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Checkout field cast with floatval; the checkout nonce is verified by PMPro core (preheaders/checkout.php).
-		$_SESSION['price'] = floatval( $_REQUEST['price'] ); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Checkout field cast with floatval; the checkout nonce is verified by PMPro core (preheaders/checkout.php).
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Value cast with floatval before it is stored in the session.
+	if ( ! empty( $_REQUEST['price'] ) ) {
+		$_SESSION['price'] = floatval( $_REQUEST['price'] );
 	} else {
 		$_SESSION['price'] = '';
 	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 }
 add_action( 'pmpro_paypalexpress_session_vars', 'pmprovp_pmpro_paypalexpress_session_vars' );
 add_action( 'pmpro_before_send_to_twocheckout', 'pmprovp_pmpro_paypalexpress_session_vars', 10, 2 );
