@@ -20,6 +20,10 @@
 	- Set price is the "suggested price"
 */
 
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
 define( 'PMPROVP_VERSION', '1.0.1' );
 
 /*
@@ -52,7 +56,7 @@ function pmprovp_get_settings( $level_id ) {
 // fields on edit page
 function pmprovp_pmpro_membership_level_after_other_settings() {
 	global $pmpro_currency_symbol;
-	$level_id = intval( $_REQUEST['edit'] );
+	$level_id = isset( $_REQUEST['edit'] ) ? intval( $_REQUEST['edit'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only; selects which level's settings to display on the edit level page.
 	if ( $level_id > 0 ) {
 		$vpfields         = pmprovp_get_settings( $level_id );
 		$variable_pricing = $vpfields['variable_pricing'];
@@ -146,10 +150,12 @@ add_action( 'pmpro_membership_level_before_content_settings', 'pmprovp_pmpro_mem
 
 // save level cost text when the level is saved/added
 function pmprovp_pmpro_save_membership_level( $level_id ) {
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Nonce and capability are verified by PMPro core before pmpro_save_membership_level fires (adminpages/membershiplevels.php).
 	$variable_pricing = isset( $_REQUEST['variable_pricing'] ) ? intval( $_REQUEST['variable_pricing'] ) : 0;
-	$min_price        = preg_replace( '[^0-9\.]', '', $_REQUEST['min_price'] );
-	$max_price        = preg_replace( '[^0-9\.]', '', $_REQUEST['max_price'] );
-	$suggested_price  = preg_replace( '[^0-9\.]', '', $_REQUEST['suggested_price'] );
+	$min_price        = isset( $_REQUEST['min_price'] ) ? preg_replace( '[^0-9\.]', '', sanitize_text_field( wp_unslash( $_REQUEST['min_price'] ) ) ) : '';
+	$max_price        = isset( $_REQUEST['max_price'] ) ? preg_replace( '[^0-9\.]', '', sanitize_text_field( wp_unslash( $_REQUEST['max_price'] ) ) ) : '';
+	$suggested_price  = isset( $_REQUEST['suggested_price'] ) ? preg_replace( '[^0-9\.]', '', sanitize_text_field( wp_unslash( $_REQUEST['suggested_price'] ) ) ) : '';
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 	update_option(
 		'pmprovp_' . $level_id, array(
@@ -369,11 +375,13 @@ function pmprovp_pmpro_checkout_after_level_cost() {
 	$suggested_price = $vpfields['suggested_price'];
 
 
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Display only; the value is cast with floatval and escaped on output.
 	if ( isset( $_REQUEST['price'] ) ) {
 		$price = preg_replace( '[^0-9\.]', '', floatval( $_REQUEST['price'] ) );
 	} else {
 		$price = $suggested_price;
 	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 	// setup price text description based on price ranges
 	if ( ! empty( $max_price ) && ! empty( $min_price ) ) {
@@ -467,9 +475,11 @@ function pmprovp_pmpro_checkout_level( $level ) {
 		return $level;
 	}
 
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Value cast with floatval and validated against min/max in pmprovp_pmpro_registration_checks().
 	if ( isset( $_REQUEST['price'] ) ) {
 		$price = preg_replace( '[^0-9\.\,]', '', floatval( $_REQUEST['price'] ) );
 	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 	if ( isset( $price ) ) {
 		$level->initial_payment = $price;
@@ -493,6 +503,7 @@ function pmprovp_pmpro_registration_checks( $continue ) {
 		global $pmpro_currency_symbol, $pmpro_msg, $pmpro_msgt;
 
 		// was a price passed in?
+		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Value cast with floatval; this function enforces the min/max price.
 		if ( isset( $_REQUEST['price'] ) ) {
 			// get values
 			$level    = pmpro_getLevelAtCheckout();
@@ -506,6 +517,7 @@ function pmprovp_pmpro_registration_checks( $continue ) {
 
 			// get price
 			$price = preg_replace( '[^0-9\.]', '', floatval( $_REQUEST['price'] ) );
+			// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 			// check that the price falls between the min and max
 			if ( (float) $price < (float) $vpfields['min_price'] ) {
@@ -536,11 +548,13 @@ add_filter( 'pmpro_registration_checks', 'pmprovp_pmpro_registration_checks' );
 
 // save fields in session for PayPal Express/etc
 function pmprovp_pmpro_paypalexpress_session_vars() {
+	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Value cast with floatval before it is stored in the session.
 	if ( ! empty( $_REQUEST['price'] ) ) {
 		$_SESSION['price'] = floatval( $_REQUEST['price'] );
 	} else {
 		$_SESSION['price'] = '';
 	}
+	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 }
 add_action( 'pmpro_paypalexpress_session_vars', 'pmprovp_pmpro_paypalexpress_session_vars' );
 add_action( 'pmpro_before_send_to_twocheckout', 'pmprovp_pmpro_paypalexpress_session_vars', 10, 2 );
@@ -551,7 +565,7 @@ function pmprovp_init_load_session_vars() {
 		pmpro_start_session();
 	}
 
-	if ( empty( $_REQUEST['price'] ) && ! empty( $_SESSION['price'] ) ) {
+	if ( empty( $_REQUEST['price'] ) && ! empty( $_SESSION['price'] ) ) { // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Only checks whether a price was submitted before restoring it from the session.
 		$_REQUEST['price'] = floatval( $_SESSION['price'] );
 	}
 }
