@@ -176,7 +176,7 @@ function pmprovp_pmpro_level_cost_text( $text, $level ) {
 	global $pmpro_pages, $pmpro_review;
 
 	// Bail if we are not on the checkout page.
-	if ( is_page( $pmpro_pages['checkout'] ) && ! did_action( 'pmpro_after_checkout' ) ) {
+	if ( ! empty( $pmpro_pages['checkout'] ) && is_page( $pmpro_pages['checkout'] ) && ! did_action( 'pmpro_after_checkout' ) ) {
 		// Bail if we are in the review step.
 		if ( $pmpro_review ) {
 			return $text;
