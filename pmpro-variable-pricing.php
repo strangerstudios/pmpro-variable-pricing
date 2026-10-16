@@ -491,7 +491,7 @@ function pmprovp_pmpro_checkout_level( $level ) {
 
 	return $level;
 }
-add_filter( 'pmpro_checkout_level', 'pmprovp_pmpro_checkout_level' );
+add_filter( 'pmpro_checkout_level', 'pmprovp_pmpro_checkout_level', 9 ); // Priority 9 so price Add Ons at 10, like Proration, see the chosen price.
 
 /**
  * Check if price is between min and max value.
