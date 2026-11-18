@@ -202,6 +202,16 @@ function pmprovp_pmpro_level_cost_text( $text, $level, $tags = true ) {
 		return $text;
 	}
 
+	// Keep core's text when it describes terms the variable price text leaves out: a billing limit, a trial, tax, or a subscription delay.
+	if (
+		! empty( $level->billing_limit )
+		|| ! empty( $level->trial_limit )
+		|| ( get_option( 'pmpro_tax_state' ) && get_option( 'pmpro_tax_rate' ) )
+		|| ( function_exists( 'pmpro_get_subscription_delay' ) && pmpro_get_subscription_delay( $level->id, ! empty( $level->code_id ) ? $level->code_id : null ) )
+	) {
+		return $text;
+	}
+
 	$text = pmprovp_get_price_text_description( $level );
 	if ( ! $tags ) {
 		$text = wp_strip_all_tags( str_replace( '<br />', ' ', $text ) );
