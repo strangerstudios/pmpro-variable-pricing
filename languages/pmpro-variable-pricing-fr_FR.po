@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Paid Memberships Pro - Variable Pricing Add On plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Paid Memberships Pro - Variable Pricing Add On 1.0.2\n"
+"Project-Id-Version: Paid Memberships Pro - Variable Pricing Add On 1.0.3\n"
 "Report-Msgid-Bugs-To: info@paidmembershipspro.com\n"
 "Last-Translator: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "Language-Team: Paid Memberships Pro <info@paidmembershipspro.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-09-29T16:32:42+00:00\n"
+"POT-Creation-Date: 2026-11-18T17:58:25+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: pmpro-variable-pricing\n"
@@ -49,6 +49,7 @@ msgstr ""
 #: pmpro-variable-pricing.php:87
 #: pmpro-variable-pricing.php:91
 #: pmpro-variable-pricing.php:202
+#: pmpro-variable-pricing.php:231
 msgid "Variable Pricing"
 msgstr "Tarification variable"
 
@@ -106,6 +107,7 @@ msgstr "Vous pouvez laisser ce champ vide."
 #: pmpro-variable-pricing.php:196
 #: pmpro-variable-pricing.php:227
 #: pmpro-variable-pricing.php:233
+#: pmpro-variable-pricing.php:261
 #, php-format
 msgid "Between %1$s and %2$s."
 msgstr "Entre %1$s et %2$s."
@@ -115,6 +117,7 @@ msgstr "Entre %1$s et %2$s."
 #: pmpro-variable-pricing.php:202
 #: pmpro-variable-pricing.php:253
 #: pmpro-variable-pricing.php:259
+#: pmpro-variable-pricing.php:287
 #, php-format
 msgid "Minimum price of %s or higher."
 msgstr "Prix minimum de %s ou plus."
@@ -134,6 +137,7 @@ msgstr "Peu importe"
 #: pmpro-variable-pricing.php:218
 #: pmpro-variable-pricing.php:320
 #: pmpro-variable-pricing.php:326
+#: pmpro-variable-pricing.php:354
 #, php-format
 msgid "Suggested Price: %s."
 msgstr "Prix suggéré: %s."
@@ -142,6 +146,7 @@ msgstr "Prix suggéré: %s."
 #: pmpro-variable-pricing.php:258
 #: pmpro-variable-pricing.php:381
 #: pmpro-variable-pricing.php:389
+#: pmpro-variable-pricing.php:434
 #, php-format
 msgid "Enter a price between %1$s and %2$s."
 msgstr "Entrez un prix entre %1$s et %2$s."
@@ -150,6 +155,7 @@ msgstr "Entrez un prix entre %1$s et %2$s."
 #: pmpro-variable-pricing.php:264
 #: pmpro-variable-pricing.php:387
 #: pmpro-variable-pricing.php:395
+#: pmpro-variable-pricing.php:440
 #, php-format
 msgid "Enter a minimum price of %s or higher."
 msgstr "Entrez un prix minimum de %s ou plus."
@@ -158,6 +164,7 @@ msgstr "Entrez un prix minimum de %s ou plus."
 #: pmpro-variable-pricing.php:269
 #: pmpro-variable-pricing.php:392
 #: pmpro-variable-pricing.php:400
+#: pmpro-variable-pricing.php:445
 #, php-format
 msgid "Enter a price of %s or lower."
 msgstr "Entrez un prix de %s%s ou plus."
@@ -166,6 +173,7 @@ msgstr "Entrez un prix de %s%s ou plus."
 #: pmpro-variable-pricing.php:273
 #: pmpro-variable-pricing.php:396
 #: pmpro-variable-pricing.php:404
+#: pmpro-variable-pricing.php:449
 msgid "Enter a price for your membership"
 msgstr "Entrez un prix pour votre adhésion"
 
@@ -184,6 +192,7 @@ msgstr "Votre prix :"
 #: pmpro-variable-pricing.php:368
 #: pmpro-variable-pricing.php:521
 #: pmpro-variable-pricing.php:533
+#: pmpro-variable-pricing.php:578
 #, php-format
 msgid "The highest accepted price is %1$s%2$s. Please enter a new amount."
 msgstr "Le prix le plus élevé accepté est %1$s%2$s. Veuillez entrer un nouveau montant."
@@ -196,6 +205,7 @@ msgstr "Le prix le plus élevé accepté est %1$s%2$s. Veuillez entrer un nouvea
 #: pmpro-variable-pricing.php:360
 #: pmpro-variable-pricing.php:513
 #: pmpro-variable-pricing.php:525
+#: pmpro-variable-pricing.php:570
 #, php-format
 #~ msgid "The lowest accepted price is %1$s%2$s. Please enter a new amount."
 #~ msgstr "Le prix accepté le plus bas est %1$s%2$s. Veuillez entrer un nouveau montant."
@@ -204,6 +214,7 @@ msgstr "Le prix le plus élevé accepté est %1$s%2$s. Veuillez entrer un nouvea
 #: pmpro-variable-pricing.php:479
 #: pmpro-variable-pricing.php:632
 #: pmpro-variable-pricing.php:646
+#: pmpro-variable-pricing.php:691
 #~ msgid "View Documentation"
 #~ msgstr "Afficher la documentation"
 
@@ -211,6 +222,7 @@ msgstr "Le prix le plus élevé accepté est %1$s%2$s. Veuillez entrer un nouvea
 #: pmpro-variable-pricing.php:479
 #: pmpro-variable-pricing.php:632
 #: pmpro-variable-pricing.php:646
+#: pmpro-variable-pricing.php:691
 #~ msgid "Docs"
 #~ msgstr "Documentation"
 
@@ -218,12 +230,14 @@ msgstr "Le prix le plus élevé accepté est %1$s%2$s. Veuillez entrer un nouvea
 #: pmpro-variable-pricing.php:480
 #: pmpro-variable-pricing.php:633
 #: pmpro-variable-pricing.php:647
+#: pmpro-variable-pricing.php:692
 #~ msgid "Visit Customer Support Forum"
 #~ msgstr "Visitez le forum de support client"
 
 #: pmpro-variable-pricing.php:480
 #: pmpro-variable-pricing.php:633
 #: pmpro-variable-pricing.php:647
+#: pmpro-variable-pricing.php:692
 #~ msgid "Support"
 #~ msgstr "Support"
 
@@ -273,6 +287,7 @@ msgstr ""
 #. translators: %1$s - min price, %2$s - max price, %3$s - billing period
 #: pmpro-variable-pricing.php:234
 #: pmpro-variable-pricing.php:240
+#: pmpro-variable-pricing.php:268
 #, php-format
 msgid "Between %1$s and %2$s per %3$s."
 msgstr ""
@@ -280,6 +295,7 @@ msgstr ""
 #. translators: %1$s - min price, %2$s - max price, %3$d - cycle number, %4$s - billing period
 #: pmpro-variable-pricing.php:242
 #: pmpro-variable-pricing.php:248
+#: pmpro-variable-pricing.php:276
 #, php-format
 msgid "Between %1$s and %2$s every %3$d %4$s."
 msgstr ""
@@ -287,6 +303,7 @@ msgstr ""
 #. translators: %1$s - min price, %2$s - billing period
 #: pmpro-variable-pricing.php:259
 #: pmpro-variable-pricing.php:265
+#: pmpro-variable-pricing.php:293
 #, php-format
 msgid "Minimum price of %1$s per %2$s."
 msgstr ""
@@ -294,6 +311,7 @@ msgstr ""
 #. translators: %1$s - min price, %2$d - cycle number, %3$s - billing period
 #: pmpro-variable-pricing.php:266
 #: pmpro-variable-pricing.php:272
+#: pmpro-variable-pricing.php:300
 #, php-format
 msgid "Minimum price of %1$s every %2$d %3$s."
 msgstr ""
@@ -301,6 +319,7 @@ msgstr ""
 #. translators: %s - max price
 #: pmpro-variable-pricing.php:276
 #: pmpro-variable-pricing.php:282
+#: pmpro-variable-pricing.php:310
 #, php-format
 msgid "Maximum price of %s or lower."
 msgstr ""
@@ -308,6 +327,7 @@ msgstr ""
 #. translators: %1$s - max price, %2$s - billing period
 #: pmpro-variable-pricing.php:282
 #: pmpro-variable-pricing.php:288
+#: pmpro-variable-pricing.php:316
 #, php-format
 msgid "Maximum price of %1$s per %2$s."
 msgstr ""
@@ -315,18 +335,21 @@ msgstr ""
 #. translators: %1$s - max price, %2$d - cycle number, %3$s - billing period
 #: pmpro-variable-pricing.php:289
 #: pmpro-variable-pricing.php:295
+#: pmpro-variable-pricing.php:323
 #, php-format
 msgid "Maximum price of %1$s every %2$d %3$s."
 msgstr ""
 
 #: pmpro-variable-pricing.php:297
 #: pmpro-variable-pricing.php:303
+#: pmpro-variable-pricing.php:331
 msgid "Any."
 msgstr ""
 
 #. translators: %s - billing period
 #: pmpro-variable-pricing.php:301
 #: pmpro-variable-pricing.php:307
+#: pmpro-variable-pricing.php:335
 #, php-format
 msgid "Any price per %s."
 msgstr ""
@@ -334,6 +357,7 @@ msgstr ""
 #. translators: %1$d - cycle number, %2$s - billing period
 #: pmpro-variable-pricing.php:307
 #: pmpro-variable-pricing.php:313
+#: pmpro-variable-pricing.php:341
 #, php-format
 msgid "Any price every %1$d %2$s."
 msgstr ""
@@ -341,6 +365,7 @@ msgstr ""
 #. translators: %1$s - suggested price, %2$s - billing period
 #: pmpro-variable-pricing.php:326
 #: pmpro-variable-pricing.php:332
+#: pmpro-variable-pricing.php:360
 #, php-format
 msgid "Suggested Price: %1$s per %2$s."
 msgstr ""
@@ -348,34 +373,40 @@ msgstr ""
 #. translators: %1$s - suggested price, %2$d - cycle number, %3$s - billing period
 #: pmpro-variable-pricing.php:333
 #: pmpro-variable-pricing.php:339
+#: pmpro-variable-pricing.php:367
 #, php-format
 msgid "Suggested Price: %1$s every %2$d %3$s."
 msgstr ""
 
 #: pmpro-variable-pricing.php:407
 #: pmpro-variable-pricing.php:415
+#: pmpro-variable-pricing.php:460
 #, php-format
 msgid "Your Price (%s)"
 msgstr ""
 
 #: pmpro-variable-pricing.php:411
 #: pmpro-variable-pricing.php:419
+#: pmpro-variable-pricing.php:464
 msgid "Your Price"
 msgstr ""
 
 #: pmpro-variable-pricing.php:425
 #: pmpro-variable-pricing.php:433
+#: pmpro-variable-pricing.php:478
 msgid "Membership Pricing"
 msgstr ""
 
 #: pmpro-variable-pricing.php:434
 #: pmpro-variable-pricing.php:442
+#: pmpro-variable-pricing.php:487
 msgid "Required Field"
 msgstr ""
 
 #. translators: %s - period.
 #: pmpro-variable-pricing.php:443
 #: pmpro-variable-pricing.php:451
+#: pmpro-variable-pricing.php:496
 #, php-format
 msgid "per %s"
 msgstr ""
@@ -383,6 +414,7 @@ msgstr ""
 #. translators: %1$d - number, %2$s - period.
 #: pmpro-variable-pricing.php:446
 #: pmpro-variable-pricing.php:454
+#: pmpro-variable-pricing.php:499
 #, php-format
 msgid "every %1$d %2$s"
 msgstr ""
