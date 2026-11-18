@@ -3,7 +3,7 @@ Contributors: strangerstudios
 Tags: paid memberships pro, pmpro, membership, donate, donations, charity, charities
 Requires at least: 5.2
 Tested up to: 7.1
-Stable tag: 1.0.2
+Stable tag: 1.0.3
 
 Allow customers to set their own price when checking out for your membership levels.
 
@@ -23,6 +23,12 @@ This plugin requires Paid Memberships Pro.
 Please post it in the issues section of GitHub and we'll fix it as soon as we can. Thanks for helping. https://github.com/strangerstudios/pmpro-variable-pricing/issues
 
 == Changelog ==
+= 1.0.3 - 2026-11-18 =
+* ENHANCEMENT: The levels page, Level Price block and other level displays now show the variable price range and suggested price for levels with Variable Pricing enabled. Levels with a billing limit, trial, tax or subscription delay keep the standard cost text. #56 (@dparker1005)
+* BUG FIX/ENHANCEMENT: The chosen price is now set before Proration and other price Add Ons adjust the checkout level, so prorated upgrades and downgrades charge the right amount. Note: Addon Packages prices, Group Accounts and Sponsored Members seat costs are now added to the chosen price, and Unlock's pricing now applies to variable-priced levels. #58 (@dparker1005)
+* BUG FIX: Fixed the Variable Pricing column on the admin Membership Levels page showing a literal `<br />`. #56 (@dparker1005)
+* BUG FIX: Fixed the level cost text being hidden on every page when the Checkout page setting is empty. #57 (@dparker1005)
+
 = 1.0.2 - 2026-09-29 =
 * SECURITY: Improved sanitization and escaping throughout the plugin to resolve Plugin Check security findings. #55 (@dparker1005)
 
