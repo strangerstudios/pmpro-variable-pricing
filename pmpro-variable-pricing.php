@@ -176,6 +176,9 @@ function pmprovp_pmpro_level_cost_text( $text, $level, $tags = true ) {
 	global $pmpro_pages, $pmpro_review;
 
 	// Bail if this level does not use variable pricing.
+	if ( empty( $level->id ) ) {
+		return $text;
+	}
 	$vpfields = pmprovp_get_settings( $level->id );
 	if ( empty( $vpfields ) || empty( $vpfields['variable_pricing'] ) ) {
 		return $text;
@@ -193,14 +196,15 @@ function pmprovp_pmpro_level_cost_text( $text, $level, $tags = true ) {
 
 	// Show the variable price on front-end level displays like the levels page and Level Price block.
 	// Skip a member's level (which has a startdate) so emails, the account page, and level history show the price they pay.
-	// Skip during init, which is where the checkout discount code service runs.
-	if ( is_admin() || isset( $level->startdate ) || doing_action( 'init' ) ) {
+	// Skip the checkout discount code service.
+	$is_applydiscountcode = isset( $_REQUEST['action'] ) && 'applydiscountcode' === $_REQUEST['action']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only check matching core's services.php routing.
+	if ( is_admin() || isset( $level->startdate ) || $is_applydiscountcode ) {
 		return $text;
 	}
 
 	$text = pmprovp_get_price_text_description( $level );
 	if ( ! $tags ) {
-		$text = str_replace( '<br />', ' ', $text );
+		$text = wp_strip_all_tags( str_replace( '<br />', ' ', $text ) );
 	}
 
 	return $text;
