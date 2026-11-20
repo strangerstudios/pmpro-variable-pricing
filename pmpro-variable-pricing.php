@@ -194,11 +194,16 @@ function pmprovp_pmpro_level_cost_text( $text, $level, $tags = true ) {
 		return '';
 	}
 
+	// Hide the cost text when a discount code is applied at checkout, like on the checkout page.
+	// The member's entered price overrides the code's price, so the code's cost text would be wrong.
+	$is_applydiscountcode = isset( $_REQUEST['action'] ) && 'applydiscountcode' === $_REQUEST['action']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only check matching core's services.php routing.
+	if ( $is_applydiscountcode ) {
+		return '';
+	}
+
 	// Show the variable price on front-end level displays like the levels page and Level Price block.
 	// Skip a member's level (which has a startdate) so emails, the account page, and level history show the price they pay.
-	// Skip the checkout discount code service.
-	$is_applydiscountcode = isset( $_REQUEST['action'] ) && 'applydiscountcode' === $_REQUEST['action']; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only check matching core's services.php routing.
-	if ( is_admin() || isset( $level->startdate ) || $is_applydiscountcode ) {
+	if ( is_admin() || isset( $level->startdate ) ) {
 		return $text;
 	}
 
