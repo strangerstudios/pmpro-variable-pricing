@@ -545,7 +545,7 @@ add_filter( 'pmpro_checkout_level', 'pmprovp_pmpro_checkout_level', 9 ); // Prio
 function pmprovp_pmpro_registration_checks( $continue ) {
 	// only bother if we are continuing already
 	if ( $continue ) {
-		global $pmpro_currency_symbol, $pmpro_msg, $pmpro_msgt;
+		global $pmpro_msg, $pmpro_msgt;
 
 		// was a price passed in?
 		// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Value cast with floatval; this function enforces the min/max price.
@@ -567,17 +567,17 @@ function pmprovp_pmpro_registration_checks( $continue ) {
 			// check that the price falls between the min and max
 			if ( (float) $price < (float) $vpfields['min_price'] ) {
 				$pmpro_msg  = sprintf(
-					__( 'The lowest accepted price is %1$s%2$s. Please enter a new amount.', 'pmpro-variable-pricing' ),
-					esc_html( $pmpro_currency_symbol ),
-					esc_html( $vpfields['min_price'] )
+					// translators: %s - formatted price.
+					__( 'The lowest accepted price is %s. Please enter a new amount.', 'pmpro-variable-pricing' ),
+					esc_html( pmpro_formatPrice( $vpfields['min_price'] ) )
 				);
 				$pmpro_msgt = 'pmpro_error';
 				$continue   = false;
 			} elseif ( ! empty( $vpfields['max_price'] ) && ( (float) $price > (float) $vpfields['max_price'] ) ) {
 				$pmpro_msg  = sprintf(
-					__( 'The highest accepted price is %1$s%2$s. Please enter a new amount.', 'pmpro-variable-pricing' ),
-					esc_html( $pmpro_currency_symbol ),
-					esc_html( $vpfields['max_price'] )
+					// translators: %s - formatted price.
+					__( 'The highest accepted price is %s. Please enter a new amount.', 'pmpro-variable-pricing' ),
+					esc_html( pmpro_formatPrice( $vpfields['max_price'] ) )
 				);
 				$pmpro_msgt = 'pmpro_error';
 				$continue   = false;
