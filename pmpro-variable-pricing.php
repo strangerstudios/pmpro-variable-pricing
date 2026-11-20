@@ -152,9 +152,9 @@ add_action( 'pmpro_membership_level_before_content_settings', 'pmprovp_pmpro_mem
 function pmprovp_pmpro_save_membership_level( $level_id ) {
 	// phpcs:disable WordPress.Security.NonceVerification.Recommended -- Nonce and capability are verified by PMPro core before pmpro_save_membership_level fires (adminpages/membershiplevels.php).
 	$variable_pricing = isset( $_REQUEST['variable_pricing'] ) ? intval( $_REQUEST['variable_pricing'] ) : 0;
-	$min_price        = isset( $_REQUEST['min_price'] ) ? preg_replace( '[^0-9\.]', '', sanitize_text_field( wp_unslash( $_REQUEST['min_price'] ) ) ) : '';
-	$max_price        = isset( $_REQUEST['max_price'] ) ? preg_replace( '[^0-9\.]', '', sanitize_text_field( wp_unslash( $_REQUEST['max_price'] ) ) ) : '';
-	$suggested_price  = isset( $_REQUEST['suggested_price'] ) ? preg_replace( '[^0-9\.]', '', sanitize_text_field( wp_unslash( $_REQUEST['suggested_price'] ) ) ) : '';
+	$min_price        = isset( $_REQUEST['min_price'] ) ? preg_replace( '/[^0-9.]/', '', sanitize_text_field( wp_unslash( $_REQUEST['min_price'] ) ) ) : '';
+	$max_price        = isset( $_REQUEST['max_price'] ) ? preg_replace( '/[^0-9.]/', '', sanitize_text_field( wp_unslash( $_REQUEST['max_price'] ) ) ) : '';
+	$suggested_price  = isset( $_REQUEST['suggested_price'] ) ? preg_replace( '/[^0-9.]/', '', sanitize_text_field( wp_unslash( $_REQUEST['suggested_price'] ) ) ) : '';
 	// phpcs:enable WordPress.Security.NonceVerification.Recommended
 
 	update_option(
